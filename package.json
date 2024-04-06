@@ -1,0 +1,30 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "devDependencies": {
+    "@babylonjs/core": "^6.30.0",
+    "@babylonjs/inspector": "^6.30.0",
+    "@nuxt/devtools": "latest",
+    "@types/node": "^20.9.2",
+    "nuxt": "^3.8.1",
+    "ts-loader": "^9.5.1",
+    "vue": "^3.3.8",
+    "vue-router": "^4.2.5"
+  },
+  "dependencies": {
+    "@babylonjs/gui": "^6.30.0",
+    "babylonjs": "^6.30.0",
+    "babylonjs-gltf2interface": "^6.30.0",
+    "babylonjs-gui": "^6.30.0",
+    "sass": "^1.69.5",
+    "vuetify": "^3.4.4"
+  }
+}
