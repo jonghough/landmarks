@@ -60,7 +60,7 @@ export class App {
         this.scene.clearColor = new BABYLON.Color4(0.1, 0.1, 0.2, 1.0);
         this.camera = new BABYLON.UniversalCamera("Camera", new BABYLON.Vector3(0, 2, -25), this.scene);
         console.log(this.camera.inputs.attached)
-        this.camera.inputs.removeByType("FreeCameraKeyboardMoveInput");
+        //this.camera.inputs.removeByType("FreeCameraKeyboardMoveInput");
         this.camera.attachControl(canvas, true);
         var light1: BABYLON.HemisphericLight = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 10000, 0), this.scene);
         light1.intensity = 1.0;
