@@ -12,6 +12,7 @@ import { FullScreenButton } from "./FullScreenButton";
 import { UndoStack } from "./undo/undostack";
 import { CreateCustomBoxUndo } from "./undo/CreateCustomBoxUndo";
 import { InputManager } from "./InputManager";
+import { TileMappings } from "./TileMapping";
 
 export enum AppMode {
     Idle,
@@ -44,6 +45,7 @@ export class App {
     undoStack: UndoStack = new UndoStack(100);
     redoStack: UndoStack = new UndoStack(100);
     inputManager: InputManager | null = null;
+    tileMappings: TileMappings;
 
     constructor() {
         // create the canvas html element and attach it to the webpage
@@ -59,14 +61,15 @@ export class App {
         this.scene.blockMaterialDirtyMechanism = true;
         this.scene.clearColor = new BABYLON.Color4(0.1, 0.1, 0.2, 1.0);
         this.camera = new BABYLON.UniversalCamera("Camera", new BABYLON.Vector3(0, 2, -25), this.scene);
+        this.camera.maxZ = 1000000;
         console.log(this.camera.inputs.attached)
-        //this.camera.inputs.removeByType("FreeCameraKeyboardMoveInput");
+        this.camera.inputs.removeByType("FreeCameraKeyboardMoveInput");
         this.camera.attachControl(canvas, true);
         var light1: BABYLON.HemisphericLight = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 10000, 0), this.scene);
         light1.intensity = 1.0;
         this.camera.setTarget(BABYLON.Vector3.Zero());
 
-
+        this.tileMappings = new TileMappings(new Tiler(), 11);
 
         let __this = this;
         this.createButton = new FullScreenButton("create", 10, () => {
@@ -106,12 +109,22 @@ export class App {
         });
 
         let globalConfig = new GlobalConfig("s", 19, true, 10, 10, 15500000, 4200000, false, (s) => { });
-        let td = new TileData("", globalConfig, new Tiler(), 35.62705161375659, 139.56041440100566);
-        td.setupTileBoundaryLines(this.scene)
-        let bounds = td.ndsTileBounds;
-        this.camera.position.x = 15500000 - bounds[0];
-        this.camera.position.y += 20;
-        this.camera.position.z = 4200000 - bounds[1] - 100;
+
+
+        let t = new Tiler();
+        let b = t.laloToTile(31.034769091471592, 45.70975964302065, 9)
+        console.log(b)
+        for (var i = -10; i < 10; i++) {
+            for (var j = -10; j < 10; j++) {
+                let td = new TileData("", globalConfig, new Tiler(), b[0] + i, b[1] + j, 9);//31.034769091471592, 45.70975964302065);
+                //this.tileMappings.addLocation(31.034769091471592, 45.70975964302065, "Ur");
+                td.setupTileBoundaryLines(this.scene)
+                let bounds = td.ndsTileBounds;
+                this.camera.position.x = 15500000 - bounds[0];
+                this.camera.position.y += 20;
+                this.camera.position.z = 4200000 - bounds[1] - 100;
+            }
+        }
 
     }
 
@@ -166,7 +179,7 @@ export class App {
             var right = BABYLON.Vector3.Cross(forward, __this.camera.upVector).normalize();
             right.y = 0;
 
-            var SPEED = 0.075;
+            var SPEED = 25.975;
             let forwardSpeed = 0;
             let lateralSpeed = 0;
             let upwardSpeed = 0;

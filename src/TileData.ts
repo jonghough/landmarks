@@ -1,6 +1,5 @@
 
 import * as BABYLON from "@babylonjs/core";
-import { int } from "babylonjs";
 import { connect } from "http2";
 import { Tiler } from "./tiles";
 import { GlobalConfig } from "./GlobalConfig";
@@ -25,7 +24,6 @@ export class TileData {
 
 
 
-
     tileBounds: Array<BABYLON.Vector3> = [];
 
     ndsLiveTileBoundaryMesh: BABYLON.Mesh | null = null;
@@ -40,43 +38,14 @@ export class TileData {
 
     public ndsTileBounds: number[] = [];
 
-    xyzTileZoomLevel: number = 19;
+    xyzTileZoomLevel: number = 12;
+
 
 
     constructor(
-        readonly tileName: string, readonly globalConfig: GlobalConfig, readonly tiler: Tiler, readonly latitude: number, readonly longitude: number) {
-
+        readonly tileName: string, readonly globalConfig: GlobalConfig, readonly tiler: Tiler, readonly x: number, readonly y: number, readonly zoomLevel: number) {
+        this.xyzTileZoomLevel = zoomLevel;
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    refreshXYZTiles(scene: BABYLON.Scene, tileSet: string) {
-        this.tileMeshes.forEach(t => t.dispose());
-        this.tileMeshes = [];
-        this.tileSet = tileSet;
-        this.renderTiles(this.xyzTileZoomLevel, this.ndsTileBounds, scene);
-
-    }
-
 
 
     /**
@@ -90,8 +59,8 @@ export class TileData {
             this.ndsLiveTileBoundaryMesh.dispose();
         }
 
-
-        let bounds = this.tiler.laloToTileBounds3857(this.latitude, this.longitude, 15);
+        let bounds = this.tiler.tileBoundsin3857(this.x, this.y, this.zoomLevel);
+        //bounds = [bounds[0] / 10, bounds[1] / 10, bounds[2]];
         console.log("BOUNDS is " + bounds);
 
         let shiftedBounds = [
@@ -158,8 +127,9 @@ export class TileData {
 
         for (var i = 0; i < subSquareTileXYsr.length; i++) {
             const sxy = this.tiler.toSlippy(subSquareTileXYsr[i][0], subSquareTileXYsr[i][1], tileZoom);
+
             const tileURL = `https://mt0.google.com/vt/lyrs=${this.tileSet}&hl=en&x=${sxy[0]}&y=${sxy[1]}&z=${tileZoom}`;
-            //console.log(tileURL);
+            console.log(tileURL);
             this.loadXYZMesh(scene, tileURL, subSquaresVecr[i]);
             /**
              * Ref: 
@@ -170,16 +140,16 @@ export class TileData {
     }
 
     private createTileBoundsAtLevel(level: number, boundsAtLevel15: number[]) {
-        if (level < 15) {
+        if (level < this.zoomLevel) {
             throw Error("Cannot tile at level less than 15 (corresponds to NDS.Live level 14)")
         }
-        if (level == 15) {
+        if (level == this.zoomLevel) {
             return [boundsAtLevel15];
         }
 
-        const divX = Math.pow(2, -1 * (level - 15)) * (boundsAtLevel15[2] - boundsAtLevel15[0]);
-        const divY = Math.pow(2, -1 * (level - 15)) * (boundsAtLevel15[3] - boundsAtLevel15[1]);
-        const tileCountPerDimension = Math.pow(2, (level - 15));
+        const divX = Math.pow(2, -1 * (level - this.zoomLevel)) * (boundsAtLevel15[2] - boundsAtLevel15[0]);
+        const divY = Math.pow(2, -1 * (level - this.zoomLevel)) * (boundsAtLevel15[3] - boundsAtLevel15[1]);
+        const tileCountPerDimension = Math.pow(2, (level - this.zoomLevel));
         const tileSquares = []
         for (var i = 0; i < tileCountPerDimension; i++) {
             for (var j = 0; j < tileCountPerDimension; j++) {
