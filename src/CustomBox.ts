@@ -117,6 +117,8 @@ gl_FragColor = finalColor;
         // Position the cube based on the center of the two corners
         this.cube.position = this.corner1.add(this.corner2.subtract(this.corner1).scale(0.5));
 
+
+
     }
 
 
