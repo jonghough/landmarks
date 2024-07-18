@@ -60,8 +60,6 @@ export class TileData {
         }
 
         let bounds = this.tiler.tileBoundsin3857(this.x, this.y, this.zoomLevel);
-        //bounds = [bounds[0] / 10, bounds[1] / 10, bounds[2]];
-        console.log("BOUNDS is " + bounds);
 
         let shiftedBounds = [
             new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], 0, this.globalConfig.offsetY - bounds[1]),

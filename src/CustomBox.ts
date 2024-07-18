@@ -1,8 +1,4 @@
 import * as BABYLON from "@babylonjs/core";
-import { TranslateCustomBoxUndo } from "./undo/TranslateCustomBoxUndo";
-import { RotateCustomBoxUndo } from "./undo/RotateCustomBoxUndo";
-import { EmptyUndo, Undo } from "./undo/undo";
-import { ScaleCustomBoxUndo } from "./undo/ScaleCustomBoxUndo";
 export enum BoxState {
     Idle,
     Selected
@@ -10,15 +6,11 @@ export enum BoxState {
 export class CustomBox {
     boxState: BoxState = BoxState.Idle;
     cube: BABYLON.Mesh | null = null;
-    xScaleLinesMesh: BABYLON.LinesMesh | null = null;
-    yScaleLinesMesh: BABYLON.LinesMesh | null = null;
-    zScaleLinesMesh: BABYLON.LinesMesh | null = null;
-    rotateBarLinesMesh: BABYLON.LinesMesh | null = null;
-    rotAngle: number = 0;
-    scaleFactor: number = 0.1;
+    timeOffset: number;
     name: string = "";
     constructor(public corner1: BABYLON.Vector3, public corner2: BABYLON.Vector3, scene: BABYLON.Scene) {
         this.setup(scene);
+        this.timeOffset = 50 * Math.random()
     }
 
 
@@ -32,130 +24,103 @@ export class CustomBox {
         let depth = Math.abs(this.corner1.z - this.corner2.z);
         this.cube = BABYLON.MeshBuilder.CreateBox("cube_" + this.generateRandomName(12), { height: height, width: width, depth: depth, updatable: true }, scene);
         this.name = this.cube.name;
+
+        BABYLON.Effect.ShadersStore["customVertexShader"] =
+            `
+        precision highp float;
+
+        attribute vec3 position;
+        attribute vec3 normal;
+        attribute vec2 uv;
+        
+        uniform mat4 worldViewProjection;
+        
+        varying vec2 vUV;
+        
+        void main(void) {
+            gl_Position = worldViewProjection * vec4(position, 1.0);
+            vUV = uv;
+        }`;
+
+        BABYLON.Effect.ShadersStore["customFragmentShader"] =
+            `
+        // custom.fragment.fx
+precision highp float;
+
+varying vec2 vUV;
+uniform float time;
+
+float hash(vec2 p) {
+return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453);
+}
+
+float noise(vec2 p) {
+vec2 i = floor(p);
+vec2 f = fract(p);
+
+float a = hash(i);
+float b = hash(i + vec2(1.0, 0.0));
+float c = hash(i + vec2(0.0, 1.0));
+float d = hash(i + vec2(1.0, 1.0));
+
+vec2 u = f * f * (3.0 - 2.0 * f);
+
+return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+}
+
+void main(void) {
+// Adjust UV coordinates to create a grid pattern
+vec2 gridUV = vUV * vec2(20.0, 20.0); // Scale to control the size of windows
+vec2 gridPos = fract(gridUV); // Get fractional part to create grid
+float gridX = gridUV.x - gridPos.x;
+float gridY = gridUV.y - gridPos.y;
+// Create window frames
+float modTime = time - (3.0 * floor(time / 3.0));
+float frameWidth = 0.1; // Adjust for frame thickness
+float window = step(frameWidth, gridPos.x) * step(frameWidth, gridPos.y) * step(gridPos.x, 1.0 - frameWidth) * step(gridPos.y, 1.0 - frameWidth);
+
+// Generate noise based on grid position and time
+float noiseValue = noise(floor(gridUV) + vec2(modTime *1.0, modTime * 0.1));
+
+// Apply threshold to create a twinkling effect
+float threshold = 0.5 + 0.25 * sin(modTime * 0.04+window*0.01+0.01*gridY+0.021*gridX);
+float twinkle = step(threshold, noiseValue);
+float sinT = (9.0 + sin(modTime*10.0+gridX))*0.1;
+float cosT = (9.0 + sin(modTime*15.0+10.6*gridY))*0.1;
+// Set colors
+vec4 windowColor = vec4(0.85*sinT+0.25*cosT,  sinT, 0.99*cosT, 1.0); // Light color
+vec4 buildingColor = vec4(0.1,0.08,0.08, 1.0); // Building color
+
+// Mix colors based on window and twinkle
+vec4 finalColor = mix(buildingColor, windowColor, window * twinkle);
+
+gl_FragColor = finalColor;
+}
+`;
+
+
+        var customMaterial = new BABYLON.ShaderMaterial("shader", scene, {
+            vertex: "custom",
+            fragment: "custom",
+        }, {
+            attributes: ["position", "normal", "uv"],
+            uniforms: ["world", "worldView", "worldViewProjection", "view", "projection", "time"]
+        });
+        this.cube.material = customMaterial;
+        let __this = this;
+        scene.registerBeforeRender(function () {
+
+            var time = (performance.now() * 0.00001) + __this.timeOffset; // Convert to seconds
+            customMaterial.setFloat("time", time);
+        });
+
         // Position the cube based on the center of the two corners
         this.cube.position = this.corner1.add(this.corner2.subtract(this.corner1).scale(0.5));
-        // this.cube.rotate(BABYLON.Vector3.Up(),Math.PI/20);
-        let avgZ = 0.5 * (this.corner1.z + this.corner2.z);
-        let xDiff = Math.sign(this.corner1.x - this.corner2.x);
-        let xp1 = new BABYLON.Vector3(this.corner1.x + 5 * xDiff, 10, avgZ);
-        let xp2 = new BABYLON.Vector3(this.corner2.x - 5 * xDiff, 10, avgZ);
-        let xScalePts: BABYLON.Vector3[] = [xp1, xp2];
-        this.xScaleLinesMesh = BABYLON.MeshBuilder.CreateLines("lines_xscale", {
-            points: xScalePts,
-            updatable: true,
-        }, scene);
-    }
-
-
-    changeCorners(scene: BABYLON.Scene, newCorner2: BABYLON.Vector3) {
-        if (this.cube == null) {
-            throw new Error();
-        }
-        // this.cube.dispose();
-        // this.corner2 = newCorner2; 
-        // this.setup(scene);
-        this.cube.rotate(BABYLON.Vector3.Up(), Math.PI / 20);
 
     }
 
-    move(newPosition: BABYLON.Vector3): Undo {
-        if (this.cube == null) {
-            throw new Error();
-        }
-        const originalPosition = this.cube.position.clone();
-        this.cube.position = newPosition;
-        return new TranslateCustomBoxUndo(this, originalPosition, newPosition);
-    }
 
-    rotate(newPosition: BABYLON.Vector3): Undo {
-        if (this.cube == null) {
-            throw new Error()
-        }
-        console.log(this.cube.position + " CUBE")
-        console.log(newPosition + " CLICKED")
-        let u = new BABYLON.Vector2(this.cube?.position.x, this.cube?.position.z);
-        let v = new BABYLON.Vector2(newPosition.x, newPosition.z).subtract(u).normalize();
-        let s = new BABYLON.Vector2(1, 0);
-        let t = this.cube.rotationQuaternion;
-        console.log("t  " + t);
-        let currenta = 0
-        if (t != null) {
-            currenta = t.y;
-        }
-        let angle = Math.acos(v.dot(s));
-        console.log("angle: " + angle);
-        let c = Math.sign(-v.y);
-        console.log("c " + c);
-        angle = (angle * c);//-currenta;
-        let originalRotation = this.rotAngle;
-        this.cube.rotation = new BABYLON.Vector3(0, 0, 0);
-        this.cube.rotate(BABYLON.Vector3.Up(), angle);
-        this.rotAngle = angle;
-        // this.cube.addRotation(0,angle,0);
-        console.log(this.rotAngle);
 
-        return new RotateCustomBoxUndo(this, originalRotation, this.rotAngle);
-    }
-
-    // scaleX(scalePosition: BABYLON.Vector3): ScaleCustomBoxUndo {
-    //     if (this.cube == null) {
-    //         throw new Error();
-    //     }
-
-    //     let dist = this.cube.position.x - scalePosition.x;
-    //     this.cube.scaling.x = dist / 5;
-    //     return new ScaleCustomBoxUndo();
-    // }
-
-    scaleXBy(i: number): ScaleCustomBoxUndo {
-        if (this.cube == null) {
-            throw new Error();
-        }
-        let s = Math.sign(i);
-        let scale = this.cube.scaling.clone();
-        this.cube.scaling.x += this.scaleFactor * s;
-        return new ScaleCustomBoxUndo(this, scale, this.cube.scaling, "x");
-    }
-
-    scaleYBy(i: number): ScaleCustomBoxUndo {
-        if (this.cube == null) {
-            throw new Error();
-        }
-        let s = Math.sign(i);
-        let scale = this.cube.scaling.clone();
-        this.cube.scaling.y += this.scaleFactor * s;
-        return new ScaleCustomBoxUndo(this, scale, this.cube.scaling, "y");
-    }
-
-    scaleZBy(i: number): ScaleCustomBoxUndo {
-        if (this.cube == null) {
-            throw new Error();
-        }
-        let s = Math.sign(i);
-        let scale = this.cube.scaling.clone();
-        this.cube.scaling.z += this.scaleFactor * s;
-        return new ScaleCustomBoxUndo(this, scale, this.cube.scaling, "z");
-    }
-
-    // scaleY(scalePosition: BABYLON.Vector3): ScaleCustomBoxUndo {
-    //     if (this.cube == null) {
-    //         throw new Error();
-    //     }
-
-    //     let dist = this.cube.position.y - scalePosition.y;
-    //     this.cube.scaling.x = dist / 5;
-    //     return new ScaleCustomBoxUndo();
-    // }
-
-    // scaleZ(scalePosition: BABYLON.Vector3): ScaleCustomBoxUndo {
-    //     if (this.cube == null) {
-    //         throw new Error();
-    //     }
-
-    //     let dist = this.cube.position.z - scalePosition.z;
-    //     this.cube.scaling.x = dist / 5;
-    //     return new ScaleCustomBoxUndo();
-    // }
     generateRandomName(length: number): string {
         let result = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -166,5 +131,17 @@ export class CustomBox {
             counter += 1;
         }
         return result;
+    }
+
+    hide() {
+        if (this.cube)
+            this.cube.isVisible = false;
+
+    }
+
+    show() {
+        if (this.cube)
+            this.cube.isVisible = true;
+
     }
 }

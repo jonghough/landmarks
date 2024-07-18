@@ -4,27 +4,14 @@ import * as BABYLON from "@babylonjs/core";
 //import { default as Geo } from "./geofuncs.js";
 import { AdvancedDynamicTexture, Button } from "@babylonjs/gui/2D";
 import { Material, PointerInfo } from "babylonjs";
-import { CustomBox } from "./CustomBox";
 import { TileData } from "./TileData";
 import { GlobalConfig } from "./GlobalConfig";
 import { Tiler } from "./tiles";
-import { FullScreenButton } from "./FullScreenButton";
-import { UndoStack } from "./undo/undostack";
-import { CreateCustomBoxUndo } from "./undo/CreateCustomBoxUndo";
-import { InputManager } from "./InputManager";
-import { TileMappings } from "./TileMapping";
+import { TileInfoBillboard } from "./tileinfobillboard";
+import locations from './companies.json';
+import tokyo from './tokyo.json';
 
-export enum AppMode {
-    Idle,
-    CreateBox,
-    SelectBox,
-    BoxSelected,
-    Translate,
-    ScaleX,
-    ScaleY,
-    ScaleZ,
-    Rotate
-}
+
 export class App {
 
     scene: BABYLON.Scene;
@@ -35,17 +22,11 @@ export class App {
     moveLeft: boolean = false;
     moveUp: boolean = false;
     loadedTiles = new Map();
-    appMode: AppMode = AppMode.CreateBox;
-    createButton: FullScreenButton;
-    translateButton: FullScreenButton;
-    rotateButton: FullScreenButton;
-    scaleButton: FullScreenButton;
-    customBoxes: Map<string, CustomBox> = new Map();
-    currentBox: string | null = null;
-    undoStack: UndoStack = new UndoStack(100);
-    redoStack: UndoStack = new UndoStack(100);
-    inputManager: InputManager | null = null;
-    tileMappings: TileMappings;
+    companyObjects: Array<TileInfoBillboard> = new Array<TileInfoBillboard>();
+    cameraDefaultPosition: BABYLON.Vector3 = new BABYLON.Vector3(0, 0, 0);
+    tiles: Array<TileData> = new Array<TileData>();
+    globalConfig: GlobalConfig;
+    public uniqueSegments: Set<string> = new Set<string>();
 
     constructor() {
         // create the canvas html element and attach it to the webpage
@@ -62,45 +43,11 @@ export class App {
         this.scene.clearColor = new BABYLON.Color4(0.1, 0.1, 0.2, 1.0);
         this.camera = new BABYLON.UniversalCamera("Camera", new BABYLON.Vector3(0, 2, -25), this.scene);
         this.camera.maxZ = 1000000;
-        console.log(this.camera.inputs.attached)
-        this.camera.inputs.removeByType("FreeCameraKeyboardMoveInput");
+
         this.camera.attachControl(canvas, true);
         var light1: BABYLON.HemisphericLight = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 10000, 0), this.scene);
         light1.intensity = 1.0;
         this.camera.setTarget(BABYLON.Vector3.Zero());
-
-        this.tileMappings = new TileMappings(new Tiler(), 11);
-
-        let __this = this;
-        this.createButton = new FullScreenButton("create", 10, () => {
-            __this.appMode = AppMode.CreateBox; console.log("create")
-        });
-        this.translateButton = new FullScreenButton("translate", 10 + (150 + 5), () => {
-            console.log("trasnlate");
-            __this.appMode = AppMode.Translate
-        });
-        this.scaleButton = new FullScreenButton("scale", 10 + (150 + 5) * 2, () => {
-            console.log("scaling")
-            __this.appMode = AppMode.ScaleX
-        });
-        this.rotateButton = new FullScreenButton("rotate", 10 + (150 + 5) * 3, () => {
-            __this.appMode = AppMode.Rotate;
-            console.log("rotating")
-        });
-
-
-
-        // hide/show the Inspector
-        window.addEventListener("keydown", (ev) => {
-            // Shift+Ctrl+Alt+I
-            if (ev.shiftKey && ev.ctrlKey && ev.altKey && ev.key === 'i') {
-                if (this.scene.debugLayer.isVisible()) {
-                    this.scene.debugLayer.hide();
-                } else {
-                    this.scene.debugLayer.show();
-                }
-            }
-        });
 
         this.registerSceneUpdates();
         // run the main render loop
@@ -108,102 +55,191 @@ export class App {
             this.scene.render();
         });
 
-        let globalConfig = new GlobalConfig("s", 19, true, 10, 10, 15500000, 4200000, false, (s) => { });
+        this.globalConfig = new GlobalConfig("s", 19, true, 10, 10, 15500000, 4200000, false, (s) => { });
 
 
         let t = new Tiler();
-        let b = t.laloToTile(31.034769091471592, 45.70975964302065, 9)
-        console.log(b)
+        let b = t.laloToTile(35.690838971083906, 139.7271607570098, 15);//31.034769091471592, 45.70975964302065, 9)
+
         for (var i = -10; i < 10; i++) {
             for (var j = -10; j < 10; j++) {
-                let td = new TileData("", globalConfig, new Tiler(), b[0] + i, b[1] + j, 9);//31.034769091471592, 45.70975964302065);
+                let td = new TileData("", this.globalConfig, new Tiler(), b[0] + i, b[1] + j, 15);//31.034769091471592, 45.70975964302065);
                 //this.tileMappings.addLocation(31.034769091471592, 45.70975964302065, "Ur");
-                td.setupTileBoundaryLines(this.scene)
+                td.setupTileBoundaryLines(this.scene);
+                this.tiles.push(td);
                 let bounds = td.ndsTileBounds;
-                this.camera.position.x = 15500000 - bounds[0];
-                this.camera.position.y += 20;
-                this.camera.position.z = 4200000 - bounds[1] - 100;
+                if (i == 0 && j == 0) {
+                    this.camera.position.x = this.globalConfig.offsetX - bounds[0];
+                    this.camera.position.y = 500;
+                    this.camera.position.z = this.globalConfig.offsetY - bounds[1] - 100;
+                    this.cameraDefaultPosition = this.camera.position.clone();
+                }
             }
         }
 
+        let loc = locations;
+        loc.locations.forEach((location) => {
+            let tinfo = new TileInfoBillboard(location.location[0], location.location[1]);
+            let meters = t.laloToMeters(location.location[0], location.location[1]);
+            let ox = this.globalConfig.offsetX - meters[0];
+            let oy = this.globalConfig.offsetY - meters[1];
+            tinfo.createTileInfoBillboard(this.scene, new BABYLON.Vector3(ox, 1250, oy), location.name, location.segments)
+            tinfo.hide();
+            this.companyObjects.push(tinfo);
+        });
+
+        let tok = tokyo;
+        // GeoJSON.parse(tok);
+        tok.features.forEach(f => {
+            let coords = f.geometry.coordinates;
+            coords.forEach(poly => {
+                let convCoords = poly[0].map(c => {
+                    let x = this.globalConfig.offsetX - c[0];
+                    let y = this.globalConfig.offsetY - c[1];
+                    return new BABYLON.Vector3(x, 0.2, y);
+                });
+                let boundsgrid = {
+                    points: convCoords,
+                    updatable: false,
+                };
+                let lines = BABYLON.MeshBuilder.CreateLines("lines_", boundsgrid, this.scene);
+                lines.color = new BABYLON.Color3(1, 0.2, 0.2);
+            });
+        });
+
+        this.uniqueSegments = new Set<string>();
+
+        // Iterate over each location and add segments to the Set
+        loc.locations.forEach((location: { name: string; segments: string[] }) => {
+            location.segments.forEach((segment: string) => {
+                this.uniqueSegments.add(segment);
+            });
+        });
+        console.log(this.uniqueSegments);
     }
 
-    setup() {
 
-        this.inputManager = new InputManager(this);
+    selectBySegment(segment: string) {
+        this.companyObjects.forEach(co => {
+            if (co.companySegments?.includes(segment)) {
+                co.show();
+            }
+            else {
+                co.hide();
+            }
+        })
     }
 
-    doUndo() {
-        let undo = this.undoStack.pop();
-        if (undo) {
-            undo.undo();
-            this.redoStack.push(undo);
-        }
+    centerCamera() {
+        this.camera.position = this.cameraDefaultPosition.clone();
     }
 
-    doRedo() {
-        let undo = this.redoStack.pop();
-        if (undo) {
-            undo.undo();
-            this.undoStack.push(undo);
-        }
+    refreshTiles(tileSet: string) {
+        this.globalConfig.xyzTileSet = "r";
     }
 
 
-    createCustomBox(v: BABYLON.Vector3) {
-        let cb = new CustomBox(v, v.add(new BABYLON.Vector3(10, 0, 10)), this.scene);
-        this.customBoxes.set(cb.name, cb);
-        this.currentBox = cb.name;
-        let undo = new CreateCustomBoxUndo(this.customBoxes, cb);
-        this.undoStack.push(undo);
-    }
+
 
     registerSceneUpdates() {
         let __this = this;
+
+
+        var onKeyDown = function (event: KeyboardEvent) {
+            switch (event.key) {
+                case "ArrowUp": // up
+                case "w": // w
+                    __this.moveForward = true;
+                    break;
+
+                case "ArrowLeft": // left
+                case "a": // a
+                    __this.moveLeft = true; break;
+
+                case "ArrowDown": // down
+                case "s": // s
+                    __this.moveBackward = true;
+                    break;
+
+                case "ArrowRight": // right
+                case "d": // d
+                    __this.moveRight = true;
+                    break;
+
+                case "Space": //up
+                case " ":
+                    __this.moveUp = true;
+                    break;
+                default:
+                    break;
+            }
+        };
+
+        var onKeyUp = function (event: KeyboardEvent) {
+            switch (event.key) {
+                case "ArrowUp": // up
+                case "w": // w
+                    __this.moveForward = false;
+                    break;
+
+                case "ArrowLeft": // left
+                case "a": // a
+                    __this.moveLeft = false;
+                    break;
+
+                case "ArrowDown": // down
+                case "s": // s
+                    __this.moveBackward = false;
+                    break;
+
+                case "ArrowRight": // right
+                case "d": // d
+                    __this.moveRight = false;
+                    break;
+                case "Space": //up
+                case " ":
+                    __this.moveUp = false;
+                    break;
+            }
+        };
+
+        document.addEventListener('keydown', onKeyDown, false);
+        document.addEventListener('keyup', onKeyUp, false);
 
         var time = 0;
         this.scene.registerBeforeRender(function () {
             let dt = __this.scene.getEngine().getDeltaTime();
             time += dt;
-            // __this.boundarylineMaterial.setFloat("u_time", time / 100);
-            // __this.centerlineMaterial.setFloat("u_time", time / 100);
-            // __this.selectedMaterial.setFloat("u_time", time / 500);
-
 
             let forward = new BABYLON.Vector3(0, 0, 1);
             let up = new BABYLON.Vector3(0, 1, 0);
             if (__this.camera.getTarget() !== null) {
                 forward = __this.camera.getTarget().subtract(__this.camera.position).normalize();
             }
-            forward.y = 0;
-            var right = BABYLON.Vector3.Cross(forward, __this.camera.upVector).normalize();
-            right.y = 0;
 
-            var SPEED = 25.975;
+            var right = BABYLON.Vector3.Cross(forward, __this.camera.upVector).normalize();
+
             let forwardSpeed = 0;
             let lateralSpeed = 0;
             let upwardSpeed = 0;
 
-
-
             if (__this.moveForward) {
-                forwardSpeed = SPEED;
+                forwardSpeed = __this.globalConfig.cameraForwardSpeed;;
             }
             if (__this.moveBackward) {
-                forwardSpeed = -SPEED;
+                forwardSpeed = -__this.globalConfig.cameraForwardSpeed;;
             }
 
             if (__this.moveRight) {
-                lateralSpeed = SPEED;
+                lateralSpeed = __this.globalConfig.cameraLateralSpeed;;
             }
 
             if (__this.moveLeft) {
-                lateralSpeed = -SPEED;
+                lateralSpeed = -__this.globalConfig.cameraLateralSpeed;;
             }
             if (__this.moveUp) {
-                upwardSpeed = SPEED;
+                upwardSpeed = __this.globalConfig.cameraForwardSpeed;;
             }
-
             var move = forward.scale(forwardSpeed * dt).subtract(right.scale(lateralSpeed * dt)).add(up.scale(upwardSpeed * dt));
 
             __this.camera.position.x += move.x;
@@ -215,127 +251,8 @@ export class App {
         });
     }
 
-    setSelectMode() {
-
-        this.appMode = AppMode.BoxSelected;
-    }
-    setRotateMode() {
-
-        this.appMode = AppMode.Rotate;
-    }
-    setScaleMode(axis: string) {
-        if (axis == "x")
-            this.appMode = AppMode.ScaleX;
-        else if (axis == "y")
-            this.appMode = AppMode.ScaleY;
-        else if (axis == "z")
-            this.appMode = AppMode.ScaleZ
-        else
-            throw Error("Could not find axis");
-    }
-    setTranslateMode() {
-
-        this.appMode = AppMode.Translate;
-    }
-    setIdleMode() {
-        this.appMode = AppMode.Idle;
-    }
-    setCreateMode() {
-        console.log("create mode");
-        this.appMode = AppMode.CreateBox;
-    }
-    saveToFile() { }
 
 
-
-    createShaders() {
-        BABYLON.Effect.ShadersStore["boundaryVertexShader"] =
-            `
-   precision highp float;
-   // Attributes
-   attribute vec3 position;
-   attribute vec2 uv;
-   // Uniforms
-   uniform mat4 worldViewProjection;
-   // Varying
-   varying vec2 vUV;
-   void main(void) {
-       gl_Position = worldViewProjection * vec4(position, 1.0);
-       vUV = uv;
-   }`;
-
-        BABYLON.Effect.ShadersStore["boundaryFragmentShader"] =
-            `
-  
-uniform float u_time; 
-
-void main(void) {
-    vec3 color = vec3(0.5,0,0) + 0.5 * vec3(sin(u_time),0,0);
-
-    // Output the color
-    gl_FragColor = vec4(color, 1.0); 
-}
-`;
-
-
-        BABYLON.Effect.ShadersStore["centerlineVertexShader"] =
-            `
-precision highp float;
-// Attributes
-attribute vec3 position;
-attribute vec2 uv;
-// Uniforms
-uniform mat4 worldViewProjection;
-// Varying
-varying vec2 vUV;
-void main(void) {
-gl_Position = worldViewProjection * vec4(position, 1.0);
-vUV = uv;
-}`;
-
-        BABYLON.Effect.ShadersStore["centerlineFragmentShader"] =
-            `
-
-uniform float u_time;
-
-void main(void) {
-vec3 color = vec3(0.0,0.5,0) + 0.5 * vec3(0,cos(u_time),0);
-
-// Output the color
-gl_FragColor = vec4(color, 1.0); 
-}
-`;
-
-
-        BABYLON.Effect.ShadersStore["selectedVertexShader"] =
-            `
-precision highp float;
-// Attributes
-attribute vec3 position;
-attribute vec2 uv;
-// Uniforms
-uniform mat4 worldViewProjection;
-// Varying
-varying vec2 vUV;
-void main(void) {
-gl_Position = worldViewProjection * vec4(position, 1.0);
-vUV = uv;
-}`;
-
-        BABYLON.Effect.ShadersStore["selectedFragmentShader"] =
-            `
-
-uniform float u_time;
-
-void main(void) {
-vec3 color = vec3(0.5,0.5,0.5) + 0.5*vec3(cos(u_time),cos(0.24*u_time),sin(0.1*u_time));
-
-// Output the color
-gl_FragColor = vec4(color, 1.0); 
-}
-`;
-
-    }
 
 }
 

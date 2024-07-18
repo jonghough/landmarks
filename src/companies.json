@@ -1,0 +1,546 @@
+{
+  "locations": [
+    {
+      "name": "Tokyo Electron",
+      "location": [35.67321456985994, 139.7362793954888],
+      "address": "Akasaka Biz Tower\n3-1 Akasaka 5-chome,\nMinato-ku, Tokyo 107-6325",
+      "segments": ["semiconductors"]
+    },
+    {
+      "name": "Rakuten",
+      "location": [35.6103853776274, 139.62988943781534],
+      "address": "Rakuten Crimson House,\n1-14-1 Tamagawa,\nSetagaya-ku, Tokyo",
+      "segments": ["internet services", "retail"]
+    },
+    {
+      "name": "Amazon 有限会社",
+      "location": [35.631490756322556, 139.7140114280135],
+      "address": "〒153-0064\n東京都目黒区下目黒一丁目8番1号\nARCO TOWER ANNEX",
+      "segments": ["internet services", "retail"]
+    },
+    {
+      "name": "Renesas",
+      "location": [35.657666180675, 139.79506433781796],
+      "address": "〒135-0061\n東京都江東区豊洲三丁目2番24号",
+      "segments": ["semiconductors"]
+    },
+    {
+      "name": "Square Enix",
+      "location": [35.69674841832249, 139.70873327932836],
+      "address": "〒160-8430\n東京都新宿区新宿6丁目27番30号\n新宿イーストサイドスクエア",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Microsoft Japan",
+      "location": [35.62687384525571, 139.74024438014635],
+      "address": "Shinagawa Grand Central Tower\n2-chōme-16-3 Kōnan\nMinato City\nTokyo 108-0075",
+      "segments": ["internet services", "business software"]
+    },
+    {
+      "name": "Google Japan",
+      "location": [35.66081292554961, 139.72917440898294],
+      "address": "〒106-6126\n東京都港区\n六本木 6-10-1\n六本木ヒルズ森タワー",
+      "segments": ["internet services"]
+    },
+    {
+      "name": "LINEヤフー",
+      "location": [35.68033319179293, 139.7368129521257],
+      "address": "〒102-8282\nChiyoda City\nKioicho\n1−3 紀尾井タワ 東京ガーデンテラス",
+      "segments": ["internet services", "retail"]
+    },
+    {
+      "name": "Apple Japan",
+      "location": [35.661024585639325, 139.72924093081664],
+      "address": "〒106-6140東京都港区六本木6丁目10番1号",
+      "segments": ["internet services", "consumer hardware"]
+    },
+    {
+      "name": "Sony",
+      "location": [35.63140371724406, 139.7436476954203],
+      "address": "〒108-0075 東京都港区港南一丁目7番1号",
+      "segments": ["games & entertainment", "consumer hardware"]
+    },
+
+    {
+      "name": "NTT Data",
+      "location": [35.65616377021138, 139.7963033512448],
+      "address": "〒135-6033 東京都江東区豊洲3-3-3 豊洲センタービル",
+      "segments": ["consulting"]
+    },
+    {
+      "name": "Mercari",
+      "location": [35.66054197912228, 139.7292694530924],
+      "address": "〒106-6118 東京都港区六本木６－１０－１ 六本木ヒルズ森タワー",
+      "segments": ["internet services", "retail"]
+    },
+    {
+      "name": "Smartnews",
+      "location": [35.66571813600605, 139.70264832425727],
+
+      "address": "〒150-0001 Tokyo, Shibuya City, Jingūmae, 6-chōme−25−16",
+      "segments": ["internet services"]
+    },
+    {
+      "name": "CyberAgent",
+      "location": [35.66270929165673, 139.69639078014814],
+      "address": "東京都渋谷区宇田川町40番1号 Abema Towers",
+      "segments": ["advertising"]
+    },
+    {
+      "name": "DeNA",
+      "location": [35.65905640978427, 139.70231303221956],
+      "address": "〒150-0002 Tokyo, Shibuya City, Shibuya, 2 Chome−24番12号 スクランブルスクエア",
+      "segments": ["games & entertainment", "internet services"]
+    },
+    {
+      "name": "Axelspace",
+      "location": [35.68889959072225, 139.7738114954896],
+      "address": "〒103-0023 Tokyo, Chuo City, Nihonbashihoncho, 3 Chome−3−3 Clip Nihonbashi Building",
+      "segments": ["space", "robotics"]
+    },
+    {
+      "name": "ispace",
+      "location": [35.68720860555331, 139.7911063126986],
+      "address": "〒103-0007 Tokyo, Chuo City, Nihonbashihamacho, 3 Chome−42−3 住友不動産浜町ビル",
+      "segments": ["space", "robotics"]
+    },
+    {
+      "name": "ABEJA",
+      "location": [35.67217660941369, 139.71596052299662],
+      "address": "〒108-0073 Tokyo, Minato City, Mita, 1 Chome−1番14号 2階",
+      "segments": ["artificial intelligence", "consulting"]
+    },
+    {
+      "name": "Preferred Networks",
+      "location": [35.68658847049352, 139.76484078199448],
+      "address": "Otemachi Bldg., 3F, 1 Chome-6-1 Ōtemachi, Chiyoda City, Tokyo 100-0004",
+      "segments": ["artificial intelligence", "consulting"]
+    },
+    {
+      "name": "PKSHA Technology",
+      "location": [35.71043547510691, 139.75818794045028],
+      "address": "〒113-0033 Tokyo, Bunkyo City, Hongo, 2 Chome−35, 本郷瀬川ビル",
+      "segments": ["artificial intelligence", "consulting"]
+    },
+    {
+      "name": "Exawizards",
+      "location": [35.64294922745262, 139.74480759726842],
+      "address": "〒108-0023 Tokyo, Minato City, Shibaura, 4 Chome−2−8, Sumitomo Fudosan Mita Twin Bldg. East Wing, 5階",
+      "segments": ["artificial intelligence", "consulting"]
+    },
+    {
+      "name": "Drivemode Inc",
+      "location": [35.62316037367187, 139.74798439541988],
+      "address": "Chome−2−43 1-2F, Higashishinagawa, Shinagawa City, Tokyo",
+      "segments": ["automotive & mobility"]
+    },
+    {
+      "name": "Woven By Toyota",
+      "location": [35.68795620252449, 139.7721084680641],
+      "address": "3 Chome-2-1 Nihonbashimuromachi, Chuo City, Tokyo 103-0022",
+      "segments": ["automotive & mobility"]
+    },
+    {
+      "name": "Kojima Productions",
+      "location": [35.63282634286283, 139.74292313999015],
+      "address": "1 Chome-2-70 Konan, Minato City, Tokyo 108-0075",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "bitFlyer",
+      "location": [35.66641461676593, 139.73134893966358],
+      "address": "Midtown Tower, 9 Chome-7-1 Akasaka, Minato City, Tokyo 107-6208",
+      "segments": ["fintech"]
+    },
+    {
+      "name": "U-NEXT",
+      "location": [35.63677020217557, 139.71654390562475],
+      "address": "3 Chome-1番1号 Kamiosaki, Shinagawa City, Tokyo 141-0021",
+      "segments": ["games & entertainment", "internet services"]
+    },
+    {
+      "name": "GMO Holdings",
+      "location": [35.65657483372077, 139.69934334184364],
+      "address": "〒150-0031 Tokyo, Shibuya City, Sakuragaokacho, １丁目26−1 セルリアンタワー10F・GMOインターネットグループ グループ本社内",
+      "segments": ["fintech", "internet services"]
+    },
+    {
+      "name": "Sansan",
+      "location": [35.66284957457958, 139.70889990898323],
+      "address": "〒150-0001 Tokyo, Shibuya City, Jingumae, 5 Chome−52−2 青山オーバルビル",
+      "segments": ["internet services", "business software"]
+    },
+    {
+      "name": "Freee",
+      "location": [35.62366664882821, 139.72744279629174],
+      "address": "〒141-0032 Tokyo, Shinagawa City, Osaki, 1 Chome−2−2 21F",
+      "segments": ["internet services", "business software"]
+    },
+    {
+      "name": "FLYWHEEL",
+      "location": [35.683923291095596, 139.7407021819944],
+      "address": "2 Chome-5-1 Kojimachi, Chiyoda City, Tokyo 102-0083",
+      "segments": ["internet services", "business software"]
+    },
+    {
+      "name": "FromSoftware",
+      "location": [35.6966292901091, 139.68978711583125],
+      "address": "〒169-0074 Tokyo, Shinjuku City, Kitashinjuku, 2 Chome−21−1 新宿フロントタワー",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Gree",
+      "location": [35.66222575930223, 139.73164870872824],
+      "address": "Roppongi Hills Gate Tower Residence, 6 Chome-11-1 Roppongi, Minato City, Tokyo 106-0032",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Capcom",
+      "location": [35.694143819984646, 139.69285317399843],
+      "address": "Shinjuku Mitsui Building, 2 Chome-1-1 Nishishinjuku, Shinjuku City, Tokyo 163-0448",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Softbank",
+      "location": [35.6554579298836, 139.76039908007994],
+      "address": "〒105-0022 Tokyo, Minato City, Kaigan, 1 Chome−7−1 東京ポートシティ竹芝オフィスタワ",
+      "segments": ["communication", "internet services"]
+    },
+    {
+      "name": "KDDI",
+      "location": [35.68927222056685, 139.69481602534714],
+      "address": "〒102-8460 Tokyo, Chiyoda City, Iidabashi, 3 Chome−10−10 ガーデンエアタワー",
+      "segments": ["communication", "internet services"]
+    },
+    {
+      "name": "NTT Docomo",
+      "location": [35.67339191025724, 139.7407367107638],
+      "address": "〒100-6190 Tokyo, Chiyoda City, Nagatachō, 2 Chome−11−1, Sanno Park Tower, 27F",
+      "segments": ["communication", "internet services"]
+    },
+    {
+      "name": "Hitachi",
+      "location": [35.68425962281748, 139.76548894463403],
+      "address": "1 Chome-6-6 Marunouchi, Chiyoda City, Tokyo 100-0005",
+      "segments": ["manufacturing", "semiconductors", "consulting"]
+    },
+    {
+      "name": "Toshiba",
+      "location": [35.65436879040635, 139.757683950758],
+      "address": "Hamamatsucho Building, 1 Chome-1-1 Shibaura, Minato City, Tokyo 105-0023",
+      "segments": ["semiconductors"]
+    },
+    {
+      "name": "SEGA",
+      "location": [35.617499808080126, 139.72988820968362],
+      "address": "Sumitomo Fudosan Osaki Garden Tower, 1 Chome-1-1 Nishishinagawa, Shinagawa City, Tokyo 141-0033",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Bandai Namco",
+      "location": [35.67816020505479, 139.7911990855835],
+      "address": "2 Chome-37-25 Eitai, Koto City, Tokyo 135-0034",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Cygames",
+      "location": [35.65427238006429, 139.69402460891538],
+      "address": "〒150-0036 Tokyo, Shibuya City, Nanpeidaicho, 16−17 住友不動産渋谷ガーデンタワ 15F",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Aiming",
+      "location": [35.686693041893555, 139.70290256843526],
+      "address": "〒151-0051 Tokyo, Shibuya City, Sendagaya, 5 Chome−27−5 8F",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Colopl",
+      "location": [35.665249854227866, 139.73094945522107],
+      "address": "〒6F Tokyo, Minato City, Akasaka, 9 Chome−7−2 JP 107-0052 Midtown East",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Wizcorp",
+      "location": [35.675291042710676, 139.65897532241044],
+      "address": "朝日生命代田橋ビル 9F, 1 Chome-22-19 Izumi, Suginami City, Tokyo 168-0063",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Gungho Entertainment",
+      "location": [35.67816070405753, 139.76700477237424],
+      "address": "1 Chome-11-1 Marunouchi, Chiyoda City, Tokyo 100-0005",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Nexon",
+      "location": [35.668076890892216, 139.73891038419373],
+      "address": "〒106-0032 Tokyo, Minato City, Roppongi, 1 Chome−4−5, ARK Hills South Tower, 6F",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Game Freak",
+      "location": [35.69333595501915, 139.76335105309417],
+      "address": "2 Chome-2-1 Kanda Nishikicho, Chiyoda City, Tokyo 101-0054",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "VMWare",
+      "location": [35.64618193066578, 139.74965535309178],
+      "address": "〒108-0023 Tokyo, Minato City, Shibaura, 3 Chome−1−1 田町ステーションタワー N 18階",
+      "segments": ["business software"]
+    },
+    {
+      "name": "Infostellar",
+      "location": [35.693249082157486, 139.69549699542344],
+      "address": "〒160-0023 Tokyo, Shinjuku City, Nishishinjuku, 1 Chome−26−2, SHINJUKU NOMURA BUILDING, 32F",
+      "segments": ["space"]
+    },
+    {
+      "name": "Astroscale Holdings",
+      "location": [35.69956081629417, 139.81847913960044],
+      "address": "〒130-0013 Tokyo, Sumida City, Kinshi, 4 Chome−17−1 ヒューリック錦糸町 コラボツリ",
+      "segments": ["space"]
+    },
+    {
+      "name": "MoneyForward",
+      "location": [35.645054893623, 139.74935987583237],
+      "address": "〒108-0023　東京都港区芝浦3-1-21 msb Tamachi 田町ステーションタワーS 21F",
+      "segments": ["fintech"]
+    },
+    {
+      "name": "MoneyTree",
+      "location": [35.657689650427926, 139.724003404412],
+      "address": "〒106-0031 Tokyo, Minato City, Nishiazabu, 3 Chome−13−3 カスタリア広尾 ２階",
+      "segments": ["fintech"]
+    },
+    {
+      "name": "DMM",
+      "location": [35.66471118636849, 139.73777159597284],
+      "address": "〒106-6224 Tokyo, Minato City, Roppongi, 3 Chome−2−1 住友不動産六本木グランドタワー 24階",
+      "segments": ["internet services", "games & entertainment"]
+    },
+    {
+      "name": "Recruit",
+      "location": [35.67871117784454, 139.7675677187231],
+      "address": "Gran Tokyo South Tower, 1 Chome-9-2 Marunouchi, Chiyoda City, Tokyo 100-6640",
+      "segments": ["internet services", "recruitment"]
+    },
+    {
+      "name": "Sakura Internet",
+      "location": [35.67871117784454, 139.7675677187231],
+      "address": "〒160-0023 Tokyo, Shinjuku City, Nishishinjuku, 7 Chome−20−1 住友不動産西新宿ビル 32F",
+      "segments": ["internet services"]
+    },
+    {
+      "name": "Rapyuta Robotics",
+      "location": [35.67874620358399, 139.78489617605598],
+      "address": "1 Chome-29-13 Shinkawa, Chuo City, Tokyo 104-0033",
+      "segments": ["robotics", "artificial intelligence"]
+    },
+    {
+      "name": "Mujin",
+      "location": [35.64271908147826, 139.8115546975021],
+      "address": "3 Chome-8-5 Tatsumi, Koto City, Tokyo 135-0053",
+      "segments": ["robotics", "artificial intelligence"]
+    },
+    {
+      "name": "Omron",
+      "location": [35.63198045617894, 139.74369201089058],
+      "address": "2 Chome-3-13 Konan, Minato City, Tokyo 108-0075",
+      "segments": ["robotics"]
+    },
+    {
+      "name": "LeapMind",
+      "location": [35.656265940042694, 139.6946680089154],
+      "address": "〒150-0044 Tokyo, Shibuya City, Maruyamacho, 28−1, Shibuya Dogenzaka Sky Bldg., 3F",
+      "segments": ["artificial intelligence", "consulting"]
+    },
+    {
+      "name": "Cinnamon Inc",
+      "location": [35.66945247654031, 139.74756738013602],
+      "address": "〒105-0001 Tokyo, Minato City, Toranomon, 3 Chome−19−13 スピリットビル 6階",
+      "segments": ["artificial intelligence"]
+    },
+    {
+      "name": "Cogent Labs",
+      "location": [35.665265987705176, 139.7377423073924],
+      "address": "〒106-0032 Tokyo, Minato City, Roppongi, 3 Chome−2−1 住友不動産六本木グランドタワー 36F",
+      "segments": ["artificial intelligence", "consulting"]
+    },
+    {
+      "name": "Kyndryl",
+      "location": [35.66073121707951, 139.72920993775105],
+      "address": "6 Chome-10-1 Roppongi, Minato City, Tokyo 106-0032",
+      "segments": ["consulting"]
+    },
+    {
+      "name": "IBM Japan",
+      "location": [35.66927245854002, 139.74751760751357],
+      "address": "〒105-5531 Tokyo, Minato City, Toranomon, 2 Chome−6−1, Hills Station Tower 31, 32階",
+      "segments": ["internet services", "business software"]
+    },
+    {
+      "name": "Accenture",
+      "location": [35.67034240014831, 139.74242630886047],
+      "address": "Akasaka Intercity Air, 1 Chome-8-1 Akasaka, Minato City, Tokyo 107-8672",
+      "segments": ["consulting"]
+    },
+    {
+      "name": "SmartHR, Inc",
+      "location": [35.66616510521735, 139.73734240762838],
+      "address": "〒106-0032 Tokyo, Minato City, Roppongi, 3 Chome−2−1 住友不動産六本木グランドタワー 17F",
+      "segments": ["business software", "internet services"]
+    },
+    {
+      "name": "Donuts",
+      "location": [35.687883328040805, 139.70044189749382],
+      "address": "〒151-0053 Tokyo, Shibuya City, Yoyogi, 2 Chome−2−1, Odakyu Southern Tower, 8f",
+      "segments": ["business software", "internet services"]
+    },
+    {
+      "name": "Gunosy",
+      "location": [35.65863081737238, 139.70253551076317],
+      "address": "〒150-0002 Tokyo, Shibuya City, Shibuya, 2 Chome−24−12 スクランブルスクエア ４１Ｆ",
+      "segments": ["business software", "internet services"]
+    },
+    {
+      "name": "Teradata",
+      "location": [35.66840745484581, 139.7394676840172],
+      "address": "2 Chome-23-1 Akasaka, Minato City, Tokyo 107-0052",
+      "segments": ["consulting", "internet services"]
+    },
+    {
+      "name": "Nikon",
+      "location": [35.62701131629869, 139.74201512073836],
+      "address": "2 Chome-15-3 Konan, Minato City, Tokyo 108-0075",
+      "segments": ["consumer hardware", "optics", "semiconductors"]
+    },
+    {
+      "name": "Canon",
+      "location": [35.572570788190745, 139.68324421827054],
+      "address": "3 Chome-30-2 Shimomaruko, Ota City, Tokyo 146-8501",
+      "segments": ["consumer hardware", "optics", "semiconductors"]
+    },
+    {
+      "name": "AXA Japan",
+      "location": [35.644816360083325, 139.73446183775022],
+      "address": "1 Chome-17-3 Shirokane, Minato City, Tokyo 108-0072",
+      "segments": ["finance & insurance", "fintech"]
+    },
+    {
+      "name": "SAP Japan",
+      "location": [35.68794588143502, 139.76226059542321],
+      "address": "〒100-0004 Tokyo, Chiyoda City, Ōtemachi, 1 Chome−2−1 三井物産ビル",
+      "segments": ["internet services", "business software"]
+    },
+    {
+      "name": "Crooz",
+      "location": [35.64680149400054, 139.7114834834055],
+      "address": "〒150-0013 東京都渋谷区恵比寿四丁目3番14号 恵比寿SSビル",
+      "segments": ["internet services", "retail", "games & entertainment"]
+    },
+    {
+      "name": "Treasure Data",
+      "location": [35.671075637867084, 139.75362839542223],
+      "address": "〒100-0011 Tokyo, Chiyoda City, Uchisaiwaicho, 2 Chome−1−6, Hibiya Parkfront, 19F",
+      "segments": ["internet services", "business software"]
+    },
+    {
+      "name": "Salesforce Japan",
+      "location": [35.68473996114694, 139.76259385309362],
+      "address": "Nissay Marunouchi Gardentower, 1 Chome-1-3 Marunouchi, Chiyoda City, Tokyo 100-0005",
+      "segments": ["internet services", "business software"]
+    },
+    {
+      "name": "Oracle Japan",
+      "location": [35.67144653693538, 139.71857362425766],
+      "address": "2 Chome-5-8 Kita-Aoyama, Minato City, Tokyo 107-0061",
+      "segments": ["internet services", "business software"]
+    },
+    {
+      "name": "Mathworks Japan",
+      "location": [35.674122283539944, 139.73145243775167],
+      "address": "4 Chome-15-1 Akasaka, Minato City, Tokyo 107-0052",
+      "segments": ["business software"]
+    },
+    {
+      "name": "Sakana AI",
+      "location": [35.66152267879465, 139.75116309542193],
+      "address": "〒105-0003 Tokyo, Minato City, Nishishinbashi, 3 Chome−24−8 Yamauchi Building 3F",
+      "segments": ["artificial intelligence"]
+    },
+    {
+      "name": "Telexistence",
+      "location": [35.65266394830005, 139.77932539542138],
+      "address": "4 Chome-7-4 Harumi, Chuo City, Tokyo 104-0053",
+      "segments": ["artificial intelligence", "robotics"]
+    },
+    {
+      "name": "Synspective",
+      "location": [35.68126908270406, 139.80574512610562],
+      "address": "〒135-0022 Tokyo, Koto City, Miyoshi, 3-10-3",
+      "segments": ["space"]
+    },
+    {
+      "name": "G2 Studios",
+      "location": [35.65850825216478, 139.70234633775095],
+      "address": "〒150-6139 Tokyo, Shibuya City, Shibuya, 2 Chome−24−12 スクランブルスクエア 39階 WeWork内",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Cybozu",
+      "location": [35.68220708329839, 139.77429868192885],
+      "address": "〒103-0027 Tokyo, Chuo City, Nihonbashi, 2 Chome−7−1 東京日本橋タワー２７階",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Konami Studios",
+      "location": [35.665385402622334, 139.73157272610493],
+      "address": "〒9 Chome-7-7番2号 Akasaka, Minato City, Tokyo 107-0052",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Silicon Studio",
+      "location": [35.64720037182022, 139.71426663959775],
+      "address": "〒150-0013 Tokyo, Shibuya City, Ebisu, 1 Chome−21−3 恵比寿ＮＲビル",
+      "segments": ["games & entertainment"]
+    },
+    {
+      "name": "Trend Micro",
+      "location": [35.68880853518719, 139.70163650706968],
+      "address": "Jr Shinjuku Mirainatower, 4 Chome-1-6 Shinjuku, Shinjuku City, Tokyo 160-0022",
+      "segments": ["business software"]
+    },
+    {
+      "name": "Synopsis",
+      "location": [35.611738705448914, 139.62830301967116],
+      "address": "〒158-0094 Tokyo, Setagaya City, Tamagawa, 2 Chome−21−21-1 二子玉川ライズ オフィス",
+      "segments": ["business software"]
+    },
+    {
+      "name": "Capgemini",
+      "location": [35.66708467459024, 139.74942745101697],
+      "address": "〒105-6322 Tokyo, Minato City, Toranomon, 1 Chome−23−1 虎ノ門ヒルズ森タワー 22階",
+      "segments": ["consulting"]
+    },
+    {
+      "name": "Fujitsu",
+      "location": [35.66558005253518, 139.76086828003125],
+      "address": "〒105-0021 Tokyo, Minato City, Higashishinbashi, 1 Chome−5−2 汐留シティセンタ",
+      "segments": ["consulting", "business software"]
+    },
+    {
+      "name": "SHIFT",
+      "location": [35.66138109441956, 139.74063745309257],
+      "address": "〒106-0041 Tokyo, Minato City, Azabudai, 1 Chome−3−1 ヒルズ森JPタワ 32階",
+      "segments": ["quality assurance", "business software"]
+    },
+    {
+      "name": "DeepX",
+      "location": [35.706279677142774, 139.767816908918],
+      "address": "3 Chome-21-4 Yushima, Bunkyo City, Tokyo 113-0034",
+      "segments": ["artificial intelligence", "robotics"]
+    }
+  ]
+}
