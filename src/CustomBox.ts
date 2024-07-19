@@ -3,30 +3,9 @@ export enum BoxState {
     Idle,
     Selected
 }
-export class CustomBox {
-    boxState: BoxState = BoxState.Idle;
-    cube: BABYLON.Mesh | null = null;
-    timeOffset: number;
-    name: string = "";
-    constructor(public corner1: BABYLON.Vector3, public corner2: BABYLON.Vector3, scene: BABYLON.Scene) {
-        this.setup(scene);
-        this.timeOffset = 50 * Math.random()
-    }
 
-
-    //https://doc.babylonjs.com/features/featuresDeepDive/mesh/creation/set/box
-    private setup(scene: BABYLON.Scene) {
-        let size = this.corner2.subtract(this.corner1).length();
-
-        // Create a cube using MeshBuilder.CreateBox
-        let height = Math.abs(this.corner2.y - this.corner1.y);
-        let width = Math.abs(this.corner1.x - this.corner2.x);
-        let depth = Math.abs(this.corner1.z - this.corner2.z);
-        this.cube = BABYLON.MeshBuilder.CreateBox("cube_" + this.generateRandomName(12), { height: height, width: width, depth: depth, updatable: true }, scene);
-        this.name = this.cube.name;
-
-        BABYLON.Effect.ShadersStore["customVertexShader"] =
-            `
+BABYLON.Effect.ShadersStore["boxVertexShader"] =
+    `
         precision highp float;
 
         attribute vec3 position;
@@ -42,9 +21,8 @@ export class CustomBox {
             vUV = uv;
         }`;
 
-        BABYLON.Effect.ShadersStore["customFragmentShader"] =
-            `
-        // custom.fragment.fx
+BABYLON.Effect.ShadersStore["boxFragmentShader"] =
+    `// custom.fragment.fx
 precision highp float;
 
 varying vec2 vUV;
@@ -98,10 +76,29 @@ gl_FragColor = finalColor;
 }
 `;
 
+export class CustomBox {
+    cube: BABYLON.Mesh | null = null;
+    timeOffset: number;
+    name: string = "";
+    constructor(public corner1: BABYLON.Vector3, public corner2: BABYLON.Vector3, scene: BABYLON.Scene) {
+        this.setup(scene);
+        this.timeOffset = 50 * Math.random()
+    }
+
+    private setup(scene: BABYLON.Scene) {
+
+        let height = Math.abs(this.corner2.y - this.corner1.y);
+        let width = Math.abs(this.corner1.x - this.corner2.x);
+        let depth = Math.abs(this.corner1.z - this.corner2.z);
+        this.cube = BABYLON.MeshBuilder.CreateBox("cube_" + this.generateRandomName(12), { height: height, width: width, depth: depth, updatable: true }, scene);
+        this.name = this.cube.name;
+
+
+
 
         var customMaterial = new BABYLON.ShaderMaterial("shader", scene, {
-            vertex: "custom",
-            fragment: "custom",
+            vertex: "box",
+            fragment: "box",
         }, {
             attributes: ["position", "normal", "uv"],
             uniforms: ["world", "worldView", "worldViewProjection", "view", "projection", "time"]
@@ -116,9 +113,6 @@ gl_FragColor = finalColor;
 
         // Position the cube based on the center of the two corners
         this.cube.position = this.corner1.add(this.corner2.subtract(this.corner1).scale(0.5));
-
-
-
     }
 
 
@@ -145,5 +139,9 @@ gl_FragColor = finalColor;
         if (this.cube)
             this.cube.isVisible = true;
 
+    }
+
+    dispose() {
+        this.cube?.dispose();
     }
 }

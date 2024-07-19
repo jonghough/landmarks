@@ -60,6 +60,17 @@
         </v-card-actions>
       </v-card>
     </v-dialog>
+
+    <v-dialog v-model="infoDialog" persistent max-width="600px">
+      <v-card>
+        <v-card-title class="headline">Welcome</v-card-title>
+        <v-card-text> </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" @click="infoDialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
@@ -74,9 +85,10 @@ let xyzTileItems = ref<string[]>([
   "Google Hybrid",
 ]);
 let dialog = ref<boolean>(true);
+let infoDialog = ref<boolean>(false);
 let app: App | null = null;
 onMounted(() => {
-  app = new App();
+  app = new App(showInfoDialog);
   items1.value = Array.from(app.uniqueSegments);
 });
 
@@ -90,6 +102,10 @@ function centerCamera() {
 
 function refreshTiles(item: string) {
   app?.refreshTiles(item);
+}
+
+function showInfoDialog() {
+  infoDialog.value = true;
 }
 </script>
 

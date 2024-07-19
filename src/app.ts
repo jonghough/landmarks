@@ -1,9 +1,5 @@
 import "@babylonjs/core/Debug/debugLayer";
-import * as GUI from 'babylonjs-gui';
 import * as BABYLON from "@babylonjs/core";
-//import { default as Geo } from "./geofuncs.js";
-import { AdvancedDynamicTexture, Button } from "@babylonjs/gui/2D";
-import { Material, PointerInfo } from "babylonjs";
 import { TileData } from "./TileData";
 import { GlobalConfig } from "./GlobalConfig";
 import { Tiler } from "./tiles";
@@ -26,14 +22,15 @@ export class App {
     cameraDefaultPosition: BABYLON.Vector3 = new BABYLON.Vector3(0, 0, 0);
     tiles: Array<TileData> = new Array<TileData>();
     globalConfig: GlobalConfig;
+    infoDialogOpenCallback: (title: string, text: string) => void;
     public uniqueSegments: Set<string> = new Set<string>();
 
-    constructor() {
-        // create the canvas html element and attach it to the webpage
+    constructor(infoDialogOpenCallback: (title: string, text: string) => void) {
+        this.infoDialogOpenCallback = infoDialogOpenCallback;
         var canvas = document.createElement("canvas");
         canvas.style.width = "100%";
         canvas.style.height = "100%";
-        canvas.id = "gameCanvas";
+        canvas.id = "landmarkCanvas";
         document.body.appendChild(canvas);
 
         // initialize babylon scene and engine
@@ -59,12 +56,12 @@ export class App {
 
 
         let t = new Tiler();
-        let b = t.laloToTile(35.690838971083906, 139.7271607570098, 15);//31.034769091471592, 45.70975964302065, 9)
+        let b = t.laloToTile(35.690838971083906, 139.7271607570098, 15);
 
         for (var i = -10; i < 10; i++) {
             for (var j = -10; j < 10; j++) {
-                let td = new TileData("", this.globalConfig, new Tiler(), b[0] + i, b[1] + j, 15);//31.034769091471592, 45.70975964302065);
-                //this.tileMappings.addLocation(31.034769091471592, 45.70975964302065, "Ur");
+                let td = new TileData("", this.globalConfig, new Tiler(), b[0] + i, b[1] + j, 15);
+
                 td.setupTileBoundaryLines(this.scene);
                 this.tiles.push(td);
                 let bounds = td.ndsTileBounds;
@@ -79,7 +76,7 @@ export class App {
 
         let loc = locations;
         loc.locations.forEach((location) => {
-            let tinfo = new TileInfoBillboard(location.location[0], location.location[1]);
+            let tinfo = new TileInfoBillboard(this.infoDialogOpenCallback, location.location[0], location.location[1]);
             let meters = t.laloToMeters(location.location[0], location.location[1]);
             let ox = this.globalConfig.offsetX - meters[0];
             let oy = this.globalConfig.offsetY - meters[1];
@@ -89,7 +86,6 @@ export class App {
         });
 
         let tok = tokyo;
-        // GeoJSON.parse(tok);
         tok.features.forEach(f => {
             let coords = f.geometry.coordinates;
             coords.forEach(poly => {
@@ -109,25 +105,47 @@ export class App {
 
         this.uniqueSegments = new Set<string>();
 
-        // Iterate over each location and add segments to the Set
         loc.locations.forEach((location: { name: string; segments: string[] }) => {
             location.segments.forEach((segment: string) => {
                 this.uniqueSegments.add(segment);
             });
         });
-        console.log(this.uniqueSegments);
+    }
+
+    createBySegment(segment: string) {
+        let t = new Tiler();
+        let loc = locations;
+        loc.locations.forEach((location) => {
+            if (location.segments.includes(segment)) {
+                let tinfo = new TileInfoBillboard(this.infoDialogOpenCallback, location.location[0], location.location[1]);
+                let meters = t.laloToMeters(location.location[0], location.location[1]);
+                let ox = this.globalConfig.offsetX - meters[0];
+                let oy = this.globalConfig.offsetY - meters[1];
+                tinfo.createTileInfoBillboard(this.scene, new BABYLON.Vector3(ox, 1250, oy), location.name, location.segments)
+                tinfo.show(segment);
+                this.companyObjects.push(tinfo);
+            }
+        });
+
+    }
+
+    clearBillboards() {
+        this.companyObjects.forEach(t => t.dispose());
+        this.companyObjects = new Array<TileInfoBillboard>();
     }
 
 
     selectBySegment(segment: string) {
-        this.companyObjects.forEach(co => {
-            if (co.companySegments?.includes(segment)) {
-                co.show();
-            }
-            else {
-                co.hide();
-            }
-        })
+        // this.companyObjects.forEach(co => {
+        //     if (co.companySegments?.includes(segment)) {
+        //         co.show(segment);
+        //     }
+        //     else {
+        //         co.hide();
+        //     }
+        // })
+        this.clearBillboards();
+        this.createBySegment(segment);
     }
 
     centerCamera() {
@@ -136,6 +154,11 @@ export class App {
 
     refreshTiles(tileSet: string) {
         this.globalConfig.xyzTileSet = "r";
+
+        this.tiles.forEach(t => {
+            t.tileSet = "m";
+            t.refreshTiles(this.scene);
+        });
     }
 
 

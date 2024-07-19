@@ -2,6 +2,63 @@ import * as BABYLON from "@babylonjs/core";
 import { AdvancedDynamicTexture, Button } from "@babylonjs/gui/2D";
 import { CustomBox } from "./CustomBox";
 
+class ColorCache {
+    private cache: Map<string, string> = new Map();
+
+    getColorForString(str: string): string {
+        if (!this.cache.has(str)) {
+            // Generate a new color if not already cached
+            const color = stringToColor(str);
+            this.cache.set(str, color);
+        }
+        return this.cache.get(str) as string;
+    }
+}
+
+function stringToColor(str: string): string {
+    // Create a hash from the string
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+        hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    // Convert hash to RGB color
+    let color = '#';
+    for (let i = 0; i < 3; i++) {
+        const value = (hash >> (i * 8)) & 0xFF;
+        color += ('00' + value.toString(16)).substr(-2);
+    }
+    return color;
+}
+
+function hexToRgb(hex: string): { r: number, g: number, b: number } {
+    // Remove the hash if present
+    hex = hex.replace('#', '');
+
+    // Parse the r, g, b values
+    let bigint = parseInt(hex, 16);
+    let r = (bigint >> 16) & 255;
+    let g = (bigint >> 8) & 255;
+    let b = bigint & 255;
+
+    return { r, g, b };
+
+}
+
+function luminance(r: number, g: number, b: number): number {
+    const a = [r, g, b].map((v) => {
+        v /= 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+    });
+    return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+}
+
+function getTextColor(backgroundColor: string): string {
+    const { r, g, b } = hexToRgb(backgroundColor);
+    const bgLuminance = luminance(r, g, b);
+
+    // Threshold for luminance
+    return bgLuminance > 0.5 ? '#000000' : '#FFFFFF';
+}
 export class TileInfoBillboard {
 
     tileInfoPlane: BABYLON.Mesh | null = null;
@@ -14,14 +71,19 @@ export class TileInfoBillboard {
     billboardTextColor: string = "#282828";
     adt: AdvancedDynamicTexture | null = null;
     adtButton: Button | null = null;
+    infoDialogOpenCallback: (title: string, text: string) => void;
+    titleText: string | null = null;
+    static colorCache: ColorCache = new ColorCache();
 
-    constructor(centerLatitude: number, centerLongitude: number) {
+    constructor(infoDialogOpenCallback: (title: string, text: string) => void, centerLatitude: number, centerLongitude: number) {
+        this.infoDialogOpenCallback = infoDialogOpenCallback;
         this.centerLatitude = centerLatitude;
         this.centerLongitude = centerLongitude;
     }
 
     createTileInfoBillboard(scene: BABYLON.Scene, position: BABYLON.Vector3, text: string, segments: string[]) {
         this.tileInfoPlane = BABYLON.Mesh.CreatePlane("plane", 1050, scene, true);
+        this.titleText = text;
         this.tileInfoPlane.position = position;
         this.companySegments = segments;
 
@@ -39,6 +101,8 @@ export class TileInfoBillboard {
         let __this = this;
         this.adtButton.onPointerUpObservable.add(function () {
             alert(`Tile center coordinates are (${__this.centerLatitude}, ${__this.centerLongitude})`);
+            let title = __this.titleText == null ? "" : __this.titleText;
+            __this.infoDialogOpenCallback(title, "");
         });
 
         this.adt.addControl(this.adtButton);
@@ -51,6 +115,8 @@ export class TileInfoBillboard {
         this.buildingBox = new CustomBox(floor.subtract(new BABYLON.Vector3(50, 0, 50)), top, scene);
     }
 
+
+
     hide() {
         if (this.tileInfoPlane)
             this.tileInfoPlane.isVisible = false;
@@ -61,7 +127,15 @@ export class TileInfoBillboard {
             this.buildingBox.hide();
 
     }
-    show() {
+    show(segment: string) {
+        let color = TileInfoBillboard.colorCache.getColorForString(segment);
+        let textColor = getTextColor(color);
+        this.billboardTextColor = textColor;
+        this.billboardBackgroundColor = color;
+        if (this.adtButton) {
+            this.adtButton.background = this.billboardBackgroundColor;
+            this.adtButton.color = this.billboardTextColor;
+        }
         if (this.tileInfoPlane)
             this.tileInfoPlane.isVisible = true;
         if (this.verticalLine) {
@@ -72,6 +146,10 @@ export class TileInfoBillboard {
 
     }
     dispose() {
+        this.adt?.dispose();
+        this.adtButton?.dispose();
+        this.verticalLine?.dispose();
+        this.buildingBox?.dispose();
         this.tileInfoPlane?.dispose();
     }
 }
@@ -105,5 +183,9 @@ class Line {
         if (this.connLine)
             this.connLine.isVisible = true;
 
+    }
+
+    dispose() {
+        this.connLine?.dispose();
     }
 }

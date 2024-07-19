@@ -26,7 +26,6 @@ export class TileData {
 
     tileBounds: Array<BABYLON.Vector3> = [];
 
-    ndsLiveTileBoundaryMesh: BABYLON.Mesh | null = null;
     /**
      * NDS.Live Tile center of gravity, in `Shifted EPSG:3857` coordinates.
      */
@@ -54,10 +53,6 @@ export class TileData {
      */
     public setupTileBoundaryLines(scene: BABYLON.Scene) {
 
-        // delete the current tile bounds if needed.
-        if (this.ndsLiveTileBoundaryMesh) {
-            this.ndsLiveTileBoundaryMesh.dispose();
-        }
 
         let bounds = this.tiler.tileBoundsin3857(this.x, this.y, this.zoomLevel);
 
@@ -75,7 +70,7 @@ export class TileData {
         };
         let boundaryLines = BABYLON.MeshBuilder.CreateLines("lines_" + this.tileName, boundsgrid, scene);
         boundaryLines.color = new BABYLON.Color3(1, 1, 1);
-        this.ndsLiveTileBoundaryMesh = boundaryLines;
+
 
         this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], 0, this.globalConfig.offsetY - bounds[1]));
         this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], 0, this.globalConfig.offsetY - bounds[1]));
@@ -89,7 +84,8 @@ export class TileData {
         });
         //unshifted EPSG 3857 bounds
         this.ndsTileBounds = bounds;
-
+        // create the meshes
+        this.ndsTileBounds.forEach(b => this.tileMeshes.push(new BABYLON.Mesh("xyztile", scene)));
         //render the tile with aerial imagery (xyz tiles).
         this.renderTiles(this.xyzTileZoomLevel, this.ndsTileBounds, scene);
 
@@ -128,13 +124,17 @@ export class TileData {
 
             const tileURL = `https://mt0.google.com/vt/lyrs=${this.tileSet}&hl=en&x=${sxy[0]}&y=${sxy[1]}&z=${tileZoom}`;
             console.log(tileURL);
-            this.loadXYZMesh(scene, tileURL, subSquaresVecr[i]);
+            this.loadXYZMesh(scene, tileURL, subSquaresVecr[i], this.tileMeshes[i]);
             /**
              * Ref: 
              *      const tileURL = `https://mt0.google.com/vt/lyrs=s&hl=en&x=${slippyXY[0]}&y=${slippyXY[1]}&z=15`;
              *      const osmTileURL = "https://tile.openstreetmap.org/15/28869/12973.png";
              */
         }
+    }
+
+    public refreshTiles(scene: BABYLON.Scene) {
+        this.renderTiles(this.xyzTileZoomLevel, this.ndsTileBounds, scene);
     }
 
     private createTileBoundsAtLevel(level: number, boundsAtLevel15: number[]) {
@@ -179,8 +179,7 @@ export class TileData {
      * @param url 
      * @param corners 
      */
-    private loadXYZMesh(scene: BABYLON.Scene, url: string, corners: Array<BABYLON.Vector3>) {
-        var customMesh = new BABYLON.Mesh("xyztile", scene);
+    private loadXYZMesh(scene: BABYLON.Scene, url: string, corners: Array<BABYLON.Vector3>, xyzMesh: BABYLON.Mesh) {
 
         let positions: number[] = [];
         corners.forEach(v => {
@@ -204,16 +203,15 @@ export class TileData {
         vertexData.normals = normals; //Assignment of normal to vertexData added
 
         vertexData.uvs = uvs;
-        vertexData.applyToMesh(customMesh);
+        vertexData.applyToMesh(xyzMesh);
 
         var slippyTile = new BABYLON.StandardMaterial("slippyTile", scene);
         slippyTile.specularColor = new BABYLON.Color3(0, 0, 0);
         slippyTile.specularPower = 0;
         slippyTile.diffuseTexture = new BABYLON.Texture(url, scene);
         slippyTile.diffuseColor = new BABYLON.Color3(1, 1, 1);
-        customMesh.material = slippyTile;
-        this.tileMeshes.push(customMesh);
-        customMesh.actionManager = new BABYLON.ActionManager(scene);
+        xyzMesh.material = slippyTile;
+        xyzMesh.actionManager = new BABYLON.ActionManager(scene);
 
 
 
@@ -224,11 +222,11 @@ export class TileData {
 
 
 
-    dispose(scene: BABYLON.Scene) {
+    dispose() {
+        this.tileMeshes.forEach(m => m.dispose());
     }
 
-    delete(scene: BABYLON.Scene) {
-        this.dispose(scene);
-        this.ndsLiveTileBoundaryMesh?.dispose();
+    delete() {
+        this.dispose();
     }
 }

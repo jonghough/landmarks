@@ -1,76 +1,26 @@
-# Nuxt 3 Minimal Starter
+# Landmarks - Tokyo Tech Companies
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+Visualization of Tokyo tech company locations segmented by market. This application gives a 3D map visualization of the offices of hundreds of Tokyo based tech companies.
 
-## Setup
+## Definition of a tech company
 
-Make sure to install the dependencies:
+Here, the definition is broad and vague. Basically whatever seems is doing something interesting, innovative, or impressive with computer technology, or is known to have large IT or tech departments. The list is not exhaustive, and there are likely to be many glaring omissions.
 
-```bash
-# npm
-npm install
+## Technology used to create the app
 
-# pnpm
-pnpm install
+- BablyonJS
+- Vue 3
+- Nuxt 3
+- Vuetify
 
-# yarn
-yarn install
+## Tiling
 
-# bun
-bun install
-```
+Various xyz tiles are able to be used as a background tiling scheme. By default Google Terrain tiles are used.
 
-## Development Server
+## Locations
 
-Start the development server on `http://localhost:3000`:
+The locations of the companies are their Tokyo HQ offices. These addresses and latitude longitude coordinates are best effort. There is a chance some are incorrect.
 
-```bash
-# npm
-npm run dev
+## Market segments
 
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
-```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
-https://data.humdata.org/dataset/cod-ab-jpn?
+Companies are given market segments in whcih their main businesses operate. This is also best effort, as segmenting companies by markets is often not easy.

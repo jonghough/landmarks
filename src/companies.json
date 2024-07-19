@@ -53,7 +53,7 @@
       "name": "LINEヤフー",
       "location": [35.68033319179293, 139.7368129521257],
       "address": "〒102-8282\nChiyoda City\nKioicho\n1−3 紀尾井タワ 東京ガーデンテラス",
-      "segments": ["internet services", "retail"],
+      "segments": ["internet services", "retail", "fintech"],
       "homepage": "https://www.lycorp.co.jp/ja/"
     },
     {
@@ -82,7 +82,7 @@
       "name": "Mercari",
       "location": [35.66054197912228, 139.7292694530924],
       "address": "〒106-6118 東京都港区六本木６－１０－１ 六本木ヒルズ森タワー",
-      "segments": ["internet services", "retail"],
+      "segments": ["internet services", "retail", "fintech"],
       "homepage": "https://jp.mercari.com/"
     },
     {
@@ -638,6 +638,55 @@
       "address": "Tokyo Portcity Takeshiba Office Tower, 1 Chome-7-1 Kaigan, Minato City, Tokyo 105-7590",
       "segments": ["artificial intelligence", "internet services"],
       "homepage": "https://www.japancv.co.jp/"
+    },
+    {
+      "name": "HENNGE",
+      "location": [35.65507922512694, 139.69489590891544],
+      "address": "16-28 Nanpeidaicho, Shibuya City, Tokyo 150-0036",
+      "segments": ["business software", "consulting"],
+      "homepage": "https://hennge.com/jp/"
+    },
+    {
+      "name": "Slalom Japan",
+      "location": [35.66237622709122, 139.7492147604825],
+      "address": "〒105-6207 Tokyo, Minato City, Atago, 2 Chome−5−1 JP 105-6207 東京都 Atago Green Hills MORI Tower グリーンヒルズMORIタワ 7F",
+      "segments": ["consulting"],
+      "homepage": "https://www.slalom.com/"
+    },
+    {
+      "name": "Asoview",
+      "location": [35.61883196318064, 139.73232076255405],
+      "address": "〒141-0032 Tokyo, Shinagawa City, Osaki, 1 Chome−11−2 8F イーストタワ",
+      "segments": ["travel", "internet services"],
+      "homepage": "https://www.asoview.co.jp/"
+    },
+    {
+      "name": "Reaktor",
+      "location": [35.64421815159787, 139.71547641871385],
+      "address": "Sreed EBISU 2, 4F, 3 Chome-28-2 Ebisu, Shibuya City, Tokyo 150-0013",
+      "segments": ["consulting"],
+      "homepage": "https://www.reaktor.com/ja-jp"
+    },
+    {
+      "name": "Sales Marker",
+      "location": [35.66568967964306, 139.74526127052215],
+      "address": "4 Chome-1-1 Toranomon, Minato City, Tokyo",
+      "segments": ["marketing", "business software"],
+      "homepage": "https://sales-marker.jp/corporate/"
+    },
+    {
+      "name": "Reiwa Travel",
+      "location": [35.6575103937273, 139.7009293594053],
+      "address": "〒150-0031 Tokyo, Shibuya City, Sakuragaokacho, 16−13 桜丘フロントⅡビル 6F",
+      "segments": ["travel"],
+      "homepage": "https://www.reiwatravel.co.jp/"
+    },
+    {
+      "name": "Matsuri Technologies",
+      "location": [35.702702111225, 139.73963414780263],
+      "address": "〒162-0825 Tokyo, Shinjuku City, Kagurazaka, 4 Chome−8−番, Kagurazaka Plaza Building, 3F",
+      "segments": ["travel"],
+      "homepage": "https://www.matsuri.tech/"
     }
   ]
 }
