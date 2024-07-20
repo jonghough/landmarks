@@ -26,6 +26,7 @@ export class App {
     public uniqueSegments: Set<string> = new Set<string>();
 
     constructor(infoDialogOpenCallback: (title: string, text: string) => void) {
+        this.globalConfig = new GlobalConfig("s", 19, true, 10, 10, 15500000, 4200000, true, (s) => { });
         this.infoDialogOpenCallback = infoDialogOpenCallback;
         var canvas = document.createElement("canvas");
         canvas.style.width = "100%";
@@ -52,10 +53,12 @@ export class App {
             this.scene.render();
         });
 
-        this.globalConfig = new GlobalConfig("s", 19, true, 10, 10, 15500000, 4200000, false, (s) => { });
+
 
 
         let t = new Tiler();
+        // hardcoded "center" of Tokyo.
+        // TODO make variable...
         let b = t.laloToTile(35.690838971083906, 139.7271607570098, 15);
 
         for (var i = -10; i < 10; i++) {
@@ -75,15 +78,7 @@ export class App {
         }
 
         let loc = locations;
-        loc.locations.forEach((location) => {
-            let tinfo = new TileInfoBillboard(this.infoDialogOpenCallback, location.location[0], location.location[1]);
-            let meters = t.laloToMeters(location.location[0], location.location[1]);
-            let ox = this.globalConfig.offsetX - meters[0];
-            let oy = this.globalConfig.offsetY - meters[1];
-            tinfo.createTileInfoBillboard(this.scene, new BABYLON.Vector3(ox, 1250, oy), location.name, location.segments)
-            tinfo.hide();
-            this.companyObjects.push(tinfo);
-        });
+
 
         let tok = tokyo;
         tok.features.forEach(f => {
@@ -121,7 +116,7 @@ export class App {
                 let meters = t.laloToMeters(location.location[0], location.location[1]);
                 let ox = this.globalConfig.offsetX - meters[0];
                 let oy = this.globalConfig.offsetY - meters[1];
-                tinfo.createTileInfoBillboard(this.scene, new BABYLON.Vector3(ox, 1250, oy), location.name, location.segments)
+                tinfo.createTileInfoBillboard(this.scene, new BABYLON.Vector3(ox, 1250, oy), location.name, location.address, location.homepage, location.segments)
                 tinfo.show(segment);
                 this.companyObjects.push(tinfo);
             }
@@ -136,14 +131,6 @@ export class App {
 
 
     selectBySegment(segment: string) {
-        // this.companyObjects.forEach(co => {
-        //     if (co.companySegments?.includes(segment)) {
-        //         co.show(segment);
-        //     }
-        //     else {
-        //         co.hide();
-        //     }
-        // })
         this.clearBillboards();
         this.createBySegment(segment);
     }
@@ -156,7 +143,19 @@ export class App {
         this.globalConfig.xyzTileSet = "r";
 
         this.tiles.forEach(t => {
-            t.tileSet = "m";
+            switch (tileSet) {
+                case "Google Satellite":
+                    t.tileSet = "s";
+                    break;
+                case "Google Roadmap":
+                    t.tileSet = "m";
+                    break;
+                case "Google Hybrid":
+                    t.tileSet = "y";
+                    break;
+                default:
+                    break;
+            }
             t.refreshTiles(this.scene);
         });
     }

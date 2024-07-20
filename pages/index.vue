@@ -1,6 +1,8 @@
 <template>
   <div>
-    <v-btn id="menu-activator" color="primary"> Companies </v-btn>
+    <v-btn id="menu-activator" class="control-button" color="primary">
+      Companies
+    </v-btn>
     <v-menu activator="#menu-activator">
       <v-list>
         <v-list-item
@@ -13,8 +15,8 @@
         </v-list-item>
       </v-list>
     </v-menu>
-    <v-btn id="menu-activator2" color="primary" @click="centerCamera">
-      Center Camera
+    <v-btn id="menu-activator2" class="control-button" color="primary">
+      Select XYZ Tiles
     </v-btn>
     <v-menu activator="#menu-activator2">
       <v-list>
@@ -29,11 +31,18 @@
       </v-list>
     </v-menu>
 
-    <v-btn id="menu-activator3" color="primary" @click="centerCamera">
+    <v-btn
+      id="menu-activator3"
+      class="control-button"
+      color="primary"
+      @click="centerCamera"
+    >
       Center Camera
     </v-btn>
 
-    <v-btn id="menu-activator4" color="primary"> Operations </v-btn>
+    <v-btn id="menu-activator4" class="control-button" color="primary">
+      Operations
+    </v-btn>
 
     <!-- Dialog Component -->
     <v-dialog v-model="dialog" persistent max-width="600px">
@@ -63,8 +72,8 @@
 
     <v-dialog v-model="infoDialog" persistent max-width="600px">
       <v-card>
-        <v-card-title class="headline">Welcome</v-card-title>
-        <v-card-text> </v-card-text>
+        <v-card-title class="headline">{{ infoTitle }}</v-card-title>
+        <v-card-text>{{ infoText }}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click="infoDialog = false">Close</v-btn>
@@ -86,6 +95,8 @@ let xyzTileItems = ref<string[]>([
 ]);
 let dialog = ref<boolean>(true);
 let infoDialog = ref<boolean>(false);
+let infoTitle = ref<string>("");
+let infoText = ref<string>("");
 let app: App | null = null;
 onMounted(() => {
   app = new App(showInfoDialog);
@@ -104,12 +115,18 @@ function refreshTiles(item: string) {
   app?.refreshTiles(item);
 }
 
-function showInfoDialog() {
+function showInfoDialog(title: string, text: string) {
   infoDialog.value = true;
+  infoText.value = text;
+  infoTitle.value = title;
 }
 </script>
 
 <style scoped>
+.control-button {
+  padding: 5px;
+  margin: 10px;
+}
 .instructions {
   background-color: #fff;
   padding: 20px;

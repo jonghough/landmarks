@@ -687,6 +687,97 @@
       "address": "〒162-0825 Tokyo, Shinjuku City, Kagurazaka, 4 Chome−8−番, Kagurazaka Plaza Building, 3F",
       "segments": ["travel"],
       "homepage": "https://www.matsuri.tech/"
+    },
+    {
+      "name": "J-QuAD DYNAMICS",
+      "location": [35.68707825424984, 139.77475932241094],
+      "address": "〒103-0022 Tokyo, Chuo City, Nihonbashimuromachi, 2 Chome−3−1 室町古河三井ビルディング 15F",
+      "segments": ["automotive & mobility", "geospatial"],
+      "homepage": "https://www.j-quad.co.jp/"
+    },
+    {
+      "name": "Denso",
+      "location": [35.683224737487116, 139.7740509402275],
+      "address": "2 Chome-7-1 Nihonbashi, Chuo City, Tokyo 103-0027",
+      "segments": ["automotive & mobility", "geospatial"],
+      "homepage": "https://www.denso.com/jp/ja.html"
+    },
+    {
+      "name": "Aisin",
+      "location": [35.642078958411474, 139.74204886011256],
+      "address": "〒108-0073 Tokyo, Minato City, Mita, 3 Chome−11−34 センチュリー三田ビル 9F",
+      "segments": ["automotive & mobility", "geospatial"],
+      "homepage": "https://www.aisin.com/jp/profile/factory/"
+    },
+    {
+      "name": "Safie",
+      "location": [35.61518258812986, 139.73108945309014],
+      "address": "Sumitomo Fudosan Osaki Garden Tower, 1 Chome-1-1 Nishishinagawa, Shinagawa City, Tokyo 141-0033",
+      "segments": ["consulting", "business software"],
+      "homepage": "https://safie.jp/"
+    },
+    {
+      "name": "NEC",
+      "location": [35.6509582215067, 139.74772817476244],
+      "address": "5 Chome-7-1 Shiba, Minato City, Tokyo 108-8001",
+      "segments": ["consumer hardware", "business software", "manufacturing"],
+      "homepage": "https://jpn.nec.com/"
+    },
+    {
+      "name": "BayCurrent Consulting",
+      "location": [35.66142467905153, 139.74064818192792],
+      "address": "〒106-0041 Tokyo, Minato City, Azabudai, 1 Chome−3−1 ヒルズ森 JPタワ",
+      "segments": ["consulting"],
+      "homepage": "http://www.baycurrent.co.jp/"
+    },
+    {
+      "name": "Boston Consulting",
+      "location": [35.688036809295895, 139.7725413530938],
+      "address": "Nihonbashi Muromachi Mitsui Tower, 25F, 3 Chome-2-1 Nihonbashimuromachi, Chuo City, Tokyo 103-0022",
+      "segments": ["consulting"],
+      "homepage": "https://www.bcg.com/ja-jp/offices/tokyo/default"
+    },
+    {
+      "name": "Boston Consulting",
+      "location": [35.688036809295895, 139.7725413530938],
+      "address": "Nihonbashi Muromachi Mitsui Tower, 25F, 3 Chome-2-1 Nihonbashimuromachi, Chuo City, Tokyo 103-0022",
+      "segments": ["consulting"],
+      "homepage": "https://www.bcg.com/ja-jp/offices/tokyo/default"
+    },
+    {
+      "name": "Bain & Company",
+      "location": [35.688036809295895, 139.7725413530938],
+      "address": "Midtown Tower, 37-9-7-1 Akasaka, Minato City, Tokyo 107-6237",
+      "segments": ["consulting"],
+      "homepage": "https://www.bain.com/ja/offices/tokyo/"
+    },
+    {
+      "name": "Bain & Company",
+      "location": [35.688036809295895, 139.7725413530938],
+      "address": "Midtown Tower, 37-9-7-1 Akasaka, Minato City, Tokyo 107-6237",
+      "segments": ["consulting"],
+      "homepage": "https://www.bain.com/ja/offices/tokyo/"
+    },
+    {
+      "name": "3M",
+      "location": [35.688036809295895, 139.7725413530938],
+      "address": "6 Chome-7-29 Kitashinagawa, Shinagawa City, Tokyo 141-0001",
+      "segments": ["medical", "manufacturing", "consumer hardware"],
+      "homepage": "https://www.3mcompany.jp/3M/ja_JP/company-jp/"
+    },
+    {
+      "name": "Smartpay",
+      "location": [35.666117402456536, 139.75166573959868],
+      "address": "〒105-0003 Tokyo, Minato City, Nishishinbashi, 2 Chome−19−5 カザマビル 6 階",
+      "segments": ["fintech"],
+      "homepage": "https://smartpay.co/"
+    },
+    {
+      "name": "Paidy",
+      "location": [35.66643922129064, 139.7312692681534],
+      "address": "〒107-6212 東京都港区赤坂9-7-1 ミッドタウン・タワー12階",
+      "segments": ["fintech"],
+      "homepage": "https://paidy.com/"
     }
   ]
 }

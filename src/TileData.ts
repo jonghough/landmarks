@@ -21,14 +21,8 @@ const googleHybridTiles = "y";
 export class TileData {
 
 
-
-
-
     tileBounds: Array<BABYLON.Vector3> = [];
 
-    /**
-     * NDS.Live Tile center of gravity, in `Shifted EPSG:3857` coordinates.
-     */
     tileCenterOfGravity: BABYLON.Vector3 = BABYLON.Vector3.Zero();
 
     tileSet: string = googleSatelliteTiles; //default
@@ -37,15 +31,9 @@ export class TileData {
 
     public ndsTileBounds: number[] = [];
 
-    xyzTileZoomLevel: number = 12;
-
-
-
     constructor(
-        readonly tileName: string, readonly globalConfig: GlobalConfig, readonly tiler: Tiler, readonly x: number, readonly y: number, readonly zoomLevel: number) {
-        this.xyzTileZoomLevel = zoomLevel;
+        readonly tileName: string, readonly globalConfig: GlobalConfig, readonly tiler: Tiler, readonly x: number, readonly y: number, readonly xyzTileZoomLevel: number) {
     }
-
 
     /**
      * 
@@ -54,7 +42,7 @@ export class TileData {
     public setupTileBoundaryLines(scene: BABYLON.Scene) {
 
 
-        let bounds = this.tiler.tileBoundsin3857(this.x, this.y, this.zoomLevel);
+        let bounds = this.tiler.tileBoundsin3857(this.x, this.y, this.xyzTileZoomLevel);
 
         let shiftedBounds = [
             new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], 0, this.globalConfig.offsetY - bounds[1]),
@@ -137,25 +125,23 @@ export class TileData {
         this.renderTiles(this.xyzTileZoomLevel, this.ndsTileBounds, scene);
     }
 
-    private createTileBoundsAtLevel(level: number, boundsAtLevel15: number[]) {
-        if (level < this.zoomLevel) {
-            throw Error("Cannot tile at level less than 15 (corresponds to NDS.Live level 14)")
-        }
-        if (level == this.zoomLevel) {
-            return [boundsAtLevel15];
+    private createTileBoundsAtLevel(level: number, bounds: number[]) {
+
+        if (level == this.xyzTileZoomLevel) {
+            return [bounds];
         }
 
-        const divX = Math.pow(2, -1 * (level - this.zoomLevel)) * (boundsAtLevel15[2] - boundsAtLevel15[0]);
-        const divY = Math.pow(2, -1 * (level - this.zoomLevel)) * (boundsAtLevel15[3] - boundsAtLevel15[1]);
-        const tileCountPerDimension = Math.pow(2, (level - this.zoomLevel));
+        const divX = Math.pow(2, -1 * (level - this.xyzTileZoomLevel)) * (bounds[2] - bounds[0]);
+        const divY = Math.pow(2, -1 * (level - this.xyzTileZoomLevel)) * (bounds[3] - bounds[1]);
+        const tileCountPerDimension = Math.pow(2, (level - this.xyzTileZoomLevel));
         const tileSquares = []
         for (var i = 0; i < tileCountPerDimension; i++) {
             for (var j = 0; j < tileCountPerDimension; j++) {
                 const sq = [
-                    boundsAtLevel15[0] + divX * i,
-                    boundsAtLevel15[1] + divY * j,
-                    boundsAtLevel15[0] + divX * (i + 1),
-                    boundsAtLevel15[1] + divY * (j + 1)
+                    bounds[0] + divX * i,
+                    bounds[1] + divY * j,
+                    bounds[0] + divX * (i + 1),
+                    bounds[1] + divY * (j + 1)
                 ];
                 tileSquares.push(sq);
             }
@@ -163,14 +149,11 @@ export class TileData {
         return tileSquares;
     }
 
-
-
     private findCenterOfGravity(bounds: Array<number>): number[] {
         let centerX = 0.5 * (bounds[0] + bounds[2]);
         let centerY = 0.5 * (bounds[1] + bounds[3]);
         return [centerX, centerY];
     }
-
 
 
     /**
@@ -212,15 +195,7 @@ export class TileData {
         slippyTile.diffuseColor = new BABYLON.Color3(1, 1, 1);
         xyzMesh.material = slippyTile;
         xyzMesh.actionManager = new BABYLON.ActionManager(scene);
-
-
-
     }
-
-
-
-
-
 
     dispose() {
         this.tileMeshes.forEach(m => m.dispose());

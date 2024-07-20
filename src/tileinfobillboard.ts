@@ -81,7 +81,7 @@ export class TileInfoBillboard {
         this.centerLongitude = centerLongitude;
     }
 
-    createTileInfoBillboard(scene: BABYLON.Scene, position: BABYLON.Vector3, text: string, segments: string[]) {
+    createTileInfoBillboard(scene: BABYLON.Scene, position: BABYLON.Vector3, text: string, address: string, url: string, segments: string[]) {
         this.tileInfoPlane = BABYLON.Mesh.CreatePlane("plane", 1050, scene, true);
         this.titleText = text;
         this.tileInfoPlane.position = position;
@@ -102,7 +102,7 @@ export class TileInfoBillboard {
         this.adtButton.onPointerUpObservable.add(function () {
             alert(`Tile center coordinates are (${__this.centerLatitude}, ${__this.centerLongitude})`);
             let title = __this.titleText == null ? "" : __this.titleText;
-            __this.infoDialogOpenCallback(title, "");
+            __this.infoDialogOpenCallback(title, address);
         });
 
         this.adt.addControl(this.adtButton);
