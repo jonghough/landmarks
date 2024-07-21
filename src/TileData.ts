@@ -6,18 +6,7 @@ import { GlobalConfig } from "./GlobalConfig";
 const googleSatelliteTiles = "s";
 const googleRoadmapTiles = "m";
 const googleHybridTiles = "y";
-/**
- * Latitude is encoded as x value
- * Longitude as z value
- *  Height / elevation as y value
- * 
- * TileData will be initially given in NDS.Live coordinates, which can be converted to EPSG:4326 (WSG84) coordinates, and
- * to EPSG:3857 coordinates. Using a projected coordinate system, with meter metric is preferrable over using the latitude longitude coordinates.
- * However the range of 3857 coordiante values is large (ref: https://epsg.io/3857), and it seems BABYLON.js's 
- * rendering engine is not suited to render at coordinates at the larger values, so we do a shift. of coordinates to bring the values into an
- * "aceptable" range. The shift is hardcoded and generally will be usable for the Japan region. Not tested in other regions. Other shifts values may be
- * necessary in, for example, the USA.
- */
+
 export class TileData {
 
 
@@ -79,20 +68,6 @@ export class TileData {
 
     }
 
-
-
-
-    /**
-     * Renders the xyz tiles (using `slippy` scheme) onto meshes whose bounds are defined by the
-     * bounds of the NDS.Live tile that this instance represents. the `initialBounds` represents the bounds of the NDS.Live tile
-     * in EPSG 3857 coordinates, and is of the form `[minx, miny, maxx, maxy]`, where xs and ys represent the latitude and longitude
-     * respectively. 
-     * Note that this method is assuming the NDS.Live tiles are at NDS Tiling Level 14, which corresponds, in terms of coordinates,
-     * to the XYZ tiles at level 15.
-     * @param tileZoomLevel zoom level to tile at. Must be an integer greater than 14.
-     * @param initialBounds the initial bounds of the NDS.Live tile.
-     * @param scene The scene object.
-     */
     public renderTiles(tileZoomLevel: number, initialBounds: number[], scene: BABYLON.Scene) {
         const tileZoom = tileZoomLevel;
         var tileSquares = this.createTileBoundsAtLevel(tileZoom, initialBounds);

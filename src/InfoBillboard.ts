@@ -2,6 +2,7 @@ import * as BABYLON from "@babylonjs/core";
 import { AdvancedDynamicTexture, Button } from "@babylonjs/gui/2D";
 import { CustomBox } from "./CustomBox";
 
+
 class ColorCache {
     private cache: Map<string, string> = new Map();
 
@@ -59,7 +60,7 @@ function getTextColor(backgroundColor: string): string {
     // Threshold for luminance
     return bgLuminance > 0.5 ? '#000000' : '#FFFFFF';
 }
-export class TileInfoBillboard {
+export class InfoBillboard {
 
     tileInfoPlane: BABYLON.Mesh | null = null;
     centerLatitude: number;
@@ -71,12 +72,10 @@ export class TileInfoBillboard {
     billboardTextColor: string = "#282828";
     adt: AdvancedDynamicTexture | null = null;
     adtButton: Button | null = null;
-    infoDialogOpenCallback: (title: string, text: string) => void;
     titleText: string | null = null;
     static colorCache: ColorCache = new ColorCache();
 
-    constructor(infoDialogOpenCallback: (title: string, text: string) => void, centerLatitude: number, centerLongitude: number) {
-        this.infoDialogOpenCallback = infoDialogOpenCallback;
+    constructor(readonly infoDialogOpenCallback: (title: string, text: string, homePage: string) => void, centerLatitude: number, centerLongitude: number) {
         this.centerLatitude = centerLatitude;
         this.centerLongitude = centerLongitude;
     }
@@ -100,10 +99,10 @@ export class TileInfoBillboard {
         this.adtButton.background = this.billboardBackgroundColor;
         let __this = this;
         this.adtButton.onPointerUpObservable.add(function () {
-            alert(`Tile center coordinates are (${__this.centerLatitude}, ${__this.centerLongitude})`);
             let title = __this.titleText == null ? "" : __this.titleText;
-            __this.infoDialogOpenCallback(title, address);
+            __this.infoDialogOpenCallback(title, address, url);
         });
+
 
         this.adt.addControl(this.adtButton);
         this.verticalLine = new Line(scene);
@@ -128,7 +127,7 @@ export class TileInfoBillboard {
 
     }
     show(segment: string) {
-        let color = TileInfoBillboard.colorCache.getColorForString(segment);
+        let color = InfoBillboard.colorCache.getColorForString(segment);
         let textColor = getTextColor(color);
         this.billboardTextColor = textColor;
         this.billboardBackgroundColor = color;

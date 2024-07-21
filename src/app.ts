@@ -3,7 +3,7 @@ import * as BABYLON from "@babylonjs/core";
 import { TileData } from "./TileData";
 import { GlobalConfig } from "./GlobalConfig";
 import { Tiler } from "./tiles";
-import { TileInfoBillboard } from "./tileinfobillboard";
+import { InfoBillboard } from "./InfoBillboard";
 import locations from './companies.json';
 import tokyo from './tokyo.json';
 
@@ -18,14 +18,14 @@ export class App {
     moveLeft: boolean = false;
     moveUp: boolean = false;
     loadedTiles = new Map();
-    companyObjects: Array<TileInfoBillboard> = new Array<TileInfoBillboard>();
+    companyObjects: Array<InfoBillboard> = new Array<InfoBillboard>();
     cameraDefaultPosition: BABYLON.Vector3 = new BABYLON.Vector3(0, 0, 0);
     tiles: Array<TileData> = new Array<TileData>();
     globalConfig: GlobalConfig;
-    infoDialogOpenCallback: (title: string, text: string) => void;
+    infoDialogOpenCallback: (title: string, text: string, homePage: string) => void;
     public uniqueSegments: Set<string> = new Set<string>();
 
-    constructor(infoDialogOpenCallback: (title: string, text: string) => void) {
+    constructor(infoDialogOpenCallback: (title: string, text: string, homePage: string) => void) {
         this.globalConfig = new GlobalConfig("s", 19, true, 10, 10, 15500000, 4200000, true, (s) => { });
         this.infoDialogOpenCallback = infoDialogOpenCallback;
         var canvas = document.createElement("canvas");
@@ -112,7 +112,7 @@ export class App {
         let loc = locations;
         loc.locations.forEach((location) => {
             if (location.segments.includes(segment)) {
-                let tinfo = new TileInfoBillboard(this.infoDialogOpenCallback, location.location[0], location.location[1]);
+                let tinfo = new InfoBillboard(this.infoDialogOpenCallback, location.location[0], location.location[1]);
                 let meters = t.laloToMeters(location.location[0], location.location[1]);
                 let ox = this.globalConfig.offsetX - meters[0];
                 let oy = this.globalConfig.offsetY - meters[1];
@@ -126,7 +126,7 @@ export class App {
 
     clearBillboards() {
         this.companyObjects.forEach(t => t.dispose());
-        this.companyObjects = new Array<TileInfoBillboard>();
+        this.companyObjects = new Array<InfoBillboard>();
     }
 
 

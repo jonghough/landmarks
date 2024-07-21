@@ -75,6 +75,9 @@
         <v-card-title class="headline">{{ infoTitle }}</v-card-title>
         <v-card-text>{{ infoText }}</v-card-text>
         <v-card-actions>
+          <v-btn color="primary" @click="openUrl(infoHomePage)"
+            >Go to home page</v-btn
+          >
           <v-spacer></v-spacer>
           <v-btn color="primary" @click="infoDialog = false">Close</v-btn>
         </v-card-actions>
@@ -97,12 +100,16 @@ let dialog = ref<boolean>(true);
 let infoDialog = ref<boolean>(false);
 let infoTitle = ref<string>("");
 let infoText = ref<string>("");
+let infoHomePage = ref<string>("");
+
 let app: App | null = null;
 onMounted(() => {
   app = new App(showInfoDialog);
   items1.value = Array.from(app.uniqueSegments);
 });
-
+function openUrl(url: string) {
+  window.open(url, "__blank");
+}
 function clickSegment(item: string) {
   app?.selectBySegment(item);
 }
@@ -115,10 +122,11 @@ function refreshTiles(item: string) {
   app?.refreshTiles(item);
 }
 
-function showInfoDialog(title: string, text: string) {
+function showInfoDialog(title: string, text: string, homePage: string) {
   infoDialog.value = true;
   infoText.value = text;
   infoTitle.value = title;
+  infoHomePage.value = homePage;
 }
 </script>
 
