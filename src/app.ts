@@ -26,7 +26,7 @@ export class App {
     public uniqueSegments: Set<string> = new Set<string>();
 
     constructor(infoDialogOpenCallback: (title: string, text: string, homePage: string) => void) {
-        this.globalConfig = new GlobalConfig("s", 19, true, 10, 10, 15500000, 4200000, true, (s) => { });
+        this.globalConfig = new GlobalConfig("s", 15, true, 5, 5, 15500000, 4200000, true, (s) => { });
         this.infoDialogOpenCallback = infoDialogOpenCallback;
         var canvas = document.createElement("canvas");
         canvas.style.width = "100%";
@@ -57,27 +57,30 @@ export class App {
 
 
         let t = new Tiler();
-        // hardcoded "center" of Tokyo.
-        // TODO make variable...
-        let b = t.laloToTile(35.690838971083906, 139.7271607570098, 15);
+        let [[minLat, minLon], [maxLat, maxLon]] = this.getLocationBounds()
+        let m00 = t.laloToTile(minLat, minLon, this.globalConfig.xyzTileZoomLevel);
+        let m11 = t.laloToTile(maxLat, maxLon, this.globalConfig.xyzTileZoomLevel);
 
-        for (var i = -10; i < 10; i++) {
-            for (var j = -10; j < 10; j++) {
-                let td = new TileData("", this.globalConfig, new Tiler(), b[0] + i, b[1] + j, 15);
+
+        for (var i = m00[0]; i < m11[0] + 1; i++) {
+            for (var j = m00[1]; j < m11[1] + 1; j++) {
+
+                let td = new TileData("", this.globalConfig, new Tiler(), i, j, this.globalConfig.xyzTileZoomLevel);
 
                 td.setupTileBoundaryLines(this.scene);
                 this.tiles.push(td);
                 let bounds = td.ndsTileBounds;
-                if (i == 0 && j == 0) {
+                if (i == Math.floor((m11[0] + m00[0]) / 2) && j == Math.floor((m11[1] + m00[1]) / 2)) {
                     this.camera.position.x = this.globalConfig.offsetX - bounds[0];
                     this.camera.position.y = 500;
                     this.camera.position.z = this.globalConfig.offsetY - bounds[1] - 100;
                     this.cameraDefaultPosition = this.camera.position.clone();
                 }
+
             }
         }
 
-        let loc = locations;
+
 
 
         let tok = tokyo;
@@ -100,11 +103,29 @@ export class App {
 
         this.uniqueSegments = new Set<string>();
 
+        let loc = locations;
         loc.locations.forEach((location: { name: string; segments: string[] }) => {
             location.segments.forEach((segment: string) => {
                 this.uniqueSegments.add(segment);
             });
         });
+    }
+
+
+    getLocationBounds() {
+        let loc = locations;
+        let minLat = Infinity;
+        let maxLat = -Infinity;
+        let minLon = Infinity;
+        let maxLon = -Infinity;
+        loc.locations.forEach(l => {
+            const [lat, lon] = l.location;
+            if (lat < minLat) minLat = lat;
+            if (lat > maxLat) maxLat = lat;
+            if (lon < minLon) minLon = lon;
+            if (lon > maxLon) maxLon = lon;
+        });
+        return [[minLat, minLon], [maxLat, maxLon]]
     }
 
     createBySegment(segment: string) {
