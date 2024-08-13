@@ -96,6 +96,7 @@ export class InfoBillboard {
         this.adtButton.height = 0.5;
         this.adtButton.color = this.billboardTextColor;
         this.adtButton.fontSize = 150;
+        this.adtButton.fontFamily = "Garamond";
         this.adtButton.background = this.billboardBackgroundColor;
         let __this = this;
         this.adtButton.onPointerUpObservable.add(function () {

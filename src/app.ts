@@ -26,7 +26,7 @@ export class App {
     public uniqueSegments: Set<string> = new Set<string>();
 
     constructor(infoDialogOpenCallback: (title: string, text: string, homePage: string) => void) {
-        this.globalConfig = new GlobalConfig("s", 15, true, 5, 5, 15500000, 4200000, true, (s) => { });
+        this.globalConfig = new GlobalConfig("s", 12, true, 5, 5, 15500000, 4200000, true, (s) => { });
         this.infoDialogOpenCallback = infoDialogOpenCallback;
         var canvas = document.createElement("canvas");
         canvas.style.width = "100%";
@@ -65,7 +65,7 @@ export class App {
         for (var i = m00[0]; i < m11[0] + 1; i++) {
             for (var j = m00[1]; j < m11[1] + 1; j++) {
 
-                let td = new TileData("", this.globalConfig, new Tiler(), i, j, this.globalConfig.xyzTileZoomLevel);
+                let td = new TileData("", this.globalConfig, new Tiler(), i, j, -1, this.globalConfig.xyzTileZoomLevel);
 
                 td.setupTileBoundaryLines(this.scene);
                 this.tiles.push(td);
@@ -80,9 +80,10 @@ export class App {
             }
         }
 
-
-
-
+        let mxx = t.laloToTile(35.64235879570655, 139.71347778350273, this.globalConfig.xyzTileZoomLevel + 5);
+        let tdx = new TileData("", this.globalConfig, new Tiler(), mxx[0], mxx[1], 30, this.globalConfig.xyzTileZoomLevel + 5);
+        tdx.setupTileBoundaryLines(this.scene);
+        this.tiles.push(tdx);
         let tok = tokyo;
         tok.features.forEach(f => {
             let coords = f.geometry.coordinates;

@@ -21,7 +21,7 @@ export class TileData {
     public ndsTileBounds: number[] = [];
 
     constructor(
-        readonly tileName: string, readonly globalConfig: GlobalConfig, readonly tiler: Tiler, readonly x: number, readonly y: number, readonly xyzTileZoomLevel: number) {
+        readonly tileName: string, readonly globalConfig: GlobalConfig, readonly tiler: Tiler, readonly x: number, readonly y: number, readonly elevation: number, readonly xyzTileZoomLevel: number) {
     }
 
     /**
@@ -34,25 +34,25 @@ export class TileData {
         let bounds = this.tiler.tileBoundsin3857(this.x, this.y, this.xyzTileZoomLevel);
 
         let shiftedBounds = [
-            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], 0, this.globalConfig.offsetY - bounds[1]),
-            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], 0, this.globalConfig.offsetY - bounds[1]),
-            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], 0, this.globalConfig.offsetY - bounds[3]),
-            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], 0, this.globalConfig.offsetY - bounds[3]),
-            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], 0, this.globalConfig.offsetY - bounds[1]),
+            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], this.elevation, this.globalConfig.offsetY - bounds[1]),
+            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], this.elevation, this.globalConfig.offsetY - bounds[1]),
+            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], this.elevation, this.globalConfig.offsetY - bounds[3]),
+            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], this.elevation, this.globalConfig.offsetY - bounds[3]),
+            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], this.elevation, this.globalConfig.offsetY - bounds[1]),
         ];
 
         const boundsgrid = {
             points: shiftedBounds,
             updatable: true,
         };
-        let boundaryLines = BABYLON.MeshBuilder.CreateLines("lines_" + this.tileName, boundsgrid, scene);
-        boundaryLines.color = new BABYLON.Color3(1, 1, 1);
+        // let boundaryLines = BABYLON.MeshBuilder.CreateLines("lines_" + this.tileName, boundsgrid, scene);
+        // boundaryLines.color = new BABYLON.Color3(1, 1, 1);
 
 
-        this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], 0, this.globalConfig.offsetY - bounds[1]));
-        this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], 0, this.globalConfig.offsetY - bounds[1]));
-        this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], 0, this.globalConfig.offsetY - bounds[3]));
-        this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], 0, this.globalConfig.offsetY - bounds[3]));
+        this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], this.elevation, this.globalConfig.offsetY - bounds[1]));
+        this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], this.elevation, this.globalConfig.offsetY - bounds[1]));
+        this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], this.elevation, this.globalConfig.offsetY - bounds[3]));
+        this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], this.elevation, this.globalConfig.offsetY - bounds[3]));
 
         this.tileBounds.forEach(v => {
             this.tileCenterOfGravity.x += v.x / 4;
@@ -75,10 +75,10 @@ export class TileData {
         let subSquareTileXYsr = centersOfGr.map(c => this.tiler.metersToTile(c[0], c[1], tileZoom));
         let subSquaresVecr = tileSquares.map(sq => {
             let tb = [];
-            tb.push(new BABYLON.Vector3(this.globalConfig.offsetX - sq[0], 0, this.globalConfig.offsetY - sq[1]));
-            tb.push(new BABYLON.Vector3(this.globalConfig.offsetX - sq[2], 0, this.globalConfig.offsetY - sq[1]));
-            tb.push(new BABYLON.Vector3(this.globalConfig.offsetX - sq[2], 0, this.globalConfig.offsetY - sq[3]));
-            tb.push(new BABYLON.Vector3(this.globalConfig.offsetX - sq[0], 0, this.globalConfig.offsetY - sq[3]));
+            tb.push(new BABYLON.Vector3(this.globalConfig.offsetX - sq[0], this.elevation, this.globalConfig.offsetY - sq[1]));
+            tb.push(new BABYLON.Vector3(this.globalConfig.offsetX - sq[2], this.elevation, this.globalConfig.offsetY - sq[1]));
+            tb.push(new BABYLON.Vector3(this.globalConfig.offsetX - sq[2], this.elevation, this.globalConfig.offsetY - sq[3]));
+            tb.push(new BABYLON.Vector3(this.globalConfig.offsetX - sq[0], this.elevation, this.globalConfig.offsetY - sq[3]));
             return tb;
         });
 

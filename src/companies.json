@@ -90,7 +90,7 @@
       "location": [35.66571813600605, 139.70264832425727],
 
       "address": "〒150-0001 Tokyo, Shibuya City, Jingūmae, 6-chōme−25−16",
-      "segments": ["internet services"],
+      "segments": ["internet services", "news"],
       "homepage": "https://www.smartnews.com/en"
     },
     {
@@ -822,7 +822,7 @@
       "homepage": "https://coursebase.co/"
     },
     {
-      "name": "Revcomm",
+      "name": "RevComm",
       "location": [35.66200447753222, 139.70597239726933],
       "address": "〒150-0002 Tokyo, Shibuya City, Shibuya, 1 Chome−3−9 ヒューリック渋谷一丁目ビル7階",
       "segments": ["internet services", "communication"],
@@ -862,6 +862,200 @@
       "address": "〒106-0032 Tokyo, Minato City, Roppongi, 1 Chome−6−1 泉ガーデンタワ 29F",
       "segments": ["geospatial", "artificial intelligence"],
       "homepage": "https://www.earthbrain.com/"
+    },
+    {
+      "name": "Cisco Systems G.K.",
+      "location": [35.666384183918346, 139.73044974117343],
+      "address": "〒107-0052 Tokyo, Minato City, Akasaka, 9 Chome−7−1 21F Midtown Tower",
+      "segments": ["business software", "consulting", "networking equipment"],
+      "homepage": "https://cisco.com/"
+    },
+    {
+      "name": "Intel Japan",
+      "location": [35.67693265353997, 139.76135417185336],
+      "address": "Kokusai Building, 5F, 3 Chome-1-1 Marunouchi, Chiyoda City, Tokyo 100-0005",
+      "segments": ["semiconductors", "business software"],
+      "homepage": "http://www.intel.co.jp/content/www/jp/ja/company-overview/map-tokyo-e.html"
+    },
+    {
+      "name": "Mapbox Japan G.K.",
+      "location": [35.66868475990422, 139.75064265466858],
+      "address": "1 Chome-10-5 Toranomon, Minato City, Tokyo 105-0001",
+      "segments": ["business software", "geospatial"],
+      "homepage": "https://mapbox.jp/"
+    },
+    {
+      "name": "Bloomberg Japan",
+      "location": [35.68132499722563, 139.7638034816596],
+      "address": "2 Chome-4-1 Marunouchi, Chiyoda City, Tokyo 100-0005",
+      "segments": [
+        "business software",
+        "news",
+        "finance & insurance",
+        "internet services"
+      ],
+      "homepage": "http://about.bloomberg.co.jp/"
+    },
+    {
+      "name": "Reaktor Japan",
+      "location": [35.64398274347511, 139.71569099699792],
+      "address": "Sreed EBISU 2, 4F, 3 Chome-28-2 Ebisu, Shibuya City, Tokyo 150-0013",
+      "segments": ["consulting"],
+      "homepage": "https://www.reaktor.com/ja-jp"
+    },
+    {
+      "name": "Splunk",
+      "location": [35.68708039657029, 139.7627707546694],
+      "address": "〒100-0004 Tokyo, Chiyoda City, Ōtemachi, 1 Chome−1−1, パークビルディング, 8F",
+      "segments": ["business software", "internet services"],
+      "homepage": "https://www.splunk.com/ja_jp"
+    },
+    {
+      "name": "Unity Technologies",
+      "location": [35.66973036996764, 139.76408500484843],
+      "address": "〒104-0061 Tokyo, Chuo City, Ginza, 6 Chome−10−1 GINZA SIX 8F",
+      "segments": ["games & entertainment"],
+      "homepage": "https://unity.com/ja"
+    },
+    {
+      "name": "Neural Group",
+      "location": [35.67576870282944, 139.75977405833336],
+      "address": "〒100-0006 Tokyo, Chiyoda City, Yurakucho, 1 Chome−1−2 東京ミッドタウン日比谷 日比谷三井タワー32階",
+      "segments": ["artificial intelligence"],
+      "homepage": "https://www.neural-group.com/"
+    },
+    {
+      "name": "estie",
+      "location": [35.665385502500506, 139.73133085466858],
+      "address": "〒107-0052 Tokyo, Minato City, Akasaka, 9 Chome−7−2 東京ミッドタウン・イースト 4F",
+      "segments": ["real estate"],
+      "homepage": "https://www.estie.jp/corp/"
+    },
+    {
+      "name": "Ascent Robotics",
+      "location": [35.648686257296234, 139.71700753932816],
+      "address": "〒150-0012 Tokyo, Shibuya City, Hiroo, 1 Chome−10−5 テック広尾",
+      "segments": ["robotics", "geospatial"],
+      "homepage": "http://www.ascent.ai/"
+    },
+    {
+      "name": "Logly",
+      "location": [35.64810417350209, 139.71313144351555],
+      "address": "〒150-0013 Tokyo, Shibuya City, Ebisu, 1 Chome−19−15 ウノサワ東急ビル",
+      "segments": ["advertising", "marketing", "internet services"],
+      "homepage": "https://corp.logly.co.jp/"
+    },
+    {
+      "name": "AdInnovation",
+      "location": [35.64350396917397, 139.69969163932814],
+      "address": "〒153-0051 Tokyo, Meguro City, Kamimeguro, 2 Chome−9−1, Nakameguro Gs Bld. No.1, 6F",
+      "segments": ["advertising", "marketing", "internet services"],
+      "homepage": "http://adinnovation.co.jp/"
+    },
+    {
+      "name": "BitBank",
+      "location": [35.62440626428223, 139.7178659483074],
+      "address": "〒141-0031 東京都品川区西五反田7丁目20-9 KDX西五反田ビル7F",
+      "segments": ["fintech"],
+      "homepage": "https://bitbank.cc/"
+    },
+    {
+      "name": "bitgrit, inc",
+      "location": [35.657730537176754, 139.69669626668653],
+      "address": "〒153-0051 Tokyo, Meguro City, Kamimeguro, 3 Chome−4−3 小金井ビル 4F",
+      "segments": ["fintech"],
+      "homepage": "https://bitgrit.net/"
+    },
+    {
+      "name": "iChain",
+      "location": [35.67093701086499, 139.75056191049418],
+      "address": "〒100-0013 Tokyo, Chiyoda City, Kasumigaseki, 1 Chome−4−1, Nittochi Bldg., 2F",
+      "segments": ["fintech"],
+      "homepage": "https://www.ichain.co.jp/"
+    },
+    {
+      "name": "Elephantech",
+      "location": [35.67450172913944, 139.7738863835037],
+      "address": "4 Chome-3-8 Hatchobori, Chuo City, Tokyo 104-0032",
+      "segments": ["manufacturing", "consumer hardware"],
+      "homepage": "https://www.elephantech.co.jp/"
+    },
+    {
+      "name": "WAmazing",
+      "location": [35.70437397858531, 139.78782989884456],
+      "address": "〒111-0055 Tokyo, Taito City, Misuji, 1 Chome−17−12 長沼ビル 201",
+      "segments": ["travel"],
+      "homepage": "https://corp.wamazing.com/"
+    },
+    {
+      "name": "Cardio Intelligence",
+      "location": [35.65591508111921, 139.7447786835031],
+      "address": "〒106-0044 Tokyo, Minato City, Higashiazabu, 1 Chome−25−5 Vort麻布イースト 2階",
+      "segments": ["medical", "artificial intelligence"],
+      "homepage": "http://cardio-i.com/"
+    },
+    {
+      "name": "Monstar Lab",
+      "location": [35.65029205361553, 139.71263098350312],
+      "address": "恵比寿プライムスクエア 4F, 1 Chome-1-39 Hiroo, Shibuya City, Tokyo 150-0012",
+      "segments": ["fintech"],
+      "homepage": "https://monstar-lab.com/"
+    },
+    {
+      "name": "Kyocera SOC",
+      "location": [35.50939074802169, 139.55322154034604],
+      "address": "1 Chome-22-1 Hakusan, Midori Ward, Yokohama, Kanagawa 226-0006",
+      "segments": ["manufacturing"],
+      "homepage": "https://www.ksoc.co.jp/"
+    },
+    {
+      "name": "Keyence",
+      "location": [35.65747355360478, 139.34270540091987],
+      "address": "〒192-0046 Tokyo, Hachioji, Myojincho, 3 Chome−20−6 八王子ファーストスクエア",
+      "segments": ["manufacturing", "hardware"],
+      "homepage": "https://www.keyence.co.jp/support/japan/network.jsp"
+    },
+    {
+      "name": "Xica",
+      "location": [35.665761385210516, 139.7380947239889],
+      "address": "〒106-0032 Tokyo, Minato City, Roppongi, 3 Chome−1−1 14F",
+      "segments": ["internet services", "advertising", "marketing"],
+      "homepage": "https://xica.net/"
+    },
+    {
+      "name": "Kyash",
+      "location": [35.672756370696554, 139.7227871835036],
+      "address": "〒107-0061 東京都港区北青山1−2−3 青山ビル12F",
+      "segments": ["fintech"],
+      "homepage": "https://www.kyash.co/"
+    },
+    {
+      "name": "Acomo",
+      "location": [35.70174589831009, 139.56135301049514],
+      "address": "3 Chome-27-1 Shimorenjaku, Mitaka, Tokyo 181-0013",
+      "segments": ["travel"],
+      "homepage": "http://www.acomo-inc.co.jp/"
+    },
+    {
+      "name": "EDGEMATRIX",
+      "location": [35.65088400891558, 139.70757894618572],
+      "address": "Cat, 2 Chome-3-16 Ebisunishi, Shibuya City, Tokyo 150-0021",
+      "segments": ["artificial intelligence"],
+      "homepage": "https://edgematrix.com/"
+    },
+    {
+      "name": "Jij",
+      "location": [35.71838512957035, 139.7646688970004],
+      "address": "〒113-0031 Tokyo, Bunkyo City, Nezu, 1 Chome−4−6 ＳＢビル 7F",
+      "segments": ["consulting", "artificial intelligence"],
+      "homepage": "https://www.j-ij.com/"
+    },
+    {
+      "name": "CrowdWorks",
+      "location": [35.642463423696945, 139.71332757981352],
+      "address": "〒150-6006 Tokyo, Shibuya City, Ebisu, 4 Chome−20−3 ガーデンプレイスタワ 6F",
+      "segments": ["internet services", "outsourcing"],
+      "homepage": "https://crowdworks.co.jp/"
     }
   ]
 }
