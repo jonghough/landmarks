@@ -174,7 +174,7 @@
       "name": "bitFlyer",
       "location": [35.66641461676593, 139.73134893966358],
       "address": "Midtown Tower, 9 Chome-7-1 Akasaka, Minato City, Tokyo 107-6208",
-      "segments": ["fintech"],
+      "segments": ["fintech", "blockchain"],
       "homepage": "https://bitflyer.com/ja-jp"
     },
     {
@@ -963,14 +963,14 @@
       "name": "bitgrit, inc",
       "location": [35.657730537176754, 139.69669626668653],
       "address": "〒153-0051 Tokyo, Meguro City, Kamimeguro, 3 Chome−4−3 小金井ビル 4F",
-      "segments": ["fintech"],
+      "segments": ["fintech", "blockchain"],
       "homepage": "https://bitgrit.net/"
     },
     {
       "name": "iChain",
       "location": [35.67093701086499, 139.75056191049418],
       "address": "〒100-0013 Tokyo, Chiyoda City, Kasumigaseki, 1 Chome−4−1, Nittochi Bldg., 2F",
-      "segments": ["fintech"],
+      "segments": ["fintech", "blockchain"],
       "homepage": "https://www.ichain.co.jp/"
     },
     {
@@ -1056,6 +1056,356 @@
       "address": "〒150-6006 Tokyo, Shibuya City, Ebisu, 4 Chome−20−3 ガーデンプレイスタワ 6F",
       "segments": ["internet services", "outsourcing"],
       "homepage": "https://crowdworks.co.jp/"
+    },
+    {
+      "name": "TrustDock",
+      "location": [35.67717628108582, 139.7684966207662],
+      "address": "〒104-0031 Tokyo, Chuo City, Kyobashi, 3 Chome−1−1 WeWork東京スクエアガーデン",
+      "segments": ["fintech"],
+      "homepage": "https://biz.trustdock.io/"
+    },
+    {
+      "name": "Mitsubishi Electric",
+      "location": [35.679301885257274, 139.7652350526578],
+      "address": "2 Chome-7-3 Marunouchi, Chiyoda City, Tokyo 100-8310",
+      "segments": ["hardware", "consumer hardware"],
+      "homepage": "http://www.mitsubishielectric.co.jp/"
+    },
+    {
+      "name": "CASIO",
+      "location": [35.68163189504056, 139.68460046364714],
+      "address": "1 Chome-6-2 Honmachi, Shibuya City, Tokyo 151-0071",
+      "segments": ["consumer hardware"],
+      "homepage": "https://casio.jp/"
+    },
+    {
+      "name": "RICOH",
+      "location": [35.60040301246186, 139.70625448410217],
+      "address": "〒143-0027 Tokyo, Ota City, Nakamagome, 1 Chome−3−6 リコー大森事業所",
+      "segments": ["consumer hardware", "hardware"],
+      "homepage": "https://www.ricoh.co.jp/"
+    },
+    {
+      "name": "RICOH",
+      "location": [35.60040301246186, 139.70625448410217],
+      "address": "〒143-0027 Tokyo, Ota City, Nakamagome, 1 Chome−3−6 リコー大森事業所",
+      "segments": ["consumer hardware", "hardware"],
+      "homepage": "https://www.ricoh.co.jp/"
+    },
+    {
+      "name": "Appian Japan",
+      "location": [35.67814078975823, 139.76688831049427],
+      "address": "Level 8, 1 Chome-11-1 Marunouchi, Chiyoda City, Tokyo 100-0005",
+      "segments": ["consulting", "internet services", "business software"],
+      "homepage": "https://appian.com/jp.html"
+    },
+    {
+      "name": "Murata Manufacturing",
+      "location": [35.6580490888554, 139.70366719125224],
+      "address": "3 Chome-29-12 Shibuya, Shibuya City, Tokyo 150-0002",
+      "segments": ["hardware"],
+      "homepage": "http://www.murata.com/ja-jp/about/company/muratalocations/japan/tokyo/overview"
+    },
+    {
+      "name": "Incredibuild",
+      "location": [35.659396898414, 139.7142358239888],
+      "address": "6 Chome-14-11 Minamiaoyama, Minato City, Tokyo 107-0062",
+      "segments": ["business software", "internet services"],
+      "homepage": "https://www.incredibuild.com/ja"
+    },
+    {
+      "name": "RESTAR",
+      "location": [35.67233373855712, 139.75068097535473],
+      "address": "〒105-0001 Tokyo, Minato City, Toranomon, 1 Chome−10−5, KDX Toranomon 1-Chome Building, 11F",
+      "segments": ["real estate"],
+      "homepage": "https://www.restar-inc.com/"
+    },
+    {
+      "name": "AI Inside",
+      "location": [35.657688901956924, 139.70421308350328],
+      "address": "〒150-0002 Tokyo, Shibuya City, Shibuya, 3 Chome−8−12 渋谷第一生命ビルディング 4階",
+      "segments": ["artificial intelligence", "business software"],
+      "homepage": "https://inside.ai/"
+    },
+    {
+      "name": "Uzabase",
+      "location": [35.68078524538393, 139.76373592500624],
+      "address": "〒100-0005 Tokyo, Chiyoda City, Marunouchi, 2 Chome−5−2, Mitsubishi Building, 1階",
+      "segments": ["business software", "internet services"],
+      "homepage": "https://www.uzabase.com/jp/"
+    },
+    {
+      "name": "Shippio",
+      "location": [35.65164714245882, 139.75786801049324],
+      "address": "〒105-0023 Tokyo, Minato City, Shibaura, 1 Chome−1−1, Hamamatsucho Building, 15F",
+      "segments": ["business software", "internet services"],
+      "homepage": "https://www.shippio.io/"
+    },
+    {
+      "name": "NABLA Mobility",
+      "location": [35.701447403205265, 139.74580963688243],
+      "address": "Nissan Building, 511 4 Chome-8-6 Iidabashi, Chiyoda City, Tokyo 102-0072",
+      "segments": ["geospatial", "automotive & mobility"],
+      "homepage": "https://www.nabla-mobility.com/"
+    },
+    {
+      "name": "Recursive",
+      "location": [35.66105522705188, 139.7064515565129],
+      "address": "Tokyo, Shibuya City, Shibuya, 1 Chome−7−番 6階 S-6ビル 1号",
+      "segments": ["artificial intelligence", "consulting"],
+      "homepage": "hhttp://recursiveai.co.jp/"
+    },
+    {
+      "name": "Net Smile",
+      "location": [35.707905057066334, 139.76476389884473],
+      "address": "〒113-0034 Tokyo, Bunkyo City, Yushima, 4 Chome−1−11 南山堂ビル3F",
+      "segments": ["artificial intelligence", "business software"],
+      "homepage": "http://netsmile.jp/"
+    },
+    {
+      "name": "Quollio Technologies",
+      "location": [35.68453307953448, 139.73380031474383],
+      "address": "〒102-0083 Tokyo, Chiyoda City, Kojimachi, 5 Chome−３−23 日テレ四谷ビル",
+      "segments": ["artificial intelligence"],
+      "homepage": "http://quollio.com/"
+    },
+    {
+      "name": "Two Sigma",
+      "location": [35.67036350645698, 139.7179032451317],
+      "address": "〒107-0062 Tokyo, Minato City, Minamiaoyama, 2 Chome−24, フォーラムビル",
+      "segments": ["fintech", "finance & insurance"],
+      "homepage": "https://www.twosigma.com/"
+    },
+    {
+      "name": "Infinity Vector",
+      "location": [35.657694440770285, 139.69693985466844],
+      "address": "〒150-0043 Tokyo, Shibuya City, Dogenzaka, 1 Chome−18−3, Premier-Dogenzaka Bldg., 6階",
+      "segments": ["games & entertainment"],
+      "homepage": "https://www.infinityvector.com/jp/about/"
+    },
+    {
+      "name": "nanameue",
+      "location": [35.664919469771775, 139.74336756816385],
+      "address": "〒105-6020 Tokyo, Minato City, Toranomon, 4 Chome−3−1, Shiroyama Trust Tower, 20階",
+      "segments": ["internet services"],
+      "homepage": "http://nanameue.jp/"
+    },
+    {
+      "name": "Liberont",
+      "location": [35.61511281222322, 139.73103581049216],
+      "address": "〒141-0033 東京都品川区西品川1丁目1−1 住友不動産大崎ガーデンタワー 9階",
+      "segments": ["retail"],
+      "homepage": "https://liberont.com/"
+    },
+    {
+      "name": "Lunaris",
+      "location": [35.706160061643956, 139.5775321663205],
+      "address": "〒180-0004 Tokyo, Musashino, Kichijoji Honcho, 2 Chome−14−27, T's Brightia Kichijoji II, 2階",
+      "segments": ["retail"],
+      "homepage": "http://teamlunaris.com/"
+    },
+    {
+      "name": "TableCheck",
+      "location": [35.671714536140406, 139.77109631233864],
+      "address": "〒104-0061 Tokyo, Chuo City, Ginza, 2 Chome−15−2, Kr Ginza II, 5F",
+      "segments": ["internet services"],
+      "homepage": "https://www.tablecheck.com/ja/join/"
+    },
+    {
+      "name": "MODE Inc",
+      "location": [35.69219990314111, 139.7763440566437],
+      "address": "101-0032 Tokyo, Chiyoda City, Iwamotocho, 1-3-9 KANDA HIKOBAE, 1F&2F",
+      "segments": ["artificial intelligence", "business software"],
+      "homepage": "http://www.tinkermode.jp/"
+    },
+    {
+      "name": "LiNKX",
+      "location": [35.69219990314111, 139.7763440566437],
+      "address": "〒105-0001 Tokyo, Minato City, Toranomon, 4 Chome−1−40 江戸見坂森ビル 8F",
+      "segments": ["consulting", "business software"],
+      "homepage": "https://www.linkx.dev/"
+    },
+    {
+      "name": "MeetsMore Inc",
+      "location": [35.666785550373646, 139.7655643816589],
+      "address": "〒104-0061 Tokyo, Chuo City, Ginza, 7 Chome−16−12 G-7 ビルディング 8F",
+      "segments": ["internet services"],
+      "homepage": "https://meetsmore.com/"
+    },
+    {
+      "name": "Panasonic",
+      "location": [35.66486368964034, 139.76371785764326],
+      "address": "〒104-0061 Tokyo, Chuo City, Ginza, 8 Chome−21−1 住友不動産汐留浜離宮ビル",
+      "segments": ["consumer hardware", "hardware"],
+      "homepage": "https://connect.panasonic.com/jp-ja/"
+    },
+    {
+      "name": "Sharp",
+      "location": [35.652686977372014, 139.75603535102897],
+      "address": "〒105-0023 Tokyo, Minato City, Shibaura, 1 Chome−2−2 アトリウム棟",
+      "segments": ["consumer hardware", "hardware"],
+      "homepage": "https://www.sharp.co.jp/corporate/info/base/"
+    },
+    {
+      "name": "Unipos",
+      "location": [35.66287572488089, 139.70903938537748],
+      "address": "〒150-0001 Tokyo, Shibuya City, Jingumae, 5 Chome−52−2 青山オーバルビル 7F",
+      "segments": ["business software"],
+      "homepage": "https://www.unipos.co.jp/"
+    },
+    {
+      "name": "FreakOut",
+      "location": [35.66097737729355, 139.72825913935745],
+      "address": "〒106-0032 Tokyo, Minato City, Roppongi, 6 Chome−3−1, Roppongi Hills Cross Point, 3F",
+      "segments": ["advertising", "marketing"],
+      "homepage": "https://www.fout.co.jp/"
+    },
+    {
+      "name": "Adways",
+      "location": [35.69578707904424, 139.6870786710463],
+      "address": "〒160-0023 Tokyo, Shinjuku City, Nishishinjuku, 5 Chome−1−1 住友不動産新宿ファーストタワ 5階",
+      "segments": ["advertising", "marketing"],
+      "homepage": "http://www.adways.net/"
+    },
+    {
+      "name": "Geniee",
+      "location": [35.69410555324608, 139.6904485951836],
+      "address": "〒163-6006 Tokyo, Shinjuku City, Nishishinjuku, 6 Chome−8−1 住友不動産新宿オークタワー6階",
+      "segments": ["advertising", "marketing"],
+      "homepage": "http://geniee.co.jp/"
+    },
+    {
+      "name": "Space Walker",
+      "location": [35.66514985274269, 139.75695565285275],
+      "address": "〒105-0004 Tokyo, Minato City, Shinbashi, 3 Chome−16−12, Yokoyama Bldg. No.1, 3F",
+      "segments": ["space", "geospatial"],
+      "homepage": "http://www.space-walker.co.jp/"
+    },
+    {
+      "name": "Tenchijin",
+      "location": [35.68283333754102, 139.77473047003804],
+      "address": "〒103-0027 Tokyo, Chuo City, Nihonbashi, 1 Chome−4−1 THE E.A.S.T. 日本橋一丁目 ROOM 13 Nihonbashi 1-chome Mitsui Building, 5階",
+      "segments": ["space", "geospatial"],
+      "homepage": "http://tenchijin.co.jp/"
+    },
+    {
+      "name": "ArkEdge Space",
+      "location": [35.63838379674326, 139.78779586282096],
+      "address": "〒135-0063 Tokyo, Koto City, Ariake, 1 Chome−3番33号 ドーム有明ヘッドクォーター 3階A",
+      "segments": ["space", "geospatial"],
+      "homepage": "https://arkedgespace.com/"
+    },
+    {
+      "name": "Aidea",
+      "location": [35.69069852192343, 139.70243003783804],
+      "address": "〒160-0022 Tokyo, Shinjuku City, Shinjuku, 4 Chome−1−6, Jr Shinjuku Mirainatower, 22階",
+      "segments": ["geospatial"],
+      "homepage": "https://aidea.biz/"
+    },
+    {
+      "name": "Spacedata",
+      "location": [35.69275373926128, 139.68880263099197],
+      "address": "6 Chome-15-1 Nishishinjuku, Shinjuku City, Tokyo 160-0023",
+      "segments": ["geospatial", "space"],
+      "homepage": "https://spacedata.ai/"
+    },
+    {
+      "name": "Yspace",
+      "location": [35.69275373926128, 139.68880263099197],
+      "address": "〒150-0043 Tokyo, Shibuya City, Dogenzaka, 1 Chome−10−8, Shibuya Dogenzaka Tokyu Bldg., 2F−C",
+      "segments": ["geospatial", "space"],
+      "homepage": "https://yspace.co.jp/"
+    },
+    {
+      "name": "PassPay",
+      "location": [35.65804943583211, 139.72747041049354],
+      "address": "東京都港区六本木7-7-7",
+      "segments": ["blockchain", "fintech"],
+      "homepage": "https://www.passpay.io/"
+    },
+    {
+      "name": "IGG Japan",
+      "location": [35.69435142660515, 139.69586675702948],
+      "address": "7 Chome-20-1 Nishishinjuku, Shinjuku City, Tokyo 160-0023",
+      "segments": ["games & entertainment"],
+      "homepage": "http://www.igg.jp/"
+    },
+    {
+      "name": "InstaVR",
+      "location": [35.66999816116335, 139.73967965054138],
+      "address": "〒107-0052 Tokyo, Minato City, Akasaka, 2 Chome−23−1 RoP 705 Ark Hills Front Tower",
+      "segments": ["games & entertainment", "business software"],
+      "homepage": "https://www.instavr.co.jp/"
+    },
+    {
+      "name": "Kyuzan",
+      "location": [35.658506331226086, 139.70222419515406],
+      "address": "〒150-6139 Tokyo, Shibuya City, Shibuya, 2 Chome−24−12 WeWork",
+      "segments": ["blockchain", "fintech"],
+      "homepage": "https://kyuzan.com/"
+    },
+    {
+      "name": "Nomura Securities",
+      "location": [35.687233953744375, 139.76797820206843],
+      "address": "2 Chome-2-2 Ōtemachi, Chiyoda City, Tokyo 100-0004",
+      "segments": ["finance & insurance"],
+      "homepage": "http://www.nomura.co.jp/"
+    },
+    {
+      "name": "Mizuho Financial Group",
+      "location": [35.684634364802804, 139.76410630902222],
+      "address": "1 Chome-3-3 Marunouchi, Chiyoda City, Tokyo 100-0005",
+      "segments": ["finance & insurance"],
+      "homepage": "http://www.mizuho-fg.co.jp/"
+    },
+    {
+      "name": "Skyscanner Japan",
+      "location": [35.669712694001156, 139.71576922337994],
+      "address": "2 Chome-14-4 Kita-Aoyama, Minato City, Tokyo 107-0061",
+      "segments": ["internet services", "retail", "travel"],
+      "homepage": "https://www.skyscanner.jp/"
+    },
+    {
+      "name": "LEOMO",
+      "location": [35.622090875766794, 139.7190304104925],
+      "address": "〒141-0031 Tokyo, Shinagawa City, Nishigotanda, 7 Chome−22−17, Toc Building, 7F",
+      "segments": ["internet services"],
+      "homepage": "https://www.leomo.io/"
+    },
+    {
+      "name": "Avanade",
+      "location": [35.66478312039265, 139.7394974393288],
+      "address": "〒106-0032 Tokyo, Minato City, Roppongi, 1 Chome−6−1 泉ガーデンタワ 9F",
+      "segments": ["consulting"],
+      "homepage": "https://www.avanade.com/ja-jp"
+    },
+    {
+      "name": "La belle vie",
+      "location": [35.67444068956651, 139.72988790988578],
+      "address": "〒107-0052 Tokyo, Minato City, Akasaka, 7 Chome−1−16 オーク赤坂ビル 5F",
+      "segments": ["retail"],
+      "homepage": "https://gladd.jp/"
+    },
+    {
+      "name": "Soft Gear",
+      "location": [37.21614756889503, 139.80213266775655],
+      "address": "〒160-0022 Tokyo, Shinjuku City, Shinjuku, 1 Chome−28−11 小杉ビル 7F",
+      "segments": ["games & entertainment", "consulting", "internet services"],
+      "homepage": "https://www.soft-gear.co.jp/"
+    },
+    {
+      "name": "Akatsuki",
+      "location": [35.63490554839666, 139.71813268165772],
+      "address": "〒141-0021 東京都品川区上大崎2-13-30 oak meguro 8階",
+      "segments": ["games & entertainment", "internet services"],
+      "homepage": "https://aktsk.jp/"
+    },
+    {
+      "name": "Mynet",
+      "location": [35.671796520121504, 139.71462576816387],
+      "address": "〒107-0061 Tokyo, Minato City, Kita-Aoyama, 2 Chome−11−3 A-Place 青山",
+      "segments": ["games & entertainment", "internet services"],
+      "homepage": "https://www.mynet.co.jp/"
     }
   ]
 }

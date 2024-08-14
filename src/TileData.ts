@@ -22,6 +22,7 @@ export class TileData {
 
     constructor(
         readonly tileName: string, readonly globalConfig: GlobalConfig, readonly tiler: Tiler, readonly x: number, readonly y: number, readonly elevation: number, readonly xyzTileZoomLevel: number) {
+        this.tileSet = globalConfig.xyzTileSet;
     }
 
     /**

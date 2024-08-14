@@ -9,6 +9,7 @@ import tokyo from './tokyo.json';
 import tokyoRoads from './tokyo_roads.json';
 import tokyoRail from './tokyo_rail.json';
 import { TileCache } from "./TileCache";
+import { ScreenText } from "./ScreenText";
 
 
 export class App {
@@ -27,9 +28,11 @@ export class App {
     globalConfig: GlobalConfig;
     infoDialogOpenCallback: (title: string, text: string, homePage: string) => void;
     public uniqueSegments: Set<string> = new Set<string>();
-    tileCache: TileCache = new TileCache(150);
+    tileCache: TileCache = new TileCache(300);
+    screenText: ScreenText;
+
     constructor(infoDialogOpenCallback: (title: string, text: string, homePage: string) => void) {
-        this.globalConfig = new GlobalConfig("s", 12, true, 3.5, 5, 15500000, 4200000, true, (s) => { });
+        this.globalConfig = new GlobalConfig("s", 12, true, 1.5, 5, 15500000, 4200000, true, (s) => { });
         this.infoDialogOpenCallback = infoDialogOpenCallback;
         var canvas = document.createElement("canvas");
         canvas.style.width = "100%";
@@ -60,28 +63,28 @@ export class App {
 
 
         let t = new Tiler();
-        let [[minLat, minLon], [maxLat, maxLon]] = this.getLocationBounds()
-        let m00 = t.laloToTile(minLat, minLon, this.globalConfig.xyzTileZoomLevel);
-        let m11 = t.laloToTile(maxLat, maxLon, this.globalConfig.xyzTileZoomLevel);
+        // let [[minLat, minLon], [maxLat, maxLon]] = this.getLocationBounds()
+        // let m00 = t.laloToTile(minLat, minLon, this.globalConfig.xyzTileZoomLevel);
+        // let m11 = t.laloToTile(maxLat, maxLon, this.globalConfig.xyzTileZoomLevel);
 
+        this.setCenterPosition();
+        // for (var i = m00[0]; i < m11[0] + 1; i++) {
+        //     for (var j = m00[1]; j < m11[1] + 1; j++) {
 
-        for (var i = m00[0]; i < m11[0] + 1; i++) {
-            for (var j = m00[1]; j < m11[1] + 1; j++) {
+        //         let td = new TileData("", this.globalConfig, new Tiler(), i, j, -1, this.globalConfig.xyzTileZoomLevel);
 
-                let td = new TileData("", this.globalConfig, new Tiler(), i, j, -1, this.globalConfig.xyzTileZoomLevel);
+        //         td.setupTileBoundaryLines(this.scene);
+        //         this.tiles.push(td);
+        //         let bounds = td.ndsTileBounds;
+        //         if (i == Math.floor((m11[0] + m00[0]) / 2) && j == Math.floor((m11[1] + m00[1]) / 2)) {
+        //             this.camera.position.x = this.globalConfig.offsetX - bounds[0];
+        //             this.camera.position.y = 500;
+        //             this.camera.position.z = this.globalConfig.offsetY - bounds[1] - 100;
+        //             this.cameraDefaultPosition = this.camera.position.clone();
+        //         }
 
-                td.setupTileBoundaryLines(this.scene);
-                this.tiles.push(td);
-                let bounds = td.ndsTileBounds;
-                if (i == Math.floor((m11[0] + m00[0]) / 2) && j == Math.floor((m11[1] + m00[1]) / 2)) {
-                    this.camera.position.x = this.globalConfig.offsetX - bounds[0];
-                    this.camera.position.y = 500;
-                    this.camera.position.z = this.globalConfig.offsetY - bounds[1] - 100;
-                    this.cameraDefaultPosition = this.camera.position.clone();
-                }
-
-            }
-        }
+        //     }
+        // }
 
         // let mxx = t.laloToTile(35.64235879570655, 139.71347778350273, this.globalConfig.xyzTileZoomLevel + 4);
         // let tdx = new TileData("", this.globalConfig, new Tiler(), mxx[0], mxx[1], 30, this.globalConfig.xyzTileZoomLevel + 4);
@@ -100,6 +103,29 @@ export class App {
                 this.uniqueSegments.add(segment);
             });
         });
+
+        this.screenText = new ScreenText(this.globalConfig, () => { return this.getCameraPosition(); });
+    }
+    getCameraPosition(): number[] | null {
+        if (this.globalConfig.offsetSet) {
+            var pos = this.camera.position;
+            var pos3857x = this.globalConfig.offsetX - pos.x;
+            var pos3857z = this.globalConfig.offsetY - pos.z;
+            var lalo = new Tiler().metersToLalo(pos3857x, pos3857z);
+            return [lalo[0], pos.y, lalo[1]];
+        }
+        return null;
+    }
+
+    setCenterPosition() {
+        let lat = 35.685247972844635;
+        let lon = 139.75274474466545;
+        let t = new Tiler();
+        let meters = t.laloToMeters(lat, lon);
+        this.camera.position.x = this.globalConfig.offsetX - meters[0];
+        this.camera.position.y = 500;
+        this.camera.position.z = this.globalConfig.offsetY - meters[1] - 100;
+        this.cameraDefaultPosition = this.camera.position.clone();
     }
 
     showTokyoBoundaries() {
@@ -225,26 +251,195 @@ export class App {
         this.camera.position = this.cameraDefaultPosition.clone();
     }
 
-    getZoomLevelForHeight(height: number, angle: number) {
+    checkPosition() {
+        let x = (this.cameraDefaultPosition.x - this.camera.position.x);
+        let y = (this.cameraDefaultPosition.z - this.camera.position.z);
+        let ox = (this.cameraDefaultPosition.x - this.globalConfig.offsetX);
+        let oy = (this.cameraDefaultPosition.z - this.globalConfig.offsetY);
+        let d = Math.sqrt((x * x) + (y * y));
+        console.log("distance " + d + ", " + this.camera.position);
+        if (d > 1e5) {
+            this.tileCache.clear();
+            let kx = this.globalConfig.offsetX - this.camera.position.x;
+            let ky = this.globalConfig.offsetY - this.camera.position.z;
 
+
+            this.camera.position.x = this.cameraDefaultPosition.x;
+            this.camera.position.z = this.cameraDefaultPosition.z;
+            this.cameraDefaultPosition = this.camera.position.clone();
+
+            this.globalConfig.offsetX = this.camera.position.x + kx;
+            this.globalConfig.offsetY = this.camera.position.z + ky;
+        }
+    }
+
+    getZoomLevelForHeight(height: number, angle: number) {
         if (height < 0) {
             return -1;
         }
-        if (height < 250 && angle > 75) {
-            return 19;
+        if (angle > 60) {
+            if (height < 300) {
+                return 19;
+            } else if (height < 500) {
+                return 18;
+            }
+            else if (height < 800) {
+                return 17;
+            } else if (height < 1600) {
+                return 16;
+            } else if (height < 3000) {
+                return 15;
+            } else if (height < 5000) {
+                return 14;
+            } else if (height < 9000) {
+                return 13;
+            } else if (height < 16000) {
+                return 12;
+            } else if (height < 30000) {
+                return 11;
+            } else if (height < 55000) {
+                return 10;
+            } else if (height < 80000) {
+                return 9;
+            } else if (height < 150000) {
+                return 8;
+            } else return 7;
         }
-        else if (height < 400 && angle > 30) {
-            return 18;
+
+        else if (angle > 30) {
+            if (height < 200) {
+                return 19;
+            } else if (height < 300) {
+                return 18;
+            }
+            else if (height < 500) {
+                return 17;
+            } else if (height < 800) {
+                return 16;
+            } else if (height < 1200) {
+                return 15;
+            } else if (height < 2200) {
+                return 14;
+            } else if (height < 4000) {
+                return 13;
+            } else if (height < 7000) {
+                return 12;
+            } else if (height < 16000) {
+                return 11;
+            } else if (height < 25000) {
+                return 10;
+            } else if (height < 47000) {
+                return 9;
+            } else if (height < 100000) {
+                return 8;
+            } else if (height < 160000) {
+                return 7;
+            } else return 6;
         }
-        else if (height < 1400 && angle > 25) {
-            return 17;
+
+        else if (angle > 5) {
+            if (height < 50) {
+                return 19;
+            } else if (height < 180) {
+                return 18;
+            }
+            else if (height < 400) {
+                return 17;
+            } else if (height < 600) {
+                return 16;
+            } else if (height < 800) {
+                return 15;
+            } else if (height < 1200) {
+                return 14;
+            } else if (height < 2000) {
+                return 13;
+            } else if (height < 5000) {
+                return 12;
+            } else if (height < 13000) {
+                return 11;
+            } else if (height < 20000) {
+                return 10;
+            } else if (height < 40000) {
+                return 9;
+            } else if (height < 80000) {
+                return 8;
+            } else if (height < 120000) {
+                return 7;
+            } else return 6;
         }
-        else if (height < 5000 && angle > 20) {
-            return 16;
-        } else if (height < 5000) {
-            return 15;
+        else {
+            if (height < 100) {
+                return 19;
+            } else if (height < 200) {
+                return 18;
+            }
+            else if (height < 400) {
+                return 17;
+            } else if (height < 600) {
+                return 16;
+            } else if (height < 800) {
+                return 15;
+            } else if (height < 1000) {
+                return 14;
+            } else if (height < 2000) {
+                return 13;
+            } else if (height < 4000) {
+                return 12;
+            } else if (height < 8000) {
+                return 11;
+            } else if (height < 12000) {
+                return 10;
+            } else if (height < 24000) {
+                return 9;
+            } else if (height < 50000) {
+                return 8;
+            } else if (height < 120000) {
+                return 7;
+            } else return 6;
         }
-        else return -1;
+        return -1;
+        // if (height < 140) {
+        //     return 19;
+        // }
+        // else if (height < 250 && angle > 20) {
+        //     return 19;
+        // }
+        // else if (height < 400 && angle > 19) {
+        //     return 18;
+        // }
+        // else if (height < 750 && angle > 17) {
+        //     return 17;
+        // } else if (height < 750) {
+        //     return 16;
+        // }
+        // else if (height < 1000 && angle > 10) {
+        //     return 16;
+        // } else if (height < 1000) {
+        //     return 15;
+        // } else if (height < 1500 && angle > 5) {
+        //     return 15;
+        // } else if (height < 1500) {
+        //     return 14;
+        // } else if (height < 2500 && angle > 4) {
+        //     return 14;
+        // } else if (height < 3000 && angle > 2) {
+        //     return 13;
+        // } else if (height < 4000) {
+        //     return 12;
+        // } else if (height < 6000) {
+        //     return 11;
+        // } else if (height < 8000) {
+        //     return 10;
+        // } else if (height < 20000) {
+        //     return 9;
+        // } else if (height < 40000) {
+        //     return 8;
+        // } else if (height < 80000) {
+        //     return 7;
+        // } else if (height < 100000) {
+        //     return 6;
+        // }
+        // else return -1;
     }
 
     getTileHeightForZoomLevel(zoomLevel: number) {
@@ -259,38 +454,92 @@ export class App {
             return 24;
         } else if (zoomLevel == 15) {
             return 22;
+        } else if (zoomLevel == 14) {
+            return 20;
+        } else if (zoomLevel == 13) {
+            return 18;
+        } else if (zoomLevel == 12) {
+            return 16;
+        } else if (zoomLevel == 11) {
+            return 14;
+        } else if (zoomLevel == 10) {
+            return 12;
+        } else if (zoomLevel == 9) {
+            return 10;
+        } else if (zoomLevel == 8) {
+            return 8;
+        } else if (zoomLevel == 7) {
+            return 6;
+        } else if (zoomLevel == 6) {
+            return 4;
         }
         return 0;
     }
 
     getForwardDistanceForZoomLevel(zoomLevel: number) {
         if (zoomLevel == 19) {
-            return 450;
+            return 700;
         }
         else if (zoomLevel == 18) {
-            return 1000;
+            return 1200;
         } else if (zoomLevel == 17) {
-            return 3000;
+            return 4000;
         } else if (zoomLevel == 16) {
-            return 5200;
+            return 10000;
         } else if (zoomLevel == 15) {
-            return 9000;
+            return 20000;
+        } else if (zoomLevel == 14) {
+            return 46000;
+        } else if (zoomLevel == 13) {
+            return 75000;
+        } else if (zoomLevel == 12) {
+            return 150000;
+        } else if (zoomLevel == 11) {
+            return 220000;
+        } else if (zoomLevel == 10) {
+            return 450000;
+        } else if (zoomLevel == 9) {
+            return 800000;
+        } else if (zoomLevel == 8) {
+            return 2000000;
+        } else if (zoomLevel == 7) {
+            return 2500000;
+        } else if (zoomLevel == 6) {
+            return 2500000;
         }
         return 0;
     }
 
     getLateralDistanceForZoomLevel(zoomLevel: number) {
         if (zoomLevel == 19) {
-            return 50;
+            return 100;
         }
         else if (zoomLevel == 18) {
             return 550;
         } else if (zoomLevel == 17) {
             return 800;
         } else if (zoomLevel == 16) {
-            return 1000;
+            return 1500;
         } else if (zoomLevel == 15) {
             return 3000;
+        } else if (zoomLevel == 14) {
+            return 6000;
+        } else if (zoomLevel == 13) {
+            return 12000;
+        } else if (zoomLevel == 12) {
+            return 24000;
+        } else if (zoomLevel == 11) {
+            return 50000;
+        } else if (zoomLevel == 10) {
+            return 100000;
+        } else if (zoomLevel == 9) {
+            return 200000;
+        } else if (zoomLevel == 8) {
+            return 400000;
+        } else if (zoomLevel == 7) {
+            return 600000;
+        } else if (zoomLevel == 6) {
+            return 600000;
         }
         return 0;
     }
@@ -312,6 +561,8 @@ export class App {
             angleDegrees *= -1;
         }
         let zoomLevel = this.getZoomLevelForHeight(pos.y, angleDegrees);
+        console.log("height " + pos.y + ", angle " + angleDegrees);
+        console.log("zoom " + zoomLevel);
         if (zoomLevel > -1) {
             let lateralDist = this.getLateralDistanceForZoomLevel(zoomLevel);
             let forwardDist = this.getForwardDistanceForZoomLevel(zoomLevel);
@@ -346,6 +597,7 @@ export class App {
             let t = new Tiler();
             let minT = t.metersToTile(minLat, minLon, zoomLevel);
             let maxT = t.metersToTile(maxLat, maxLon, zoomLevel);
+            console.log("number of tiles " + ((maxT[0] - minT[0]) * (maxT[1] - minT[1])));
             for (var i = minT[0]; i < maxT[0] + 1; i++) {
                 for (var j = minT[1]; j < maxT[1] + 1; j++) {
                     // if the tile exists, continue as it is already displayed
@@ -368,12 +620,15 @@ export class App {
             switch (tileSet) {
                 case "Google Satellite":
                     t.tileSet = "s";
+                    this.globalConfig.xyzTileSet = "s";
                     break;
                 case "Google Roadmap":
                     t.tileSet = "m";
+                    this.globalConfig.xyzTileSet = "m";
                     break;
                 case "Google Hybrid":
                     t.tileSet = "y";
+                    this.globalConfig.xyzTileSet = "y";
                     break;
                 default:
                     break;
@@ -454,7 +709,8 @@ export class App {
 
             let dt = __this.scene.getEngine().getDeltaTime();
             time += dt;
-            if (time > 600) {
+            if (time > 1200) {
+                __this.checkPosition();
                 __this.loadTiles();
                 time = 0;
             }
@@ -472,21 +728,21 @@ export class App {
             let upwardSpeed = 0;
 
             if (__this.moveForward) {
-                forwardSpeed = __this.globalConfig.cameraForwardSpeed;;
+                forwardSpeed = __this.globalConfig.cameraForwardSpeed + 0.0001 * __this.camera.position.y;
             }
             if (__this.moveBackward) {
-                forwardSpeed = -__this.globalConfig.cameraForwardSpeed;;
+                forwardSpeed = -__this.globalConfig.cameraForwardSpeed - 0.0001 * __this.camera.position.y;
             }
 
             if (__this.moveRight) {
-                lateralSpeed = __this.globalConfig.cameraLateralSpeed;;
+                lateralSpeed = __this.globalConfig.cameraLateralSpeed + 0.0001 * __this.camera.position.y;
             }
 
             if (__this.moveLeft) {
-                lateralSpeed = -__this.globalConfig.cameraLateralSpeed;;
+                lateralSpeed = -__this.globalConfig.cameraLateralSpeed - 0.0001 * __this.camera.position.y;
             }
             if (__this.moveUp) {
-                upwardSpeed = __this.globalConfig.cameraForwardSpeed;;
+                upwardSpeed = __this.globalConfig.cameraForwardSpeed;
             }
             var move = forward.scale(forwardSpeed * dt).subtract(right.scale(lateralSpeed * dt)).add(up.scale(upwardSpeed * dt));
 

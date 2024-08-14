@@ -42,6 +42,12 @@ export class TileCache {
         this.cacheList.push(tile);
     }
 
+    clear() {
+        this.cacheList.forEach(t => t.delete());
+        this.cacheList = [];
+        this.cacheMap = new Map<number, Map<number, TileData>>();
+    }
+
     // Update usage list for LRU logic
     private updateUsage(tile: TileData): void {
         const index = this.cacheList.indexOf(tile);
