@@ -6,6 +6,9 @@ import { Tiler } from "./tiles";
 import { InfoBillboard } from "./InfoBillboard";
 import locations from './companies.json';
 import tokyo from './tokyo.json';
+import tokyoRoads from './tokyo_roads.json';
+import tokyoRail from './tokyo_rail.json';
+import { TileCache } from "./TileCache";
 
 
 export class App {
@@ -24,9 +27,9 @@ export class App {
     globalConfig: GlobalConfig;
     infoDialogOpenCallback: (title: string, text: string, homePage: string) => void;
     public uniqueSegments: Set<string> = new Set<string>();
-
+    tileCache: TileCache = new TileCache(150);
     constructor(infoDialogOpenCallback: (title: string, text: string, homePage: string) => void) {
-        this.globalConfig = new GlobalConfig("s", 12, true, 5, 5, 15500000, 4200000, true, (s) => { });
+        this.globalConfig = new GlobalConfig("s", 12, true, 3.5, 5, 15500000, 4200000, true, (s) => { });
         this.infoDialogOpenCallback = infoDialogOpenCallback;
         var canvas = document.createElement("canvas");
         canvas.style.width = "100%";
@@ -80,10 +83,26 @@ export class App {
             }
         }
 
-        let mxx = t.laloToTile(35.64235879570655, 139.71347778350273, this.globalConfig.xyzTileZoomLevel + 5);
-        let tdx = new TileData("", this.globalConfig, new Tiler(), mxx[0], mxx[1], 30, this.globalConfig.xyzTileZoomLevel + 5);
-        tdx.setupTileBoundaryLines(this.scene);
-        this.tiles.push(tdx);
+        // let mxx = t.laloToTile(35.64235879570655, 139.71347778350273, this.globalConfig.xyzTileZoomLevel + 4);
+        // let tdx = new TileData("", this.globalConfig, new Tiler(), mxx[0], mxx[1], 30, this.globalConfig.xyzTileZoomLevel + 4);
+        // let zoomedTiles = this.getUniqueTiles(t, this.globalConfig.xyzTileZoomLevel + 4);
+        // tdx.setupTileBoundaryLines(this.scene);
+        // this.tiles.push(tdx);
+        this.showTokyoBoundaries();
+        this.showTokyoRoads(t);
+        this.showTokyoRail(t);
+
+        this.uniqueSegments = new Set<string>();
+
+        let loc = locations;
+        loc.locations.forEach((location: { name: string; segments: string[] }) => {
+            location.segments.forEach((segment: string) => {
+                this.uniqueSegments.add(segment);
+            });
+        });
+    }
+
+    showTokyoBoundaries() {
         let tok = tokyo;
         tok.features.forEach(f => {
             let coords = f.geometry.coordinates;
@@ -101,15 +120,60 @@ export class App {
                 lines.color = new BABYLON.Color3(1, 0.2, 0.2);
             });
         });
+    }
 
-        this.uniqueSegments = new Set<string>();
-
-        let loc = locations;
-        loc.locations.forEach((location: { name: string; segments: string[] }) => {
-            location.segments.forEach((segment: string) => {
-                this.uniqueSegments.add(segment);
+    showTokyoRoads(t: Tiler) {
+        let tok = tokyoRoads;
+        tok.features.forEach(f => {
+            let coords = f.geometry.coordinates;
+            coords.forEach(lineStr => {
+                let convCoords = lineStr.map(c => {
+                    let meters = t.laloToMeters(c[1], c[0]);
+                    let x = this.globalConfig.offsetX - meters[0];
+                    let y = this.globalConfig.offsetY - meters[1];
+                    return new BABYLON.Vector3(x, 31.6, y);
+                });
+                let boundsgrid = {
+                    points: convCoords,
+                    updatable: false,
+                };
+                let lines = BABYLON.MeshBuilder.CreateLines("lines_", boundsgrid, this.scene);
+                lines.color = new BABYLON.Color3(0.2, 0.7, 0.2);
             });
         });
+    }
+    showTokyoRail(t: Tiler) {
+        let tok = tokyoRail;
+        tok.features.forEach(f => {
+            let coords = f.geometry.coordinates;
+            coords.forEach(lineStr => {
+                let convCoords = lineStr.map(c => {
+                    let meters = t.laloToMeters(c[1], c[0]);
+                    let x = this.globalConfig.offsetX - meters[0];
+                    let y = this.globalConfig.offsetY - meters[1];
+                    return new BABYLON.Vector3(x, 31.6, y);
+                });
+                let boundsgrid = {
+                    points: convCoords,
+                    updatable: false,
+                };
+                let lines = BABYLON.MeshBuilder.CreateLines("lines_", boundsgrid, this.scene);
+                lines.color = new BABYLON.Color3(0.2, 0.7, 0.99);
+            });
+        });
+    }
+    getUniqueTiles(t: Tiler, zoom: number) {
+        let loc = locations;
+
+        const uniqueList: [number, number][] = Array.from(
+            new Set(loc.locations.map(l => t.laloToTile(l.location[0], l.location[1], zoom)).map(pair => JSON.stringify(pair)))
+        ).map(str => JSON.parse(str) as [number, number]);
+
+        let utiles = uniqueList.map(item => new TileData("", this.globalConfig, t, item[0], item[1], 30, zoom));
+
+        utiles.forEach(t => t.setupTileBoundaryLines(this.scene));
+        // this.tiles.push(tdx);
+        return utiles;
     }
 
 
@@ -161,6 +225,142 @@ export class App {
         this.camera.position = this.cameraDefaultPosition.clone();
     }
 
+    getZoomLevelForHeight(height: number, angle: number) {
+
+        if (height < 0) {
+            return -1;
+        }
+        if (height < 250 && angle > 75) {
+            return 19;
+        }
+        else if (height < 400 && angle > 30) {
+            return 18;
+        }
+        else if (height < 1400 && angle > 25) {
+            return 17;
+        }
+        else if (height < 5000 && angle > 20) {
+            return 16;
+        } else if (height < 5000) {
+            return 15;
+        }
+        else return -1;
+    }
+
+    getTileHeightForZoomLevel(zoomLevel: number) {
+        if (zoomLevel == 19) {
+            return 30;
+        }
+        else if (zoomLevel == 18) {
+            return 28;
+        } else if (zoomLevel == 17) {
+            return 26;
+        } else if (zoomLevel == 16) {
+            return 24;
+        } else if (zoomLevel == 15) {
+            return 22;
+        }
+        return 0;
+    }
+
+    getForwardDistanceForZoomLevel(zoomLevel: number) {
+        if (zoomLevel == 19) {
+            return 450;
+        }
+        else if (zoomLevel == 18) {
+            return 1000;
+        } else if (zoomLevel == 17) {
+            return 3000;
+        } else if (zoomLevel == 16) {
+            return 5200;
+        } else if (zoomLevel == 15) {
+            return 9000;
+        }
+        return 0;
+    }
+
+    getLateralDistanceForZoomLevel(zoomLevel: number) {
+        if (zoomLevel == 19) {
+            return 50;
+        }
+        else if (zoomLevel == 18) {
+            return 550;
+        } else if (zoomLevel == 17) {
+            return 800;
+        } else if (zoomLevel == 16) {
+            return 1000;
+        } else if (zoomLevel == 15) {
+            return 3000;
+        }
+        return 0;
+    }
+
+
+    loadTiles() {
+        let pos = this.camera.position;
+        let forwardr = this.camera.getTarget().subtract(this.camera.position).normalize();
+        let forward = forwardr.clone();
+        forward.y = 0;
+        forward = forward.normalize();
+        let right = new BABYLON.Vector3(-forward.z, 0, forward.x).normalize();
+        let dotProduct = BABYLON.Vector3.Dot(forward.normalize(), forwardr.normalize());
+
+        // Get the angle in radians using arccos
+        let angleRadians = Math.acos(dotProduct);
+        let angleDegrees = BABYLON.Tools.ToDegrees(angleRadians);
+        if (forwardr.y > 0) {
+            angleDegrees *= -1;
+        }
+        let zoomLevel = this.getZoomLevelForHeight(pos.y, angleDegrees);
+        if (zoomLevel > -1) {
+            let lateralDist = this.getLateralDistanceForZoomLevel(zoomLevel);
+            let forwardDist = this.getForwardDistanceForZoomLevel(zoomLevel);
+            let l = pos.add(right.scale(lateralDist));
+            let r = pos.subtract(right.scale(lateralDist));
+            let f = pos.add(forward.scale(forwardDist));
+            let b = pos.subtract(forward.scale(0.2 * forwardDist));
+            let lx = this.globalConfig.offsetX - l.x;
+            let ly = this.globalConfig.offsetY - l.z;
+            let rx = this.globalConfig.offsetX - r.x;
+            let ry = this.globalConfig.offsetY - r.z;
+            let fx = this.globalConfig.offsetX - f.x;
+            let fy = this.globalConfig.offsetY - f.z;
+            let bx = this.globalConfig.offsetX - b.x;
+            let by = this.globalConfig.offsetY - b.z;
+
+            let minLat = Infinity;
+            let maxLat = -Infinity;
+            let minLon = Infinity;
+            let maxLon = -Infinity;
+            [lx, rx, fx, bx].forEach(l => {
+
+                if (l < minLat) minLat = l;
+                if (l > maxLat) maxLat = l;
+            });
+
+            [ly, ry, fy, by].forEach(l => {
+
+                if (l < minLon) minLon = l;
+                if (l > maxLon) maxLon = l;
+            });
+            let t = new Tiler();
+            let minT = t.metersToTile(minLat, minLon, zoomLevel);
+            let maxT = t.metersToTile(maxLat, maxLon, zoomLevel);
+            for (var i = minT[0]; i < maxT[0] + 1; i++) {
+                for (var j = minT[1]; j < maxT[1] + 1; j++) {
+                    // if the tile exists, continue as it is already displayed
+                    if (this.tileCache.get(i, j) != undefined) {
+                        continue;
+                    }
+                    let td = new TileData("", this.globalConfig, new Tiler(), i, j, this.getTileHeightForZoomLevel(zoomLevel), zoomLevel);
+
+                    td.setupTileBoundaryLines(this.scene);
+                    this.tileCache.put(td);
+                }
+            }
+        }
+    }
+
     refreshTiles(tileSet: string) {
         this.globalConfig.xyzTileSet = "r";
 
@@ -187,7 +387,6 @@ export class App {
 
     registerSceneUpdates() {
         let __this = this;
-
 
         var onKeyDown = function (event: KeyboardEvent) {
             switch (event.key) {
@@ -252,8 +451,13 @@ export class App {
 
         var time = 0;
         this.scene.registerBeforeRender(function () {
+
             let dt = __this.scene.getEngine().getDeltaTime();
             time += dt;
+            if (time > 600) {
+                __this.loadTiles();
+                time = 0;
+            }
 
             let forward = new BABYLON.Vector3(0, 0, 1);
             let up = new BABYLON.Vector3(0, 1, 0);

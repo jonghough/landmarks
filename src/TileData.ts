@@ -86,7 +86,7 @@ export class TileData {
             const sxy = this.tiler.toSlippy(subSquareTileXYsr[i][0], subSquareTileXYsr[i][1], tileZoom);
 
             const tileURL = `https://mt0.google.com/vt/lyrs=${this.tileSet}&hl=en&x=${sxy[0]}&y=${sxy[1]}&z=${tileZoom}`;
-            console.log(tileURL);
+            // console.log(tileURL);
             this.loadXYZMesh(scene, tileURL, subSquaresVecr[i], this.tileMeshes[i]);
             /**
              * Ref: 
