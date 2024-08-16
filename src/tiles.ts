@@ -1,15 +1,20 @@
- 
+
 
 /**
  * See ref: https://github.com/OSGeo/gdal/blob/7f2dcdc930b51f6cf5f013cd4d5ef66ff094239f/gdal/swig/python/scripts/gdal2tiles.py
  */
 
 export class Tiler {
-
+    static readonly MIN_X = -20037508.342789244;
+    static readonly MAX_X = 20037508.342789244;
+    static readonly MIN_Y = -20037508.342789244;
+    static readonly MAX_Y = 20037508.342789244;
+    static readonly RANGE_X = Tiler.MAX_X - Tiler.MIN_X;
+    static readonly RANGE_Y = Tiler.MAX_Y - Tiler.MIN_Y;
     originShift: number;
     initialResolution: number;
     tileSize: number;
-    constructor( ) {
+    constructor() {
         this.tileSize = 256;
         const WGS84EllipsoidRadius = 6378137; // semi-major axis
         this.originShift = 2 * Math.PI * WGS84EllipsoidRadius / 2.0;
@@ -164,14 +169,14 @@ export class Tiler {
         return this.tileBoundsIn4326(tile[0], tile[1], zoom);
     }
 
-     /**
-     * Gets the EPSG:3857 CRS encoded tile bounds (for upper left, lower right coordinates) for the tile containing the given
-     * latitude and longitude coordinate, at the given zoom level.
-     * @param lat latitude
-     * @param lon longitude
-     * @param zoom zoom level
-     * @returns Tile boundary coordinates (in EPSG:3857) array for the given (lat,lon) coordinate.
-     */
+    /**
+    * Gets the EPSG:3857 CRS encoded tile bounds (for upper left, lower right coordinates) for the tile containing the given
+    * latitude and longitude coordinate, at the given zoom level.
+    * @param lat latitude
+    * @param lon longitude
+    * @param zoom zoom level
+    * @returns Tile boundary coordinates (in EPSG:3857) array for the given (lat,lon) coordinate.
+    */
     laloToTileBounds3857(lat: number, lon: number, zoom: number) {
         let tile = this.laloToTile(lat, lon, zoom);
         return this.tileBoundsin3857(tile[0], tile[1], zoom);
@@ -189,7 +194,18 @@ export class Tiler {
     }
 
     offsetMeters(x: number, y: number) {
-        return [ x,   y];
+        return [x, y];
+    }
+
+    static wrapCoordinates(x: number, y: number): [number, number] {
+
+        // Wrap x (longitude) within the [MIN_X, MAX_X] range
+        let wrappedX = ((x - Tiler.MIN_X) % Tiler.RANGE_X + Tiler.RANGE_X) % Tiler.RANGE_X + Tiler.MIN_X;
+
+        // Clamp y (latitude) within the [MIN_Y, MAX_Y] range, since Y does not wrap in EPSG:3857
+        let clampedY = Math.max(Tiler.MIN_Y, Math.min(Tiler.MAX_Y, y));
+
+        return [wrappedX, clampedY];
     }
 
 }

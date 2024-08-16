@@ -2,20 +2,23 @@ import type { TileData } from "./TileData";
 
 
 
+
 export class TileCache {
-
-    cacheMap: Map<number, Map<number, TileData>> = new Map<number, Map<number, TileData>>();
+    cacheMap: Map<number, Map<number, Map<number, TileData>>> = new Map<number, Map<number, Map<number, TileData>>>();
     cacheList: TileData[] = [];
-    constructor(public readonly maxSize: number) {
+    tileCoords: Map<TileData, [number, number, number]> = new Map<TileData, [number, number, number]>();
+    maxSize: number;
 
+    constructor(maxSize: number) {
+        this.maxSize = maxSize;
     }
 
-    get(x: number, y: number): TileData | undefined {
-        const yMap = this.cacheMap.get(x);
-        if (yMap) {
-            const tile = yMap.get(y);
+    // Get a tile from the cache
+    get(z: number, x: number, y: number): TileData | undefined {
+        const xMap = this.cacheMap.get(z)?.get(x);
+        if (xMap) {
+            const tile = xMap.get(y);
             if (tile) {
-                // Update the usage list to mark this tile as recently used
                 this.updateUsage(tile);
                 return tile;
             }
@@ -23,59 +26,75 @@ export class TileCache {
         return undefined;
     }
 
-    put(tile: TileData): void {
-        let x = tile.x;
-        let y = tile.y;
-        // Evict least recently used tile if the cache exceeds the maximum size
+    // Add a tile to the cache
+    put(z: number, x: number, y: number, tile: TileData): void {
         if (this.cacheList.length >= this.maxSize) {
             this.evict();
         }
 
-        // Add the tile to the cache
-        if (!this.cacheMap.has(x)) {
-            this.cacheMap.set(x, new Map<number, TileData>());
+        if (!this.cacheMap.has(z)) {
+            this.cacheMap.set(z, new Map<number, Map<number, TileData>>());
         }
-        const yMap = this.cacheMap.get(x)!;
+        const xMap = this.cacheMap.get(z)!;
+        if (!xMap.has(x)) {
+            xMap.set(x, new Map<number, TileData>());
+        }
+        const yMap = xMap.get(x)!;
         yMap.set(y, tile);
 
-        // Mark the tile as recently used
         this.cacheList.push(tile);
-    }
-
-    clear() {
-        this.cacheList.forEach(t => t.delete());
-        this.cacheList = [];
-        this.cacheMap = new Map<number, Map<number, TileData>>();
+        this.tileCoords.set(tile, [z, x, y]);
     }
 
     // Update usage list for LRU logic
     private updateUsage(tile: TileData): void {
         const index = this.cacheList.indexOf(tile);
         if (index > -1) {
-            this.cacheList.splice(index, 1);  // Remove from the current position
-            this.cacheList.push(tile);        // Add it to the end (most recently used)
+            this.cacheList.splice(index, 1);
+            this.cacheList.push(tile);
         }
     }
 
+    // Evict the least recently used tile
     private evict(): void {
-        // slow
-        // TODO improve speed
-        const lruTile = this.cacheList.shift();  // Remove the first element (least recently used)
+        const lruTile = this.cacheList.shift();
         if (lruTile) {
-            for (const [x, yMap] of this.cacheMap.entries()) {
-                for (const [y, tile] of yMap.entries()) {
-                    if (tile === lruTile) {
-                        tile.delete();
-                        yMap.delete(y);  // Remove from cacheMap
-                        if (yMap.size === 0) {
-                            this.cacheMap.delete(x);  // Clean up empty maps
-                        }
-                        return;
-                    }
+            const [z, x, y] = this.tileCoords.get(lruTile)!;
+            const xMap = this.cacheMap.get(z)!;
+            const yMap = xMap.get(x)!;
+            yMap.delete(y);
+
+            if (yMap.size === 0) {
+                xMap.delete(x);
+                if (xMap.size === 0) {
+                    this.cacheMap.delete(z);
                 }
             }
+            lruTile.delete();
+            this.tileCoords.delete(lruTile);
         }
     }
 
+    clear() {
+        this.tileCoords = new Map();
+        this.cacheList.forEach(t => t.delete());
+        this.cacheList = [];
+        this.cacheMap = new Map();
+    }
 
+    activateZLevel(z: number) {
+        this.cacheList.filter(t => t !== undefined).forEach(t => {
+
+            t.xyzTileZoomLevel == z ? t.show() : t.hide();
+        });
+    }
+
+    showAndHide(z: number, v: number) {
+        this.cacheList.filter(t => t !== undefined).forEach(t => {
+
+            t.xyzTileZoomLevel == z ? t.showBy(v) : t.hideBy(v);
+        });
+    }
 }
+
+

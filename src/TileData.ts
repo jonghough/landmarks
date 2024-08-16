@@ -49,11 +49,14 @@ export class TileData {
         // let boundaryLines = BABYLON.MeshBuilder.CreateLines("lines_" + this.tileName, boundsgrid, scene);
         // boundaryLines.color = new BABYLON.Color3(1, 1, 1);
 
-
-        this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], this.elevation, this.globalConfig.offsetY - bounds[1]));
-        this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], this.elevation, this.globalConfig.offsetY - bounds[1]));
-        this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], this.elevation, this.globalConfig.offsetY - bounds[3]));
-        this.tileBounds.push(new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], this.elevation, this.globalConfig.offsetY - bounds[3]));
+        let [p1x, p1y] = Tiler.wrapCoordinates(this.globalConfig.offsetX - bounds[0], this.globalConfig.offsetY - bounds[1]);
+        let [p2x, p2y] = Tiler.wrapCoordinates(this.globalConfig.offsetX - bounds[2], this.globalConfig.offsetY - bounds[1]);
+        let [p3x, p3y] = Tiler.wrapCoordinates(this.globalConfig.offsetX - bounds[2], this.globalConfig.offsetY - bounds[3]);
+        let [p4x, p4y] = Tiler.wrapCoordinates(this.globalConfig.offsetX - bounds[0], this.globalConfig.offsetY - bounds[3]);
+        this.tileBounds.push(new BABYLON.Vector3(p1x, this.elevation, p1y));
+        this.tileBounds.push(new BABYLON.Vector3(p2x, this.elevation, p2y));
+        this.tileBounds.push(new BABYLON.Vector3(p3x, this.elevation, p3y));
+        this.tileBounds.push(new BABYLON.Vector3(p4x, this.elevation, p4y));
 
         this.tileBounds.forEach(v => {
             this.tileCenterOfGravity.x += v.x / 4;
@@ -76,10 +79,14 @@ export class TileData {
         let subSquareTileXYsr = centersOfGr.map(c => this.tiler.metersToTile(c[0], c[1], tileZoom));
         let subSquaresVecr = tileSquares.map(sq => {
             let tb = [];
-            tb.push(new BABYLON.Vector3(this.globalConfig.offsetX - sq[0], this.elevation, this.globalConfig.offsetY - sq[1]));
-            tb.push(new BABYLON.Vector3(this.globalConfig.offsetX - sq[2], this.elevation, this.globalConfig.offsetY - sq[1]));
-            tb.push(new BABYLON.Vector3(this.globalConfig.offsetX - sq[2], this.elevation, this.globalConfig.offsetY - sq[3]));
-            tb.push(new BABYLON.Vector3(this.globalConfig.offsetX - sq[0], this.elevation, this.globalConfig.offsetY - sq[3]));
+            let [p1x, p1y] = Tiler.wrapCoordinates(this.globalConfig.offsetX - sq[0], this.globalConfig.offsetY - sq[1]);
+            let [p2x, p2y] = Tiler.wrapCoordinates(this.globalConfig.offsetX - sq[2], this.globalConfig.offsetY - sq[1]);
+            let [p3x, p3y] = Tiler.wrapCoordinates(this.globalConfig.offsetX - sq[2], this.globalConfig.offsetY - sq[3]);
+            let [p4x, p4y] = Tiler.wrapCoordinates(this.globalConfig.offsetX - sq[0], this.globalConfig.offsetY - sq[3]);
+            tb.push(new BABYLON.Vector3(p1x, this.elevation, p1y));
+            tb.push(new BABYLON.Vector3(p2x, this.elevation, p2y));
+            tb.push(new BABYLON.Vector3(p3x, this.elevation, p3y));
+            tb.push(new BABYLON.Vector3(p4x, this.elevation, p4y));
             return tb;
         });
 
@@ -177,6 +184,33 @@ export class TileData {
         this.tileMeshes.forEach(m => m.dispose());
     }
 
+    hide() {
+        this.tileMeshes.forEach(t => t.isVisible = false)
+    }
+
+    show() {
+        this.tileMeshes.forEach(t => t.isVisible = true)
+    }
+
+    hideBy(v: number) {
+        this.tileMeshes.forEach(t => {
+            t.visibility -= 0.2 * v;
+            if (t.visibility < 0) {
+                t.visibility = 0;
+            }
+        });
+    }
+
+    showBy(v: number) {
+        this.tileMeshes.forEach(t => {
+            t.visibility += v;
+            if (t.visibility > 1) {
+                t.visibility = 1;
+            }
+        }
+
+        );
+    }
     delete() {
         this.dispose();
     }

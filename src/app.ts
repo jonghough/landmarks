@@ -28,9 +28,9 @@ export class App {
     globalConfig: GlobalConfig;
     infoDialogOpenCallback: (title: string, text: string, homePage: string) => void;
     public uniqueSegments: Set<string> = new Set<string>();
-    tileCache: TileCache = new TileCache(300);
+    tileCache: TileCache = new TileCache(250);
     screenText: ScreenText;
-
+    currentZoomLevel: number = 6;
     constructor(infoDialogOpenCallback: (title: string, text: string, homePage: string) => void) {
         this.globalConfig = new GlobalConfig("s", 12, true, 1.5, 5, 15500000, 4200000, true, (s) => { });
         this.infoDialogOpenCallback = infoDialogOpenCallback;
@@ -46,7 +46,7 @@ export class App {
         this.scene.blockMaterialDirtyMechanism = true;
         this.scene.clearColor = new BABYLON.Color4(0.1, 0.1, 0.2, 1.0);
         this.camera = new BABYLON.UniversalCamera("Camera", new BABYLON.Vector3(0, 2, -25), this.scene);
-        this.camera.maxZ = 1000000;
+        this.camera.maxZ = 10000000;
 
         this.camera.attachControl(canvas, true);
         var light1: BABYLON.HemisphericLight = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 10000, 0), this.scene);
@@ -106,11 +106,15 @@ export class App {
 
         this.screenText = new ScreenText(this.globalConfig, () => { return this.getCameraPosition(); });
     }
+
+
+
     getCameraPosition(): number[] | null {
         if (this.globalConfig.offsetSet) {
             var pos = this.camera.position;
             var pos3857x = this.globalConfig.offsetX - pos.x;
             var pos3857z = this.globalConfig.offsetY - pos.z;
+            [pos3857x, pos3857z] = Tiler.wrapCoordinates(pos3857x, pos3857z);
             var lalo = new Tiler().metersToLalo(pos3857x, pos3857z);
             return [lalo[0], pos.y, lalo[1]];
         }
@@ -257,7 +261,6 @@ export class App {
         let ox = (this.cameraDefaultPosition.x - this.globalConfig.offsetX);
         let oy = (this.cameraDefaultPosition.z - this.globalConfig.offsetY);
         let d = Math.sqrt((x * x) + (y * y));
-        console.log("distance " + d + ", " + this.camera.position);
         if (d > 1e5) {
             this.tileCache.clear();
             let kx = this.globalConfig.offsetX - this.camera.position.x;
@@ -277,7 +280,7 @@ export class App {
         if (height < 0) {
             return -1;
         }
-        if (angle > 60) {
+        if (true || angle > 60) {
             if (height < 300) {
                 return 19;
             } else if (height < 500) {
@@ -303,70 +306,76 @@ export class App {
                 return 9;
             } else if (height < 150000) {
                 return 8;
-            } else return 7;
+            } else if (height < 220000) {
+                return 7;
+            } else if (height < 400000) {
+                return 6;
+            } else if (height < 1000000) {
+                return 5;
+            } else return 4;
         }
 
-        else if (angle > 30) {
-            if (height < 200) {
-                return 19;
-            } else if (height < 300) {
-                return 18;
-            }
-            else if (height < 500) {
-                return 17;
-            } else if (height < 800) {
-                return 16;
-            } else if (height < 1200) {
-                return 15;
-            } else if (height < 2200) {
-                return 14;
-            } else if (height < 4000) {
-                return 13;
-            } else if (height < 7000) {
-                return 12;
-            } else if (height < 16000) {
-                return 11;
-            } else if (height < 25000) {
-                return 10;
-            } else if (height < 47000) {
-                return 9;
-            } else if (height < 100000) {
-                return 8;
-            } else if (height < 160000) {
-                return 7;
-            } else return 6;
-        }
+        // else if (angle > 30) {
+        //     if (height < 200) {
+        //         return 19;
+        //     } else if (height < 300) {
+        //         return 18;
+        //     }
+        //     else if (height < 500) {
+        //         return 17;
+        //     } else if (height < 800) {
+        //         return 16;
+        //     } else if (height < 1200) {
+        //         return 15;
+        //     } else if (height < 2200) {
+        //         return 14;
+        //     } else if (height < 4000) {
+        //         return 13;
+        //     } else if (height < 7000) {
+        //         return 12;
+        //     } else if (height < 16000) {
+        //         return 11;
+        //     } else if (height < 25000) {
+        //         return 10;
+        //     } else if (height < 47000) {
+        //         return 9;
+        //     } else if (height < 100000) {
+        //         return 8;
+        //     } else if (height < 160000) {
+        //         return 7;
+        //     } else return 6;
+        // }
 
-        else if (angle > 5) {
-            if (height < 50) {
-                return 19;
-            } else if (height < 180) {
-                return 18;
-            }
-            else if (height < 400) {
-                return 17;
-            } else if (height < 600) {
-                return 16;
-            } else if (height < 800) {
-                return 15;
-            } else if (height < 1200) {
-                return 14;
-            } else if (height < 2000) {
-                return 13;
-            } else if (height < 5000) {
-                return 12;
-            } else if (height < 13000) {
-                return 11;
-            } else if (height < 20000) {
-                return 10;
-            } else if (height < 40000) {
-                return 9;
-            } else if (height < 80000) {
-                return 8;
-            } else if (height < 120000) {
-                return 7;
-            } else return 6;
-        }
+        // else if (angle > 5) {
+        //     if (height < 50) {
+        //         return 19;
+        //     } else if (height < 180) {
+        //         return 18;
+        //     }
+        //     else if (height < 400) {
+        //         return 17;
+        //     } else if (height < 600) {
+        //         return 16;
+        //     } else if (height < 800) {
+        //         return 15;
+        //     } else if (height < 1200) {
+        //         return 14;
+        //     } else if (height < 2000) {
+        //         return 13;
+        //     } else if (height < 5000) {
+        //         return 12;
+        //     } else if (height < 13000) {
+        //         return 11;
+        //     } else if (height < 20000) {
+        //         return 10;
+        //     } else if (height < 40000) {
+        //         return 9;
+        //     } else if (height < 80000) {
+        //         return 8;
+        //     } else if (height < 120000) {
+        //         return 7;
+        //     } else return 6;
+        // }
         else {
             if (height < 100) {
                 return 19;
@@ -443,47 +452,53 @@ export class App {
     }
 
     getTileHeightForZoomLevel(zoomLevel: number) {
+        let defaultHeight = 30;
+        const drop = 0;
         if (zoomLevel == 19) {
-            return 30;
+            return defaultHeight;
         }
         else if (zoomLevel == 18) {
-            return 28;
+            return defaultHeight - drop;
         } else if (zoomLevel == 17) {
-            return 26;
+            return defaultHeight - 2 * drop;
         } else if (zoomLevel == 16) {
-            return 24;
+            return defaultHeight - 3 * drop;
         } else if (zoomLevel == 15) {
-            return 22;
+            return defaultHeight - 4 * drop;
         } else if (zoomLevel == 14) {
-            return 20;
+            return defaultHeight - 5 * drop;
         } else if (zoomLevel == 13) {
-            return 18;
+            return defaultHeight - 6 * drop;
         } else if (zoomLevel == 12) {
-            return 16;
+            return defaultHeight - 7 * drop;
         } else if (zoomLevel == 11) {
-            return 14;
+            return defaultHeight - 8 * drop;
         } else if (zoomLevel == 10) {
-            return 12;
+            return defaultHeight - 9 * drop;
         } else if (zoomLevel == 9) {
-            return 10;
+            return defaultHeight - 10 * drop;
         } else if (zoomLevel == 8) {
-            return 8;
+            return defaultHeight - 11 * drop;
         } else if (zoomLevel == 7) {
-            return 6;
+            return defaultHeight - 12 * drop;
         } else if (zoomLevel == 6) {
-            return 4;
+            return defaultHeight - 13 * drop;
+        } else if (zoomLevel == 5) {
+            return defaultHeight - 14 * drop;
+        } else if (zoomLevel == 4) {
+            return defaultHeight - 15 * drop;
         }
         return 0;
     }
 
     getForwardDistanceForZoomLevel(zoomLevel: number) {
         if (zoomLevel == 19) {
-            return 700;
+            return 1500;
         }
         else if (zoomLevel == 18) {
-            return 1200;
+            return 2500;
         } else if (zoomLevel == 17) {
-            return 4000;
+            return 5000;
         } else if (zoomLevel == 16) {
             return 10000;
         } else if (zoomLevel == 15) {
@@ -505,17 +520,21 @@ export class App {
         } else if (zoomLevel == 7) {
             return 2500000;
         } else if (zoomLevel == 6) {
-            return 2500000;
+            return 4500000;
+        } else if (zoomLevel == 5) {
+            return 9900000;
+        } else if (zoomLevel == 4) {
+            return 20000000;
         }
         return 0;
     }
 
     getLateralDistanceForZoomLevel(zoomLevel: number) {
         if (zoomLevel == 19) {
-            return 100;
+            return 300;
         }
         else if (zoomLevel == 18) {
-            return 550;
+            return 500;
         } else if (zoomLevel == 17) {
             return 800;
         } else if (zoomLevel == 16) {
@@ -539,9 +558,37 @@ export class App {
         } else if (zoomLevel == 7) {
             return 600000;
         } else if (zoomLevel == 6) {
-            return 600000;
+            return 1200000;
+        } else if (zoomLevel == 5) {
+            return 2400000;
+        } else if (zoomLevel == 4) {
+            return 5000000;
         }
         return 0;
+    }
+
+
+    fetchTiles(minLat: number, minLon: number, maxLat: number, maxLon: number, zoomLevel: number) {
+        let t = new Tiler();
+        let minT = t.metersToTile(minLat, minLon, zoomLevel);
+        let maxT = t.metersToTile(maxLat, maxLon, zoomLevel);
+        // console.log("min and max  " + minT + ", " + maxT);
+        // console.log("number " + ((maxT[0] - minT[0]) * (maxT[1] - minT[1])));
+        if (((maxT[0] - minT[0]) * (maxT[1] - minT[1])) > 300) {
+            return;
+        }
+        for (var i = minT[0]; i < maxT[0] + 1; i++) {
+            for (var j = minT[1]; j < maxT[1] + 1; j++) {
+                // if the tile exists, continue as it is already displayed
+                if (this.tileCache.get(zoomLevel, i, j) != undefined) {
+                    continue;
+                }
+                let td = new TileData("", this.globalConfig, new Tiler(), i, j, this.getTileHeightForZoomLevel(zoomLevel), zoomLevel);
+
+                td.setupTileBoundaryLines(this.scene);
+                this.tileCache.put(zoomLevel, i, j, td);
+            }
+        }
     }
 
 
@@ -561,8 +608,9 @@ export class App {
             angleDegrees *= -1;
         }
         let zoomLevel = this.getZoomLevelForHeight(pos.y, angleDegrees);
-        console.log("height " + pos.y + ", angle " + angleDegrees);
-        console.log("zoom " + zoomLevel);
+        // console.log("height " + pos.y + ", angle " + angleDegrees);
+        // console.log("zoom " + zoomLevel);
+        let px = this.globalConfig.offsetX - pos.x;
         if (zoomLevel > -1) {
             let lateralDist = this.getLateralDistanceForZoomLevel(zoomLevel);
             let forwardDist = this.getForwardDistanceForZoomLevel(zoomLevel);
@@ -570,15 +618,56 @@ export class App {
             let r = pos.subtract(right.scale(lateralDist));
             let f = pos.add(forward.scale(forwardDist));
             let b = pos.subtract(forward.scale(0.2 * forwardDist));
+
+            let lxn = Tiler.MIN_X;
+            let rxn = Tiler.MIN_X;
+            let bxn = Tiler.MIN_X;
+            let fxn = Tiler.MIN_X;
+
+            let lxm = Tiler.MAX_X;
+            let rxm = Tiler.MAX_X;
+            let bxm = Tiler.MAX_X;
+            let fxm = Tiler.MAX_X;
             let lx = this.globalConfig.offsetX - l.x;
             let ly = this.globalConfig.offsetY - l.z;
+            if (lx > Tiler.MAX_X && px < Tiler.MAX_X) {
+                lxn = Tiler.wrapCoordinates(lx, ly)[0];
+                lx = Tiler.MAX_X - 0.1;
+            } else if (lx < Tiler.MAX_X && px > Tiler.MAX_X) {
+                lxm = Tiler.wrapCoordinates(lx, ly)[0];
+                lx = Tiler.MIN_X + 0.1;
+            }
+            [lx, ly] = Tiler.wrapCoordinates(lx, ly);
             let rx = this.globalConfig.offsetX - r.x;
             let ry = this.globalConfig.offsetY - r.z;
+            if (rx > Tiler.MAX_X && px < Tiler.MAX_X) {
+                rxn = Tiler.wrapCoordinates(rx, ry)[0];
+                rx = Tiler.MAX_X - 0.1;
+            } else if (rx < Tiler.MAX_X && px > Tiler.MAX_X) {
+                rxm = Tiler.wrapCoordinates(rx, ry)[0];
+                rx = Tiler.MIN_X + 0.1;
+            }
+            [rx, ry] = Tiler.wrapCoordinates(rx, ry);
             let fx = this.globalConfig.offsetX - f.x;
             let fy = this.globalConfig.offsetY - f.z;
+            if (fx > Tiler.MAX_X && px < Tiler.MAX_X) {
+                fxn = Tiler.wrapCoordinates(fx, fy)[0];
+                fx = Tiler.MAX_X - 0.1;
+            } else if (fx < Tiler.MAX_X && px > Tiler.MAX_X) {
+                fxm = Tiler.wrapCoordinates(fx, fy)[0];
+                fx = Tiler.MIN_X + 0.1;
+            }
+            [fx, fy] = Tiler.wrapCoordinates(fx, fy);
             let bx = this.globalConfig.offsetX - b.x;
             let by = this.globalConfig.offsetY - b.z;
-
+            if (bx > Tiler.MAX_X && px < Tiler.MAX_X) {
+                bxn = Tiler.wrapCoordinates(bx, by)[0];
+                bx = Tiler.MAX_X - 0.1;
+            } else if (bx < Tiler.MAX_X && px > Tiler.MAX_X) {
+                bxm = Tiler.wrapCoordinates(fx, fy)[0];
+                bx = Tiler.MIN_X + 0.1;
+            }
+            [bx, by] = Tiler.wrapCoordinates(bx, by);
             let minLat = Infinity;
             let maxLat = -Infinity;
             let minLon = Infinity;
@@ -594,47 +683,36 @@ export class App {
                 if (l < minLon) minLon = l;
                 if (l > maxLon) maxLon = l;
             });
-            let t = new Tiler();
-            let minT = t.metersToTile(minLat, minLon, zoomLevel);
-            let maxT = t.metersToTile(maxLat, maxLon, zoomLevel);
-            console.log("number of tiles " + ((maxT[0] - minT[0]) * (maxT[1] - minT[1])));
-            for (var i = minT[0]; i < maxT[0] + 1; i++) {
-                for (var j = minT[1]; j < maxT[1] + 1; j++) {
-                    // if the tile exists, continue as it is already displayed
-                    if (this.tileCache.get(i, j) != undefined) {
-                        continue;
-                    }
-                    let td = new TileData("", this.globalConfig, new Tiler(), i, j, this.getTileHeightForZoomLevel(zoomLevel), zoomLevel);
-
-                    td.setupTileBoundaryLines(this.scene);
-                    this.tileCache.put(td);
-                }
+            let m = Math.max(lxn, rxn, fxn, bxn);
+            let mm = Math.min(lxm, rxm, fxm, bxm);
+            this.currentZoomLevel = zoomLevel;
+            this.fetchTiles(minLat, minLon, maxLat, maxLon, zoomLevel);
+            if (m > Tiler.MIN_X) {
+                this.fetchTiles(Tiler.MIN_X + 0.1, minLon, m, maxLon, zoomLevel);
+            }
+            if (mm < Tiler.MAX_X) {
+                this.fetchTiles(mm, minLon, Tiler.MAX_X, maxLon, zoomLevel);
             }
         }
     }
 
     refreshTiles(tileSet: string) {
-        this.globalConfig.xyzTileSet = "r";
+        switch (tileSet) {
+            case "Google Satellite":
+                this.globalConfig.xyzTileSet = "s";
+                break;
+            case "Google Roadmap":
 
-        this.tiles.forEach(t => {
-            switch (tileSet) {
-                case "Google Satellite":
-                    t.tileSet = "s";
-                    this.globalConfig.xyzTileSet = "s";
-                    break;
-                case "Google Roadmap":
-                    t.tileSet = "m";
-                    this.globalConfig.xyzTileSet = "m";
-                    break;
-                case "Google Hybrid":
-                    t.tileSet = "y";
-                    this.globalConfig.xyzTileSet = "y";
-                    break;
-                default:
-                    break;
-            }
-            t.refreshTiles(this.scene);
-        });
+                this.globalConfig.xyzTileSet = "m";
+                break;
+            case "Google Hybrid":
+                this.globalConfig.xyzTileSet = "y";
+                break;
+            default:
+                break;
+        }
+
+
     }
 
 
@@ -705,11 +783,17 @@ export class App {
         document.addEventListener('keyup', onKeyUp, false);
 
         var time = 0;
+        var tt = 0;
         this.scene.registerBeforeRender(function () {
 
             let dt = __this.scene.getEngine().getDeltaTime();
             time += dt;
-            if (time > 1200) {
+            tt += dt;
+            if (tt > 500) {
+                tt = 0;
+                __this.tileCache.showAndHide(__this.currentZoomLevel, 0.9);
+            }
+            if (time > 1000) {
                 __this.checkPosition();
                 __this.loadTiles();
                 time = 0;
@@ -728,21 +812,21 @@ export class App {
             let upwardSpeed = 0;
 
             if (__this.moveForward) {
-                forwardSpeed = __this.globalConfig.cameraForwardSpeed + 0.0001 * __this.camera.position.y;
+                forwardSpeed = __this.globalConfig.cameraForwardSpeed + 0.000000001 * __this.camera.position.y * __this.camera.position.y;
             }
             if (__this.moveBackward) {
-                forwardSpeed = -__this.globalConfig.cameraForwardSpeed - 0.0001 * __this.camera.position.y;
+                forwardSpeed = -__this.globalConfig.cameraForwardSpeed - 0.000000001 * __this.camera.position.y * __this.camera.position.y;
             }
 
             if (__this.moveRight) {
-                lateralSpeed = __this.globalConfig.cameraLateralSpeed + 0.0001 * __this.camera.position.y;
+                lateralSpeed = __this.globalConfig.cameraLateralSpeed + 0.000000001 * __this.camera.position.y * __this.camera.position.y;
             }
 
             if (__this.moveLeft) {
-                lateralSpeed = -__this.globalConfig.cameraLateralSpeed - 0.0001 * __this.camera.position.y;
+                lateralSpeed = -__this.globalConfig.cameraLateralSpeed - 0.000000001 * __this.camera.position.y * __this.camera.position.y;
             }
             if (__this.moveUp) {
-                upwardSpeed = __this.globalConfig.cameraForwardSpeed;
+                upwardSpeed = __this.globalConfig.cameraForwardSpeed * 5;
             }
             var move = forward.scale(forwardSpeed * dt).subtract(right.scale(lateralSpeed * dt)).add(up.scale(upwardSpeed * dt));
 
