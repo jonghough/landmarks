@@ -74,3 +74,6 @@ bun run preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 https://data.humdata.org/dataset/cod-ab-jpn?
+
+https://www.gsi.go.jp/kankyochiri/gm_japan_e.html
+https://gist.github.com/ofou/df09a6834a8421b4f376c875194915c9

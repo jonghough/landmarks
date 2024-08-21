@@ -28,11 +28,11 @@ export class App {
     globalConfig: GlobalConfig;
     infoDialogOpenCallback: (title: string, text: string, homePage: string) => void;
     public uniqueSegments: Set<string> = new Set<string>();
-    tileCache: TileCache = new TileCache(250);
+    tileCache: TileCache = new TileCache(320);
     screenText: ScreenText;
     currentZoomLevel: number = 6;
     constructor(infoDialogOpenCallback: (title: string, text: string, homePage: string) => void) {
-        this.globalConfig = new GlobalConfig("s", 12, true, 1.5, 5, 15500000, 4200000, true, (s) => { });
+        this.globalConfig = new GlobalConfig("s", 12, 1e7, true, 1.0, 2, 15500000, 4200000, true, 35.685247972844635, 139.75274474466545, (s) => { });
         this.infoDialogOpenCallback = infoDialogOpenCallback;
         var canvas = document.createElement("canvas");
         canvas.style.width = "100%";
@@ -46,7 +46,7 @@ export class App {
         this.scene.blockMaterialDirtyMechanism = true;
         this.scene.clearColor = new BABYLON.Color4(0.1, 0.1, 0.2, 1.0);
         this.camera = new BABYLON.UniversalCamera("Camera", new BABYLON.Vector3(0, 2, -25), this.scene);
-        this.camera.maxZ = 10000000;
+        this.camera.maxZ = this.globalConfig.farPlaneDistance;
 
         this.camera.attachControl(canvas, true);
         var light1: BABYLON.HemisphericLight = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 10000, 0), this.scene);
@@ -122,8 +122,8 @@ export class App {
     }
 
     setCenterPosition() {
-        let lat = 35.685247972844635;
-        let lon = 139.75274474466545;
+        let lat = this.globalConfig.initialLatitude;
+        let lon = this.globalConfig.initialLongitude;
         let t = new Tiler();
         let meters = t.laloToMeters(lat, lon);
         this.camera.position.x = this.globalConfig.offsetX - meters[0];
