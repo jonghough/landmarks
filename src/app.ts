@@ -4,10 +4,6 @@ import { TileData } from "./TileData";
 import { GlobalConfig } from "./GlobalConfig";
 import { Tiler } from "./tiles";
 import { InfoBillboard } from "./InfoBillboard";
-import locations from './companies.json';
-import tokyo from './tokyo.json';
-import tokyoRoads from './tokyo_roads.json';
-import tokyoRail from './tokyo_rail.json';
 import capitals from './capitals.json';
 import { TileCache } from "./TileCache";
 import { ScreenText } from "./ScreenText";
@@ -101,7 +97,7 @@ export class App {
             let meters = t.laloToMeters(location.latitude, location.longitude);
             let ox = this.globalConfig.offsetX - meters[0];
             let oy = this.globalConfig.offsetY - meters[1];
-            tinfo.createTileInfoBillboard(this.scene, new BABYLON.Vector3(ox, 1250, oy), location.capital, location.country, "", [])
+            tinfo.createTileInfoBillboard(this.scene, new BABYLON.Vector3(ox, 1250, oy), location.capital, location.country, "")
             tinfo.show("");
             this.capitals.push(tinfo);
             this.capitalCityNames.set(location.capital, [location.latitude, location.longitude]);//(location.capital + " (" + location.country + ")");
@@ -113,40 +109,6 @@ export class App {
     getCapitalCityNames() {
         return capitals.map(c => c.capital);
     }
-
-
-
-    getUniqueTiles(t: Tiler, zoom: number) {
-        let loc = locations;
-
-        const uniqueList: [number, number][] = Array.from(
-            new Set(loc.locations.map(l => t.laloToTile(l.location[0], l.location[1], zoom)).map(pair => JSON.stringify(pair)))
-        ).map(str => JSON.parse(str) as [number, number]);
-
-        let utiles = uniqueList.map(item => new TileData("", this.globalConfig, t, item[0], item[1], 30, zoom));
-
-        utiles.forEach(t => t.setupTileBoundaryLines(this.scene));
-        // this.tiles.push(tdx);
-        return utiles;
-    }
-
-
-    getLocationBounds() {
-        let loc = locations;
-        let minLat = Infinity;
-        let maxLat = -Infinity;
-        let minLon = Infinity;
-        let maxLon = -Infinity;
-        loc.locations.forEach(l => {
-            const [lat, lon] = l.location;
-            if (lat < minLat) minLat = lat;
-            if (lat > maxLat) maxLat = lat;
-            if (lon < minLon) minLon = lon;
-            if (lon > maxLon) maxLon = lon;
-        });
-        return [[minLat, minLon], [maxLat, maxLon]]
-    }
-
 
 
     clearBillboards() {

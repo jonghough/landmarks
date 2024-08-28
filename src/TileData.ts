@@ -24,11 +24,9 @@ export class TileData {
      * @param scene 
      */
     public setupTileBoundaryLines(scene: BABYLON.Scene) {
-
-        let bounds = this.tiler.tileBoundsin3857(this.x, this.y, this.xyzTileZoomLevel);
-
         //unshifted EPSG 3857 bounds
-        this.boundingBox = bounds;
+        this.boundingBox = this.tiler.tileBoundsin3857(this.x, this.y, this.xyzTileZoomLevel);
+
         // create the meshes
         this.boundingBox.forEach(b => this.tileMeshes.push(new BABYLON.Mesh("xyztile", scene)));
         //render the tile with aerial imagery (xyz tiles).
