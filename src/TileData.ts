@@ -8,17 +8,11 @@ const googleRoadmapTiles = "m";
 const googleHybridTiles = "y";
 
 export class TileData {
-
-
-    tileBounds: Array<BABYLON.Vector3> = [];
-
-    tileCenterOfGravity: BABYLON.Vector3 = BABYLON.Vector3.Zero();
-
     tileSet: string = googleSatelliteTiles; //default
 
     tileMeshes: BABYLON.Mesh[] = [];
 
-    public ndsTileBounds: number[] = [];
+    public boundingBox: number[] = [];
 
     constructor(
         readonly tileName: string, readonly globalConfig: GlobalConfig, readonly tiler: Tiler, readonly x: number, readonly y: number, readonly elevation: number, readonly xyzTileZoomLevel: number) {
@@ -31,45 +25,14 @@ export class TileData {
      */
     public setupTileBoundaryLines(scene: BABYLON.Scene) {
 
-
         let bounds = this.tiler.tileBoundsin3857(this.x, this.y, this.xyzTileZoomLevel);
 
-        let shiftedBounds = [
-            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], this.elevation, this.globalConfig.offsetY - bounds[1]),
-            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], this.elevation, this.globalConfig.offsetY - bounds[1]),
-            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[2], this.elevation, this.globalConfig.offsetY - bounds[3]),
-            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], this.elevation, this.globalConfig.offsetY - bounds[3]),
-            new BABYLON.Vector3(this.globalConfig.offsetX - bounds[0], this.elevation, this.globalConfig.offsetY - bounds[1]),
-        ];
-
-        const boundsgrid = {
-            points: shiftedBounds,
-            updatable: true,
-        };
-        // let boundaryLines = BABYLON.MeshBuilder.CreateLines("lines_" + this.tileName, boundsgrid, scene);
-        // boundaryLines.color = new BABYLON.Color3(1, 1, 1);
-
-        let [p1x, p1y] = Tiler.wrapCoordinates(this.globalConfig.offsetX - bounds[0], this.globalConfig.offsetY - bounds[1]);
-        let [p2x, p2y] = Tiler.wrapCoordinates(this.globalConfig.offsetX - bounds[2], this.globalConfig.offsetY - bounds[1]);
-        let [p3x, p3y] = Tiler.wrapCoordinates(this.globalConfig.offsetX - bounds[2], this.globalConfig.offsetY - bounds[3]);
-        let [p4x, p4y] = Tiler.wrapCoordinates(this.globalConfig.offsetX - bounds[0], this.globalConfig.offsetY - bounds[3]);
-        this.tileBounds.push(new BABYLON.Vector3(p1x, this.elevation, p1y));
-        this.tileBounds.push(new BABYLON.Vector3(p2x, this.elevation, p2y));
-        this.tileBounds.push(new BABYLON.Vector3(p3x, this.elevation, p3y));
-        this.tileBounds.push(new BABYLON.Vector3(p4x, this.elevation, p4y));
-
-        this.tileBounds.forEach(v => {
-            this.tileCenterOfGravity.x += v.x / 4;
-            this.tileCenterOfGravity.z += v.z / 4;
-
-        });
         //unshifted EPSG 3857 bounds
-        this.ndsTileBounds = bounds;
+        this.boundingBox = bounds;
         // create the meshes
-        this.ndsTileBounds.forEach(b => this.tileMeshes.push(new BABYLON.Mesh("xyztile", scene)));
+        this.boundingBox.forEach(b => this.tileMeshes.push(new BABYLON.Mesh("xyztile", scene)));
         //render the tile with aerial imagery (xyz tiles).
-        this.renderTiles(this.xyzTileZoomLevel, this.ndsTileBounds, scene);
-
+        this.renderTiles(this.xyzTileZoomLevel, this.boundingBox, scene);
     }
 
     public renderTiles(tileZoomLevel: number, initialBounds: number[], scene: BABYLON.Scene) {
@@ -105,7 +68,7 @@ export class TileData {
     }
 
     public refreshTiles(scene: BABYLON.Scene) {
-        this.renderTiles(this.xyzTileZoomLevel, this.ndsTileBounds, scene);
+        this.renderTiles(this.xyzTileZoomLevel, this.boundingBox, scene);
     }
 
     private createTileBoundsAtLevel(level: number, bounds: number[]) {

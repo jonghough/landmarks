@@ -1,6 +1,8 @@
 import * as BABYLON from "@babylonjs/core";
 import { AdvancedDynamicTexture, Button } from "@babylonjs/gui/2D";
 import { CustomBox } from "./CustomBox";
+import type { GlobalConfig } from "./GlobalConfig";
+import { Tiler } from "./tiles";
 
 
 class ColorCache {
@@ -73,17 +75,20 @@ export class InfoBillboard {
     adt: AdvancedDynamicTexture | null = null;
     adtButton: Button | null = null;
     titleText: string | null = null;
+    globalConfig: GlobalConfig;
     static colorCache: ColorCache = new ColorCache();
 
-    constructor(readonly infoDialogOpenCallback: (title: string, text: string, homePage: string) => void, centerLatitude: number, centerLongitude: number) {
+    constructor(globalConfig: GlobalConfig, readonly infoDialogOpenCallback: (title: string, text: string, homePage: string) => void, centerLatitude: number, centerLongitude: number) {
+        this.globalConfig = globalConfig;
         this.centerLatitude = centerLatitude;
         this.centerLongitude = centerLongitude;
     }
 
     createTileInfoBillboard(scene: BABYLON.Scene, position: BABYLON.Vector3, text: string, address: string, url: string, segments: string[]) {
-        this.tileInfoPlane = BABYLON.Mesh.CreatePlane("plane", 1050, scene, true);
+        this.tileInfoPlane = BABYLON.Mesh.CreatePlane("plane", 6000, scene, true);
         this.titleText = text;
         this.tileInfoPlane.position = position;
+        this.tileInfoPlane.position.y = 8000;
         this.companySegments = segments;
 
         this.tileInfoPlane.billboardMode = BABYLON.Mesh.BILLBOARDMODE_ALL;
@@ -108,14 +113,33 @@ export class InfoBillboard {
         this.adt.addControl(this.adtButton);
         this.verticalLine = new Line(scene);
         let floor = new BABYLON.Vector3(position.x, 0, position.z);
-        this.verticalLine.create(this.tileInfoPlane.position.subtract(new BABYLON.Vector3(0, 300, 0)), floor);
+        this.verticalLine.create(this.tileInfoPlane.position.subtract(new BABYLON.Vector3(0, 2000, 0)), floor);
 
         let r = 280 * Math.random();
         let top = new BABYLON.Vector3(position.x, 450 - r, position.z).subtract(new BABYLON.Vector3(-50, 0, -50));
         this.buildingBox = new CustomBox(floor.subtract(new BABYLON.Vector3(50, 0, 50)), top, scene);
+
     }
 
 
+    updatePosition() {
+        let t = new Tiler();
+        let meters = t.laloToMeters(this.centerLatitude, this.centerLongitude);
+        let ox = this.globalConfig.offsetX - meters[0];
+        let oy = this.globalConfig.offsetY - meters[1];
+        if (this.tileInfoPlane) {
+            this.tileInfoPlane.position.x = ox;
+            this.tileInfoPlane.position.z = oy;
+        }
+        if (this.verticalLine?.connLine) {
+            this.verticalLine.connLine.position.x = ox;
+            this.verticalLine.connLine.position.z = oy;
+        }
+        if (this.buildingBox?.cube) {
+            this.buildingBox.cube.position.x = ox;
+            this.buildingBox.cube.position.z = oy;
+        }
+    }
 
     hide() {
         if (this.tileInfoPlane)

@@ -1,0 +1,1874 @@
+[
+  {
+    "country": "Afghanistan",
+    "capital": "Kabul",
+    "latitude": 34.5289,
+    "longitude": 69.1725,
+    "population": 4011770,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Albania",
+    "capital": "Tirana",
+    "latitude": 41.3275,
+    "longitude": 19.8189,
+    "population": 475577,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Algeria",
+    "capital": "Algiers",
+    "latitude": 36.7525,
+    "longitude": 3.042,
+    "population": 2693542,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "American Samoa",
+    "capital": "Pago Pago",
+    "latitude": -14.2781,
+    "longitude": -170.7025,
+    "population": 48526,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Andorra",
+    "capital": "Andorra la Vella",
+    "latitude": 42.5078,
+    "longitude": 1.5211,
+    "population": 22614,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Angola",
+    "capital": "Luanda",
+    "latitude": -8.8368,
+    "longitude": 13.2343,
+    "population": 7774200,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Anguilla",
+    "capital": "The Valley",
+    "latitude": 18.217,
+    "longitude": -63.0578,
+    "population": 1402,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Antigua and Barbuda",
+    "capital": "St. John's",
+    "latitude": 17.1172,
+    "longitude": -61.8457,
+    "population": 20764,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Argentina",
+    "capital": "Buenos Aires",
+    "latitude": -34.6051,
+    "longitude": -58.4004,
+    "population": 14966530,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Armenia",
+    "capital": "Yerevan",
+    "latitude": 40.182,
+    "longitude": 44.5146,
+    "population": 1080324,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Aruba",
+    "capital": "Oranjestad",
+    "latitude": 12.524,
+    "longitude": -70.027,
+    "population": 29877,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Australia",
+    "capital": "Canberra",
+    "latitude": -35.2835,
+    "longitude": 149.1281,
+    "population": 447692,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Austria",
+    "capital": "Wien (Vienna)",
+    "latitude": 48.2064,
+    "longitude": 16.3707,
+    "population": 1900547,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Azerbaijan",
+    "capital": "Baku",
+    "latitude": 40.3777,
+    "longitude": 49.892,
+    "population": 2285729,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Bahamas",
+    "capital": "Nassau",
+    "latitude": 25.0582,
+    "longitude": -77.3431,
+    "population": 279668,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Bahrain",
+    "capital": "Al-Manamah (Manama)",
+    "latitude": 26.2154,
+    "longitude": 50.5832,
+    "population": 564631,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Bangladesh",
+    "capital": "Dhaka",
+    "latitude": 23.7104,
+    "longitude": 90.4074,
+    "population": 19578421,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Barbados",
+    "capital": "Bridgetown",
+    "latitude": 13.1,
+    "longitude": -59.6167,
+    "population": 89201,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Belarus",
+    "capital": "Minsk",
+    "latitude": 53.9,
+    "longitude": 27.5667,
+    "population": 2004672,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Belgium",
+    "capital": "Bruxelles-Brussel",
+    "latitude": 50.8467,
+    "longitude": 4.3499,
+    "population": 2049510,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Belize",
+    "capital": "Belmopan",
+    "latitude": 17.25,
+    "longitude": -88.7667,
+    "population": 22964,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Benin",
+    "capital": "Cotonou",
+    "latitude": 6.3654,
+    "longitude": 2.4183,
+    "population": 685458,
+    "capital_type": "Economic Capital"
+  },
+  {
+    "country": "Bermuda",
+    "capital": "Hamilton",
+    "latitude": 32.2915,
+    "longitude": -64.778,
+    "population": 10073,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Bhutan",
+    "capital": "Thimphu",
+    "latitude": 27.4661,
+    "longitude": 89.6419,
+    "population": 203297,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Bolivia (Plurinational State of)",
+    "capital": "La Paz",
+    "latitude": -16.5,
+    "longitude": -68.15,
+    "population": 1814087,
+    "capital_type": "Seat of Government"
+  },
+  {
+    "country": "Bosnia and Herzegovina",
+    "capital": "Sarajevo",
+    "latitude": 43.8486,
+    "longitude": 18.3564,
+    "population": 342577,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Botswana",
+    "capital": "Gaborone",
+    "latitude": -24.6545,
+    "longitude": 25.9086,
+    "population": 269338,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Brazil",
+    "capital": "Brasilia",
+    "latitude": -15.7797,
+    "longitude": -47.9297,
+    "population": 4469585,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "British Virgin Islands",
+    "capital": "Road Town",
+    "latitude": 18.4167,
+    "longitude": -64.6167,
+    "population": 15137,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Brunei Darussalam",
+    "capital": "Bandar Seri Begawan",
+    "latitude": 4.9403,
+    "longitude": 114.9481,
+    "population": 40781,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Bulgaria",
+    "capital": "Sofia",
+    "latitude": 42.6975,
+    "longitude": 23.3242,
+    "population": 1272418,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Burkina Faso",
+    "capital": "Ouagadougou",
+    "latitude": 12.3642,
+    "longitude": -1.5383,
+    "population": 2531381,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Burundi",
+    "capital": "Bujumbura",
+    "latitude": -3.3822,
+    "longitude": 29.3644,
+    "population": 898968,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Cabo Verde",
+    "capital": "Praia",
+    "latitude": 14.9215,
+    "longitude": -23.5087,
+    "population": 167504,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Cambodia",
+    "capital": "Phnom Penh",
+    "latitude": 11.5625,
+    "longitude": 104.916,
+    "population": 1952329,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Cameroon",
+    "capital": "Yaound",
+    "latitude": 3.8667,
+    "longitude": 11.5167,
+    "population": 3655656,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Canada",
+    "capital": "Ottawa-Gatineau",
+    "latitude": 45.4166,
+    "longitude": -75.698,
+    "population": 1363159,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Caribbean Netherlands",
+    "capital": "Kralendijk",
+    "latitude": 12.15,
+    "longitude": -68.2667,
+    "population": 11313,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Cayman Islands",
+    "capital": "George Town",
+    "latitude": 19.2866,
+    "longitude": -81.3744,
+    "population": 34875,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Central African Republic",
+    "capital": "Bangui",
+    "latitude": 4.3612,
+    "longitude": 18.555,
+    "population": 850946,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Chad",
+    "capital": "N'Djamena",
+    "latitude": 12.1067,
+    "longitude": 15.0444,
+    "population": 1322679,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Channel Islands",
+    "capital": "St. Helier",
+    "latitude": 49.188,
+    "longitude": -2.1049,
+    "population": 34386,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Channel Islands",
+    "capital": "St. Peter Port",
+    "latitude": 49.4598,
+    "longitude": -2.5353,
+    "population": 16271,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Chile",
+    "capital": "Santiago",
+    "latitude": -33.4569,
+    "longitude": -70.6483,
+    "population": 6680371,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "China",
+    "capital": "Beijing",
+    "latitude": 39.9075,
+    "longitude": 116.3972,
+    "population": 19617963,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "China, Hong Kong SAR",
+    "capital": "Hong Kong",
+    "latitude": 22.2796,
+    "longitude": 114.1887,
+    "population": 7428887,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "China, Macao SAR",
+    "capital": "Macao",
+    "latitude": 22.2006,
+    "longitude": 113.5461,
+    "population": 632418,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "China, Taiwan Province of China",
+    "capital": "Taibei",
+    "latitude": 25.047,
+    "longitude": 121.5457,
+    "population": 2705791,
+    "capital_type": "Others"
+  },
+  {
+    "country": "Colombia",
+    "capital": "Bogota",
+    "latitude": 4.6097,
+    "longitude": -74.0818,
+    "population": 10574409,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Comoros",
+    "capital": "Moroni",
+    "latitude": -11.7022,
+    "longitude": 43.2551,
+    "population": 62351,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Congo",
+    "capital": "Brazzaville",
+    "latitude": -4.2658,
+    "longitude": 15.2832,
+    "population": 2229693,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Cook Islands",
+    "capital": "Rarotonga",
+    "latitude": -21.23,
+    "longitude": -159.76,
+    "population": 13067,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Costa Rica",
+    "capital": "San Jose",
+    "latitude": 9.9278,
+    "longitude": -84.0807,
+    "population": 1357745,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Cote d'Ivoire",
+    "capital": "Abidjan",
+    "latitude": 5.3453,
+    "longitude": -4.0268,
+    "population": 4920776,
+    "capital_type": "Administrative Capital"
+  },
+  {
+    "country": "Croatia",
+    "capital": "Zagreb",
+    "latitude": 45.8144,
+    "longitude": 15.978,
+    "population": 685587,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Cuba",
+    "capital": "La Habana (Havana)",
+    "latitude": 23.1195,
+    "longitude": -82.3785,
+    "population": 2136468,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Cura\u00e7ao",
+    "capital": "Willemstad",
+    "latitude": 12.1084,
+    "longitude": -68.9335,
+    "population": 144037,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Cyprus",
+    "capital": "Lefkosia (Nicosia)",
+    "latitude": 35.1595,
+    "longitude": 33.3669,
+    "population": 269469,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Czechia",
+    "capital": "Praha (Prague)",
+    "latitude": 50.088,
+    "longitude": 14.4208,
+    "population": 1291552,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Dem. People's Republic of Korea",
+    "capital": "P'yongyang",
+    "latitude": 39.0339,
+    "longitude": 125.7543,
+    "population": 3037862,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Democratic Republic of the Congo",
+    "capital": "Kinshasa",
+    "latitude": -4.3276,
+    "longitude": 15.3136,
+    "population": 13171256,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Denmark",
+    "capital": "K\u00f8benhavn (Copenhagen)",
+    "latitude": 55.6759,
+    "longitude": 12.5655,
+    "population": 1320826,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Djibouti",
+    "capital": "Djibouti",
+    "latitude": 11.5877,
+    "longitude": 43.1447,
+    "population": 561564,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Dominica",
+    "capital": "Roseau",
+    "latitude": 15.3017,
+    "longitude": -61.3881,
+    "population": 14942,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Dominican Republic",
+    "capital": "Santo Domingo",
+    "latitude": 18.4896,
+    "longitude": -69.9018,
+    "population": 3172152,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Ecuador",
+    "capital": "Quito",
+    "latitude": -0.2299,
+    "longitude": -78.525,
+    "population": 1822397,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Egypt",
+    "capital": "Al-Qahirah (Cairo)",
+    "latitude": 30.0392,
+    "longitude": 31.2394,
+    "population": 20076002,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "El Salvador",
+    "capital": "San Salvador",
+    "latitude": 13.6894,
+    "longitude": -89.1872,
+    "population": 1106698,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Equatorial Guinea",
+    "capital": "Malabo",
+    "latitude": 3.75,
+    "longitude": 8.7833,
+    "population": 296770,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Eritrea",
+    "capital": "Asmara",
+    "latitude": 15.3333,
+    "longitude": 38.9333,
+    "population": 895863,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Estonia",
+    "capital": "Tallinn",
+    "latitude": 59.437,
+    "longitude": 24.7535,
+    "population": 437027,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Ethiopia",
+    "capital": "Addis Ababa",
+    "latitude": 9.025,
+    "longitude": 38.7469,
+    "population": 4399674,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Faeroe Islands",
+    "capital": "T\u00f3rshavn",
+    "latitude": 62.0097,
+    "longitude": -6.7716,
+    "population": 20817,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Falkland Islands (Malvinas)",
+    "capital": "Stanley",
+    "latitude": -51.7012,
+    "longitude": -57.8494,
+    "population": 2269,
+    "capital_type": "Others"
+  },
+  {
+    "country": "Fiji",
+    "capital": "Suva",
+    "latitude": -18.1416,
+    "longitude": 178.4415,
+    "population": 178339,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Finland",
+    "capital": "Helsinki",
+    "latitude": 60.1692,
+    "longitude": 24.9402,
+    "population": 1279096,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "France",
+    "capital": "Paris",
+    "latitude": 48.8534,
+    "longitude": 2.3488,
+    "population": 10900952,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "French Guiana",
+    "capital": "Cayenne",
+    "latitude": 4.9333,
+    "longitude": -52.3333,
+    "population": 57506,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "French Polynesia",
+    "capital": "Papeete",
+    "latitude": -17.5333,
+    "longitude": -149.5667,
+    "population": 136005,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Gabon",
+    "capital": "Libreville",
+    "latitude": 0.3925,
+    "longitude": 9.4537,
+    "population": 813489,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Gambia",
+    "capital": "Banjul",
+    "latitude": 13.4531,
+    "longitude": -16.6794,
+    "population": 437161,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Georgia",
+    "capital": "Tbilisi",
+    "latitude": 41.6941,
+    "longitude": 44.8337,
+    "population": 1077333,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Germany",
+    "capital": "Berlin",
+    "latitude": 52.5244,
+    "longitude": 13.4105,
+    "population": 3552123,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Ghana",
+    "capital": "Accra",
+    "latitude": 5.556,
+    "longitude": -0.1969,
+    "population": 2439389,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Gibraltar",
+    "capital": "Gibraltar",
+    "latitude": 36.1447,
+    "longitude": -5.3526,
+    "population": 34733,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Greece",
+    "capital": "Ath\u00ednai (Athens)",
+    "latitude": 37.9534,
+    "longitude": 23.749,
+    "population": 3155600,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Greenland",
+    "capital": "Nuuk (Godth\u00e5b)",
+    "latitude": 64.1835,
+    "longitude": -51.7216,
+    "population": 18406,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Grenada",
+    "capital": "St.George's",
+    "latitude": 12.0564,
+    "longitude": -61.7485,
+    "population": 39297,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Guadeloupe",
+    "capital": "Basse-Terre",
+    "latitude": 15.9985,
+    "longitude": -61.7255,
+    "population": 58397,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Guam",
+    "capital": "Hag\u00e5t\u00f1a",
+    "latitude": 13.4757,
+    "longitude": 144.7489,
+    "population": 146905,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Guatemala",
+    "capital": "Ciudad de Guatemala (Guatemala City)",
+    "latitude": 14.6127,
+    "longitude": -90.5307,
+    "population": 2851104,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Guinea",
+    "capital": "Conakry",
+    "latitude": 9.5716,
+    "longitude": -13.6476,
+    "population": 1843121,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Guinea-Bissau",
+    "capital": "Bissau",
+    "latitude": 11.8636,
+    "longitude": -15.5977,
+    "population": 558399,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Guyana",
+    "capital": "Georgetown",
+    "latitude": 6.8045,
+    "longitude": -58.1553,
+    "population": 109934,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Haiti",
+    "capital": "Port-au-Prince",
+    "latitude": 18.5392,
+    "longitude": -72.335,
+    "population": 2636763,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Holy See",
+    "capital": "Vatican City",
+    "latitude": 41.9024,
+    "longitude": 12.4533,
+    "population": 801,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Honduras",
+    "capital": "Tegucigalpa",
+    "latitude": 14.0818,
+    "longitude": -87.2068,
+    "population": 1363041,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Hungary",
+    "capital": "Budapest",
+    "latitude": 47.498,
+    "longitude": 19.0399,
+    "population": 1759497,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Iceland",
+    "capital": "Reykjav\u00edk",
+    "latitude": 64.1355,
+    "longitude": -21.8954,
+    "population": 216364,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "India",
+    "capital": "Delhi",
+    "latitude": 28.6667,
+    "longitude": 77.2167,
+    "population": 28513682,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Indonesia",
+    "capital": "Jakarta",
+    "latitude": -6.2118,
+    "longitude": 106.8416,
+    "population": 10516927,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Iran (Islamic Republic of)",
+    "capital": "Tehran",
+    "latitude": 35.6944,
+    "longitude": 51.4215,
+    "population": 8895947,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Iraq",
+    "capital": "Baghdad",
+    "latitude": 33.3406,
+    "longitude": 44.4009,
+    "population": 6811955,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Ireland",
+    "capital": "Dublin",
+    "latitude": 53.3331,
+    "longitude": -6.2489,
+    "population": 1201426,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Isle of Man",
+    "capital": "Douglas",
+    "latitude": 54.15,
+    "longitude": -4.4833,
+    "population": 27171,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Israel",
+    "capital": "Jerusalem",
+    "latitude": 31.769,
+    "longitude": 35.2163,
+    "population": 907062,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Italy",
+    "capital": "Roma (Rome)",
+    "latitude": 41.8947,
+    "longitude": 12.4811,
+    "population": 4209710,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Jamaica",
+    "capital": "Kingston",
+    "latitude": 17.997,
+    "longitude": -76.7936,
+    "population": 589083,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Japan",
+    "capital": "Tokyo",
+    "latitude": 35.6895,
+    "longitude": 139.6917,
+    "population": 37468302,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Jordan",
+    "capital": "Amman",
+    "latitude": 31.9552,
+    "longitude": 35.945,
+    "population": 2064582,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Kazakhstan",
+    "capital": "Astana",
+    "latitude": 51.1801,
+    "longitude": 71.446,
+    "population": 1068113,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Kenya",
+    "capital": "Nairobi",
+    "latitude": -1.2833,
+    "longitude": 36.8167,
+    "population": 4385853,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Kiribati",
+    "capital": "Tarawa",
+    "latitude": 1.3272,
+    "longitude": 172.9813,
+    "population": 64011,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Kuwait",
+    "capital": "Al Kuwayt (Kuwait City)",
+    "latitude": 29.3697,
+    "longitude": 47.9783,
+    "population": 2989270,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Kyrgyzstan",
+    "capital": "Bishkek",
+    "latitude": 42.87,
+    "longitude": 74.59,
+    "population": 996319,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Lao People's Democratic Republic",
+    "capital": "Vientiane",
+    "latitude": 17.9667,
+    "longitude": 102.6,
+    "population": 664754,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Latvia",
+    "capital": "Riga",
+    "latitude": 56.946,
+    "longitude": 24.1059,
+    "population": 637089,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Lebanon",
+    "capital": "Bayrut (Beirut)",
+    "latitude": 33.9,
+    "longitude": 35.4833,
+    "population": 2385271,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Lesotho",
+    "capital": "Maseru",
+    "latitude": -29.3167,
+    "longitude": 27.4833,
+    "population": 201851,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Liberia",
+    "capital": "Monrovia",
+    "latitude": 6.3005,
+    "longitude": -10.7969,
+    "population": 1418300,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Libya",
+    "capital": "Tarabulus (Tripoli)",
+    "latitude": 32.8752,
+    "longitude": 13.1875,
+    "population": 1157746,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Liechtenstein",
+    "capital": "Vaduz",
+    "latitude": 47.1415,
+    "longitude": 9.5215,
+    "population": 5470,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Lithuania",
+    "capital": "Vilnius",
+    "latitude": 54.6892,
+    "longitude": 25.2798,
+    "population": 536055,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Luxembourg",
+    "capital": "Luxembourg",
+    "latitude": 49.6117,
+    "longitude": 6.13,
+    "population": 119752,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Madagascar",
+    "capital": "Antananarivo",
+    "latitude": -18.9137,
+    "longitude": 47.5361,
+    "population": 3058387,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Malawi",
+    "capital": "Lilongwe",
+    "latitude": -13.9669,
+    "longitude": 33.7873,
+    "population": 1029639,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Malaysia",
+    "capital": "Kuala Lumpur",
+    "latitude": 3.1412,
+    "longitude": 101.6865,
+    "population": 7563912,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Maldives",
+    "capital": "Male",
+    "latitude": 4.1748,
+    "longitude": 73.5089,
+    "population": 176851,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Mali",
+    "capital": "Bamako",
+    "latitude": 12.65,
+    "longitude": -8.0,
+    "population": 2446749,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Malta",
+    "capital": "Valletta",
+    "latitude": 35.8997,
+    "longitude": 14.5147,
+    "population": 212768,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Marshall Islands",
+    "capital": "Majuro",
+    "latitude": 7.0897,
+    "longitude": 171.3803,
+    "population": 30661,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Martinique",
+    "capital": "Fort-de-France",
+    "latitude": 14.6089,
+    "longitude": -61.0733,
+    "population": 79361,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Mauritania",
+    "capital": "Nouakchott",
+    "latitude": 18.0858,
+    "longitude": -15.9785,
+    "population": 1205414,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Mauritius",
+    "capital": "Port Louis",
+    "latitude": -20.1619,
+    "longitude": 57.4989,
+    "population": 149365,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Mayotte",
+    "capital": "Mamoudzou",
+    "latitude": -12.7794,
+    "longitude": 45.2272,
+    "population": 6180,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Mexico",
+    "capital": "Ciudad de M\u00e9xico (Mexico City)",
+    "latitude": 19.4273,
+    "longitude": -99.1419,
+    "population": 21580827,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Micronesia (Fed. States of)",
+    "capital": "Palikir",
+    "latitude": 6.9174,
+    "longitude": 158.1588,
+    "population": 6996,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Monaco",
+    "capital": "Monaco",
+    "latitude": 43.7333,
+    "longitude": 7.4167,
+    "population": 38897,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Mongolia",
+    "capital": "Ulaanbaatar",
+    "latitude": 47.9077,
+    "longitude": 106.8832,
+    "population": 1520381,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Montenegro",
+    "capital": "Podgorica",
+    "latitude": 42.4411,
+    "longitude": 19.2636,
+    "population": 177177,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Montserrat",
+    "capital": "Brades Estate",
+    "latitude": 16.7918,
+    "longitude": -62.2106,
+    "population": 472,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Morocco",
+    "capital": "Rabat",
+    "latitude": 34.0133,
+    "longitude": -6.8326,
+    "population": 1846661,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Mozambique",
+    "capital": "Maputo",
+    "latitude": -25.9653,
+    "longitude": 32.5892,
+    "population": 1101771,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Myanmar",
+    "capital": "Nay Pyi Taw",
+    "latitude": 19.745,
+    "longitude": 96.1297,
+    "population": 500218,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Namibia",
+    "capital": "Windhoek",
+    "latitude": -22.5594,
+    "longitude": 17.0832,
+    "population": 404280,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Nauru",
+    "capital": "Nauru",
+    "latitude": -0.5308,
+    "longitude": 166.9112,
+    "population": 11312,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Nepal",
+    "capital": "Kathmandu",
+    "latitude": 27.7017,
+    "longitude": 85.3206,
+    "population": 1329732,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Netherlands",
+    "capital": "Amsterdam",
+    "latitude": 52.374,
+    "longitude": 4.8897,
+    "population": 1131690,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "New Caledonia",
+    "capital": "Noum\u00e9a",
+    "latitude": -22.2763,
+    "longitude": 166.4572,
+    "population": 197787,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "New Zealand",
+    "capital": "Wellington",
+    "latitude": -41.2866,
+    "longitude": 174.7756,
+    "population": 411346,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Nicaragua",
+    "capital": "Managua",
+    "latitude": 12.1328,
+    "longitude": -86.2504,
+    "population": 1047923,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Niger",
+    "capital": "Niamey",
+    "latitude": 13.5137,
+    "longitude": 2.1098,
+    "population": 1213781,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Nigeria",
+    "capital": "Abuja",
+    "latitude": 9.0574,
+    "longitude": 7.4898,
+    "population": 2918518,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Niue",
+    "capital": "Alofi",
+    "latitude": -19.0585,
+    "longitude": -169.9213,
+    "population": 727,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Northern Mariana Islands",
+    "capital": "Saipan",
+    "latitude": 15.2123,
+    "longitude": 145.7545,
+    "population": 50568,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Norway",
+    "capital": "Oslo",
+    "latitude": 59.9127,
+    "longitude": 10.7461,
+    "population": 1012225,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Oman",
+    "capital": "Masqat (Muscat)",
+    "latitude": 23.6139,
+    "longitude": 58.5922,
+    "population": 1446563,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Pakistan",
+    "capital": "Islamabad",
+    "latitude": 33.7035,
+    "longitude": 73.0594,
+    "population": 1061412,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Palau",
+    "capital": "Koror",
+    "latitude": 7.3426,
+    "longitude": 134.4789,
+    "population": 11410,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Panama",
+    "capital": "Ciudad de Panam\u00e1 (Panama City)",
+    "latitude": 8.9958,
+    "longitude": -79.5196,
+    "population": 1783490,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Papua New Guinea",
+    "capital": "Port Moresby",
+    "latitude": -9.4431,
+    "longitude": 147.1797,
+    "population": 366862,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Paraguay",
+    "capital": "Asunci\u00f3n",
+    "latitude": -25.3007,
+    "longitude": -57.6359,
+    "population": 3222199,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Peru",
+    "capital": "Lima",
+    "latitude": -12.0432,
+    "longitude": -77.0282,
+    "population": 10390607,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Philippines",
+    "capital": "Manila",
+    "latitude": 14.6042,
+    "longitude": 120.9822,
+    "population": 13482468,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Poland",
+    "capital": "Warszawa (Warsaw)",
+    "latitude": 52.2298,
+    "longitude": 21.0118,
+    "population": 1767798,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Portugal",
+    "capital": "Lisboa (Lisbon)",
+    "latitude": 38.7169,
+    "longitude": -9.1399,
+    "population": 2927316,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Puerto Rico",
+    "capital": "San Juan",
+    "latitude": 18.4663,
+    "longitude": -66.1057,
+    "population": 2454337,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Qatar",
+    "capital": "Ad-Dawhah (Doha)",
+    "latitude": 25.2747,
+    "longitude": 51.5245,
+    "population": 633401,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Republic of Korea",
+    "capital": "Seoul",
+    "latitude": 37.5683,
+    "longitude": 126.9778,
+    "population": 9963497,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Republic of Moldova",
+    "capital": "Chi\u015fin\u0103u",
+    "latitude": 47.0056,
+    "longitude": 28.8575,
+    "population": 509707,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "R\u00e9union",
+    "capital": "Saint-Denis",
+    "latitude": -20.8823,
+    "longitude": 55.4504,
+    "population": 147209,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Romania",
+    "capital": "Bucuresti (Bucharest)",
+    "latitude": 44.4328,
+    "longitude": 26.1043,
+    "population": 1821380,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Russian Federation",
+    "capital": "Moskva (Moscow)",
+    "latitude": 55.755,
+    "longitude": 37.6218,
+    "population": 12409738,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Rwanda",
+    "capital": "Kigali",
+    "latitude": -1.9474,
+    "longitude": 30.0579,
+    "population": 1057836,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Saint Helena",
+    "capital": "Jamestown",
+    "latitude": -15.9387,
+    "longitude": -5.7168,
+    "population": 603,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Saint Kitts and Nevis",
+    "capital": "Basseterre",
+    "latitude": 17.2948,
+    "longitude": -62.7261,
+    "population": 14434,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Saint Lucia",
+    "capital": "Castries",
+    "latitude": 14.006,
+    "longitude": -60.991,
+    "population": 22258,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Saint Pierre and Miquelon",
+    "capital": "Saint-Pierre",
+    "latitude": 46.7738,
+    "longitude": -56.1815,
+    "population": 5723,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Saint Vincent and the Grenadines",
+    "capital": "Kingstown",
+    "latitude": 13.1587,
+    "longitude": -61.2248,
+    "population": 26636,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Samoa",
+    "capital": "Apia",
+    "latitude": -13.8333,
+    "longitude": -171.7667,
+    "population": 36066,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "San Marino",
+    "capital": "San Marino",
+    "latitude": 43.9333,
+    "longitude": 12.45,
+    "population": 4465,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Sao Tome and Principe",
+    "capital": "S\u00e3o Tom\u00e9",
+    "latitude": 0.3365,
+    "longitude": 6.7273,
+    "population": 80099,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Saudi Arabia",
+    "capital": "Ar-Riyadh (Riyadh)",
+    "latitude": 24.6905,
+    "longitude": 46.7096,
+    "population": 6906595,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Senegal",
+    "capital": "Dakar",
+    "latitude": 14.6937,
+    "longitude": -17.4441,
+    "population": 2978419,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Serbia",
+    "capital": "Beograd (Belgrade)",
+    "latitude": 44.8176,
+    "longitude": 20.4633,
+    "population": 1389351,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Seychelles",
+    "capital": "Victoria",
+    "latitude": -4.6167,
+    "longitude": 55.45,
+    "population": 28091,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Sierra Leone",
+    "capital": "Freetown",
+    "latitude": 8.484,
+    "longitude": -13.2299,
+    "population": 1135949,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Singapore",
+    "capital": "Singapore",
+    "latitude": 1.2897,
+    "longitude": 103.8501,
+    "population": 5791901,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Sint Maarten (Dutch part)",
+    "capital": "Philipsburg",
+    "latitude": 18.026,
+    "longitude": -63.0458,
+    "population": 40552,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Slovakia",
+    "capital": "Bratislava",
+    "latitude": 48.1482,
+    "longitude": 17.1067,
+    "population": 429920,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Slovenia",
+    "capital": "Ljubljana",
+    "latitude": 46.0511,
+    "longitude": 14.5051,
+    "population": 286491,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Solomon Islands",
+    "capital": "Honiara",
+    "latitude": -9.4333,
+    "longitude": 159.95,
+    "population": 81801,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Somalia",
+    "capital": "Muqdisho (Mogadishu)",
+    "latitude": 2.0416,
+    "longitude": 45.3435,
+    "population": 2081624,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "South Africa",
+    "capital": "Cape Town",
+    "latitude": -33.9258,
+    "longitude": 18.4232,
+    "population": 4430367,
+    "capital_type": "Legislative Capital"
+  },
+  {
+    "country": "South Sudan",
+    "capital": "Juba",
+    "latitude": 4.8517,
+    "longitude": 31.5825,
+    "population": 368914,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Spain",
+    "capital": "Madrid",
+    "latitude": 40.4165,
+    "longitude": -3.7026,
+    "population": 6497124,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Sri Lanka",
+    "capital": "Colombo",
+    "latitude": 6.9319,
+    "longitude": 79.8478,
+    "population": 599821,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "State of Palestine",
+    "capital": "Al-Quds[East Jerusalem]",
+    "latitude": 31.7834,
+    "longitude": 35.2339,
+    "population": 275086,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Sudan",
+    "capital": "Al-Khartum (Khartoum)",
+    "latitude": 15.5518,
+    "longitude": 32.5324,
+    "population": 5534079,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Suriname",
+    "capital": "Paramaribo",
+    "latitude": 5.8664,
+    "longitude": -55.1668,
+    "population": 239457,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Swaziland",
+    "capital": "Mbabane",
+    "latitude": -26.3167,
+    "longitude": 31.1333,
+    "population": 68010,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Sweden",
+    "capital": "Stockholm",
+    "latitude": 59.3326,
+    "longitude": 18.0649,
+    "population": 1582968,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Switzerland",
+    "capital": "Bern",
+    "latitude": 46.9481,
+    "longitude": 7.4474,
+    "population": 422153,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Syrian Arab Republic",
+    "capital": "Dimashq (Damascus)",
+    "latitude": 33.5086,
+    "longitude": 36.3084,
+    "population": 2319545,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Tajikistan",
+    "capital": "Dushanbe",
+    "latitude": 38.5358,
+    "longitude": 68.7791,
+    "population": 872653,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "TFYR Macedonia",
+    "capital": "Skopje",
+    "latitude": 42.0,
+    "longitude": 21.4333,
+    "population": 584208,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Thailand",
+    "capital": "Krung Thep (Bangkok)",
+    "latitude": 13.722,
+    "longitude": 100.5252,
+    "population": 10156316,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Timor-Leste",
+    "capital": "Dili",
+    "latitude": -8.5601,
+    "longitude": 125.5668,
+    "population": 281135,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Togo",
+    "capital": "Lom\u00e9",
+    "latitude": 6.1375,
+    "longitude": 1.2123,
+    "population": 1745744,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Tokelau",
+    "capital": "Tokelau",
+    "latitude": -9.38,
+    "longitude": -171.25,
+    "population": 0,
+    "capital_type": "Others"
+  },
+  {
+    "country": "Tonga",
+    "capital": "Nuku'alofa",
+    "latitude": -21.1394,
+    "longitude": -175.2032,
+    "population": 22904,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Trinidad and Tobago",
+    "capital": "Port of Spain",
+    "latitude": 10.6662,
+    "longitude": -61.5166,
+    "population": 544417,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Tunisia",
+    "capital": "Tunis",
+    "latitude": 36.819,
+    "longitude": 10.1658,
+    "population": 2290777,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Turkey",
+    "capital": "Ankara",
+    "latitude": 39.9199,
+    "longitude": 32.8543,
+    "population": 4919074,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Turkmenistan",
+    "capital": "Ashgabat",
+    "latitude": 37.95,
+    "longitude": 58.3833,
+    "population": 810186,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Turks and Caicos Islands",
+    "capital": "Cockburn Town",
+    "latitude": 21.4612,
+    "longitude": -71.1419,
+    "population": 5447,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Tuvalu",
+    "capital": "Funafuti",
+    "latitude": -8.5189,
+    "longitude": 179.1991,
+    "population": 7042,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Uganda",
+    "capital": "Kampala",
+    "latitude": 0.3163,
+    "longitude": 32.5822,
+    "population": 2986352,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Ukraine",
+    "capital": "Kyiv (Kiev)",
+    "latitude": 50.4454,
+    "longitude": 30.5186,
+    "population": 2956706,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "United Arab Emirates",
+    "capital": "Abu Zaby (Abu Dhabi)",
+    "latitude": 24.4648,
+    "longitude": 54.3618,
+    "population": 1419699,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "United Kingdom",
+    "capital": "London",
+    "latitude": 51.5085,
+    "longitude": -0.1257,
+    "population": 9046485,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "United Republic of Tanzania",
+    "capital": "Dodoma",
+    "latitude": -6.1722,
+    "longitude": 35.7395,
+    "population": 261645,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "United States of America",
+    "capital": "Washington, D.C.",
+    "latitude": 38.8951,
+    "longitude": -77.0364,
+    "population": 5206593,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "United States Virgin Islands",
+    "capital": "Charlotte Amalie",
+    "latitude": 18.3419,
+    "longitude": -64.9307,
+    "population": 52322,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Uruguay",
+    "capital": "Montevideo",
+    "latitude": -34.8335,
+    "longitude": -56.1674,
+    "population": 1736989,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Uzbekistan",
+    "capital": "Tashkent",
+    "latitude": 41.2647,
+    "longitude": 69.2163,
+    "population": 2463969,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Vanuatu",
+    "capital": "Port Vila",
+    "latitude": -17.7338,
+    "longitude": 168.3219,
+    "population": 52690,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Venezuela (Bolivarian Republic of)",
+    "capital": "Caracas",
+    "latitude": 10.488,
+    "longitude": -66.8792,
+    "population": 2934560,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Viet Nam",
+    "capital": "H\u00e0 Noi",
+    "latitude": 21.0245,
+    "longitude": 105.8412,
+    "population": 4282738,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Wallis and Futuna Islands",
+    "capital": "Matu-Utu",
+    "latitude": -13.2816,
+    "longitude": -176.1745,
+    "population": 1025,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Western Sahara",
+    "capital": "El Aai\u00fan",
+    "latitude": 27.1532,
+    "longitude": -13.2014,
+    "population": 232388,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Yemen",
+    "capital": "Sana'a'",
+    "latitude": 15.3531,
+    "longitude": 44.2078,
+    "population": 2779317,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Zambia",
+    "capital": "Lusaka",
+    "latitude": -15.4134,
+    "longitude": 28.2771,
+    "population": 2523844,
+    "capital_type": "Capital"
+  },
+  {
+    "country": "Zimbabwe",
+    "capital": "Harare",
+    "latitude": -17.8294,
+    "longitude": 31.0539,
+    "population": 1515016,
+    "capital_type": "Capital"
+  }
+]

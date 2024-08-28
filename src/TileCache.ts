@@ -2,18 +2,32 @@ import type { TileData } from "./TileData";
 
 
 
-
+/**
+ * LRU Cache for TileData (tile images).
+ * 
+ */
 export class TileCache {
     cacheMap: Map<number, Map<number, Map<number, TileData>>> = new Map<number, Map<number, Map<number, TileData>>>();
     cacheList: TileData[] = [];
     tileCoords: Map<TileData, [number, number, number]> = new Map<TileData, [number, number, number]>();
     maxSize: number;
 
+    /**
+     * Initialzes the TileCache instance with  `maxSize` maximum number of 
+     * items allowed in the cache.
+     * @param maxSize maximum number of items allowed in the cache.
+     */
     constructor(maxSize: number) {
         this.maxSize = maxSize;
     }
 
-    // Get a tile from the cache
+    /**
+     * Gets the TileData item for tile at position x/y/z.
+     * @param z tile zoom level
+     * @param x x value
+     * @param y y value
+     * @returns The tile data if it exists, else undefined.
+     */
     get(z: number, x: number, y: number): TileData | undefined {
         const xMap = this.cacheMap.get(z)?.get(x);
         if (xMap) {
@@ -26,7 +40,14 @@ export class TileCache {
         return undefined;
     }
 
-    // Add a tile to the cache
+    /**
+     * Puts the given TileData item onto the cahce with the given
+     * (x/y/z) values.
+     * @param z tile zoom level
+     * @param x x value
+     * @param y y value
+     * @param tile the tile to place on the cache.
+     */
     put(z: number, x: number, y: number, tile: TileData): void {
         if (this.cacheList.length >= this.maxSize) {
             this.evict();
@@ -46,7 +67,7 @@ export class TileCache {
         this.tileCoords.set(tile, [z, x, y]);
     }
 
-    // Update usage list for LRU logic
+    // updating the usage of the given tile
     private updateUsage(tile: TileData): void {
         const index = this.cacheList.indexOf(tile);
         if (index > -1) {
@@ -75,6 +96,10 @@ export class TileCache {
         }
     }
 
+    /**
+     * Clears the cache. Cache is entirely empties, and
+     * any TileData instances will be deleted.
+     */
     clear() {
         this.tileCoords = new Map();
         this.cacheList.forEach(t => t.delete());
@@ -82,13 +107,21 @@ export class TileCache {
         this.cacheMap = new Map();
     }
 
+    /**
+     * Activate tiles at the given z-level
+     * @param z zoom level
+     */
     activateZLevel(z: number) {
         this.cacheList.filter(t => t !== undefined).forEach(t => {
 
             t.xyzTileZoomLevel == z ? t.show() : t.hide();
         });
     }
-
+    /**
+     * Shows tiles at the given z-level and hides others, at a rate of v.
+     * @param z zoom levle to show
+     * @param v rate to show/hide tiles.
+     */
     showAndHide(z: number, v: number) {
         this.cacheList.filter(t => t !== undefined).forEach(t => {
 

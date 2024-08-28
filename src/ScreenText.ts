@@ -3,7 +3,6 @@ import { AdvancedDynamicTexture, Image, TextBlock } from "@babylonjs/gui/2D";
 import { GlobalConfig } from "./GlobalConfig";
 
 
-
 export class ScreenText {
 
 

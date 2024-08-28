@@ -94,8 +94,6 @@ export class CustomBox {
         this.name = this.cube.name;
 
 
-
-
         var customMaterial = new BABYLON.ShaderMaterial("shader", scene, {
             vertex: "box",
             fragment: "box",

@@ -105,13 +105,13 @@ let infoHomePage = ref<string>("");
 let app: App | null = null;
 onMounted(() => {
   app = new App(showInfoDialog);
-  items1.value = Array.from(app.uniqueSegments);
+  items1.value = Array.from(app.getCapitalCityNames());
 });
 function openUrl(url: string) {
   window.open(url, "__blank");
 }
 function clickSegment(item: string) {
-  app?.selectBySegment(item);
+  app?.selectCapital(item);
 }
 
 function centerCamera() {

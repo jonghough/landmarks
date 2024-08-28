@@ -5,6 +5,7 @@
  */
 
 export class Tiler {
+    // EPSG 3857 min / max values
     static readonly MIN_X = -20037508.342789244;
     static readonly MAX_X = 20037508.342789244;
     static readonly MIN_Y = -20037508.342789244;
@@ -13,9 +14,7 @@ export class Tiler {
     static readonly RANGE_Y = Tiler.MAX_Y - Tiler.MIN_Y;
     originShift: number;
     initialResolution: number;
-    tileSize: number;
-    constructor() {
-        this.tileSize = 256;
+    constructor(readonly tileSize: number = 256) {
         const WGS84EllipsoidRadius = 6378137; // semi-major axis
         this.originShift = 2 * Math.PI * WGS84EllipsoidRadius / 2.0;
         this.initialResolution = 2 * Math.PI * WGS84EllipsoidRadius / this.tileSize;

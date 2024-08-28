@@ -8,6 +8,7 @@ import locations from './companies.json';
 import tokyo from './tokyo.json';
 import tokyoRoads from './tokyo_roads.json';
 import tokyoRail from './tokyo_rail.json';
+import capitals from './capitals.json';
 import { TileCache } from "./TileCache";
 import { ScreenText } from "./ScreenText";
 
@@ -27,12 +28,13 @@ export class App {
     tiles: Array<TileData> = new Array<TileData>();
     globalConfig: GlobalConfig;
     infoDialogOpenCallback: (title: string, text: string, homePage: string) => void;
-    public uniqueSegments: Set<string> = new Set<string>();
+    public capitalCityNames: Map<string, number[]> = new Map<string, number[]>();
     tileCache: TileCache = new TileCache(320);
     screenText: ScreenText;
     currentZoomLevel: number = 6;
+    capitals: InfoBillboard[] = [];
     constructor(infoDialogOpenCallback: (title: string, text: string, homePage: string) => void) {
-        this.globalConfig = new GlobalConfig("s", 12, 1e7, true, 1.0, 2, 15500000, 4200000, true, 35.685247972844635, 139.75274474466545, (s) => { });
+        this.globalConfig = new GlobalConfig("s", 12, 1e7, true, 19.0, 2, 15500000, 4200000, true, 35.685247972844635, 139.75274474466545, (s) => { });
         this.infoDialogOpenCallback = infoDialogOpenCallback;
         var canvas = document.createElement("canvas");
         canvas.style.width = "100%";
@@ -40,7 +42,6 @@ export class App {
         canvas.id = "landmarkCanvas";
         document.body.appendChild(canvas);
 
-        // initialize babylon scene and engine
         var engine = new BABYLON.Engine(canvas, true);
         this.scene = new BABYLON.Scene(engine);
         this.scene.blockMaterialDirtyMechanism = true;
@@ -49,60 +50,19 @@ export class App {
         this.camera.maxZ = this.globalConfig.farPlaneDistance;
 
         this.camera.attachControl(canvas, true);
-        var light1: BABYLON.HemisphericLight = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 10000, 0), this.scene);
-        light1.intensity = 1.0;
+        var mainLight: BABYLON.HemisphericLight = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 10000, 0), this.scene);
+        mainLight.intensity = 1.0;
         this.camera.setTarget(BABYLON.Vector3.Zero());
 
         this.registerSceneUpdates();
-        // run the main render loop
         engine.runRenderLoop(() => {
             this.scene.render();
         });
 
 
-
-
-        let t = new Tiler();
-        // let [[minLat, minLon], [maxLat, maxLon]] = this.getLocationBounds()
-        // let m00 = t.laloToTile(minLat, minLon, this.globalConfig.xyzTileZoomLevel);
-        // let m11 = t.laloToTile(maxLat, maxLon, this.globalConfig.xyzTileZoomLevel);
-
         this.setCenterPosition();
-        // for (var i = m00[0]; i < m11[0] + 1; i++) {
-        //     for (var j = m00[1]; j < m11[1] + 1; j++) {
+        this.showCapitalCities();
 
-        //         let td = new TileData("", this.globalConfig, new Tiler(), i, j, -1, this.globalConfig.xyzTileZoomLevel);
-
-        //         td.setupTileBoundaryLines(this.scene);
-        //         this.tiles.push(td);
-        //         let bounds = td.ndsTileBounds;
-        //         if (i == Math.floor((m11[0] + m00[0]) / 2) && j == Math.floor((m11[1] + m00[1]) / 2)) {
-        //             this.camera.position.x = this.globalConfig.offsetX - bounds[0];
-        //             this.camera.position.y = 500;
-        //             this.camera.position.z = this.globalConfig.offsetY - bounds[1] - 100;
-        //             this.cameraDefaultPosition = this.camera.position.clone();
-        //         }
-
-        //     }
-        // }
-
-        // let mxx = t.laloToTile(35.64235879570655, 139.71347778350273, this.globalConfig.xyzTileZoomLevel + 4);
-        // let tdx = new TileData("", this.globalConfig, new Tiler(), mxx[0], mxx[1], 30, this.globalConfig.xyzTileZoomLevel + 4);
-        // let zoomedTiles = this.getUniqueTiles(t, this.globalConfig.xyzTileZoomLevel + 4);
-        // tdx.setupTileBoundaryLines(this.scene);
-        // this.tiles.push(tdx);
-        this.showTokyoBoundaries();
-        this.showTokyoRoads(t);
-        this.showTokyoRail(t);
-
-        this.uniqueSegments = new Set<string>();
-
-        let loc = locations;
-        loc.locations.forEach((location: { name: string; segments: string[] }) => {
-            location.segments.forEach((segment: string) => {
-                this.uniqueSegments.add(segment);
-            });
-        });
 
         this.screenText = new ScreenText(this.globalConfig, () => { return this.getCameraPosition(); });
     }
@@ -132,66 +92,30 @@ export class App {
         this.cameraDefaultPosition = this.camera.position.clone();
     }
 
-    showTokyoBoundaries() {
-        let tok = tokyo;
-        tok.features.forEach(f => {
-            let coords = f.geometry.coordinates;
-            coords.forEach(poly => {
-                let convCoords = poly[0].map(c => {
-                    let x = this.globalConfig.offsetX - c[0];
-                    let y = this.globalConfig.offsetY - c[1];
-                    return new BABYLON.Vector3(x, 0.2, y);
-                });
-                let boundsgrid = {
-                    points: convCoords,
-                    updatable: false,
-                };
-                let lines = BABYLON.MeshBuilder.CreateLines("lines_", boundsgrid, this.scene);
-                lines.color = new BABYLON.Color3(1, 0.2, 0.2);
-            });
+
+    showCapitalCities() {
+        let t = new Tiler();
+        let cap = capitals;
+        cap.forEach((location) => {
+            let tinfo = new InfoBillboard(this.globalConfig, this.infoDialogOpenCallback, location.latitude, location.longitude);
+            let meters = t.laloToMeters(location.latitude, location.longitude);
+            let ox = this.globalConfig.offsetX - meters[0];
+            let oy = this.globalConfig.offsetY - meters[1];
+            tinfo.createTileInfoBillboard(this.scene, new BABYLON.Vector3(ox, 1250, oy), location.capital, location.country, "", [])
+            tinfo.show("");
+            this.capitals.push(tinfo);
+            this.capitalCityNames.set(location.capital, [location.latitude, location.longitude]);//(location.capital + " (" + location.country + ")");
+
         });
     }
 
-    showTokyoRoads(t: Tiler) {
-        let tok = tokyoRoads;
-        tok.features.forEach(f => {
-            let coords = f.geometry.coordinates;
-            coords.forEach(lineStr => {
-                let convCoords = lineStr.map(c => {
-                    let meters = t.laloToMeters(c[1], c[0]);
-                    let x = this.globalConfig.offsetX - meters[0];
-                    let y = this.globalConfig.offsetY - meters[1];
-                    return new BABYLON.Vector3(x, 31.6, y);
-                });
-                let boundsgrid = {
-                    points: convCoords,
-                    updatable: false,
-                };
-                let lines = BABYLON.MeshBuilder.CreateLines("lines_", boundsgrid, this.scene);
-                lines.color = new BABYLON.Color3(0.2, 0.7, 0.2);
-            });
-        });
+
+    getCapitalCityNames() {
+        return capitals.map(c => c.capital);
     }
-    showTokyoRail(t: Tiler) {
-        let tok = tokyoRail;
-        tok.features.forEach(f => {
-            let coords = f.geometry.coordinates;
-            coords.forEach(lineStr => {
-                let convCoords = lineStr.map(c => {
-                    let meters = t.laloToMeters(c[1], c[0]);
-                    let x = this.globalConfig.offsetX - meters[0];
-                    let y = this.globalConfig.offsetY - meters[1];
-                    return new BABYLON.Vector3(x, 31.6, y);
-                });
-                let boundsgrid = {
-                    points: convCoords,
-                    updatable: false,
-                };
-                let lines = BABYLON.MeshBuilder.CreateLines("lines_", boundsgrid, this.scene);
-                lines.color = new BABYLON.Color3(0.2, 0.7, 0.99);
-            });
-        });
-    }
+
+
+
     getUniqueTiles(t: Tiler, zoom: number) {
         let loc = locations;
 
@@ -223,22 +147,7 @@ export class App {
         return [[minLat, minLon], [maxLat, maxLon]]
     }
 
-    createBySegment(segment: string) {
-        let t = new Tiler();
-        let loc = locations;
-        loc.locations.forEach((location) => {
-            if (location.segments.includes(segment)) {
-                let tinfo = new InfoBillboard(this.infoDialogOpenCallback, location.location[0], location.location[1]);
-                let meters = t.laloToMeters(location.location[0], location.location[1]);
-                let ox = this.globalConfig.offsetX - meters[0];
-                let oy = this.globalConfig.offsetY - meters[1];
-                tinfo.createTileInfoBillboard(this.scene, new BABYLON.Vector3(ox, 1250, oy), location.name, location.address, location.homepage, location.segments)
-                tinfo.show(segment);
-                this.companyObjects.push(tinfo);
-            }
-        });
 
-    }
 
     clearBillboards() {
         this.companyObjects.forEach(t => t.dispose());
@@ -246,20 +155,35 @@ export class App {
     }
 
 
-    selectBySegment(segment: string) {
-        this.clearBillboards();
-        this.createBySegment(segment);
+    selectCapital(segment: string) {
+        // TODO
+        // 1. get the lat lon
+        // 2. convert to  meters
+        // 3. set offset equal to meters.
+        // 4. update all capital cities
+        // 5. move camera 
+        if (this.capitalCityNames.has(segment)) {
+            let pos = this.capitalCityNames.get(segment);
+            if (pos) {
+                let t = new Tiler();
+                let meters = t.laloToMeters(pos[0], pos[1]);
+                this.globalConfig.offsetX = meters[0];
+                this.globalConfig.offsetY = meters[1];
+
+                this.capitals.forEach(c => c.updatePosition());
+                this.camera.position.x = 0;
+                this.camera.position.z = 0;
+            }
+        }
     }
 
     centerCamera() {
         this.camera.position = this.cameraDefaultPosition.clone();
     }
 
-    checkPosition() {
+    private updateOffsetsandZoomLevel() {
         let x = (this.cameraDefaultPosition.x - this.camera.position.x);
         let y = (this.cameraDefaultPosition.z - this.camera.position.z);
-        let ox = (this.cameraDefaultPosition.x - this.globalConfig.offsetX);
-        let oy = (this.cameraDefaultPosition.z - this.globalConfig.offsetY);
         let d = Math.sqrt((x * x) + (y * y));
         if (d > 1e5) {
             this.tileCache.clear();
@@ -274,224 +198,92 @@ export class App {
             this.globalConfig.offsetX = this.camera.position.x + kx;
             this.globalConfig.offsetY = this.camera.position.z + ky;
         }
+
+        this.capitals.forEach(c => c.updatePosition());
     }
 
-    getZoomLevelForHeight(height: number, angle: number) {
+    private getZoomLevelForHeight(height: number, angle: number) {
         if (height < 0) {
             return -1;
         }
-        if (true || angle > 60) {
-            if (height < 300) {
-                return 19;
-            } else if (height < 500) {
-                return 18;
-            }
-            else if (height < 800) {
-                return 17;
-            } else if (height < 1600) {
-                return 16;
-            } else if (height < 3000) {
-                return 15;
-            } else if (height < 5000) {
-                return 14;
-            } else if (height < 9000) {
-                return 13;
-            } else if (height < 16000) {
-                return 12;
-            } else if (height < 30000) {
-                return 11;
-            } else if (height < 55000) {
-                return 10;
-            } else if (height < 80000) {
-                return 9;
-            } else if (height < 150000) {
-                return 8;
-            } else if (height < 220000) {
-                return 7;
-            } else if (height < 400000) {
-                return 6;
-            } else if (height < 1000000) {
-                return 5;
-            } else return 4;
-        }
 
-        // else if (angle > 30) {
-        //     if (height < 200) {
-        //         return 19;
-        //     } else if (height < 300) {
-        //         return 18;
-        //     }
-        //     else if (height < 500) {
-        //         return 17;
-        //     } else if (height < 800) {
-        //         return 16;
-        //     } else if (height < 1200) {
-        //         return 15;
-        //     } else if (height < 2200) {
-        //         return 14;
-        //     } else if (height < 4000) {
-        //         return 13;
-        //     } else if (height < 7000) {
-        //         return 12;
-        //     } else if (height < 16000) {
-        //         return 11;
-        //     } else if (height < 25000) {
-        //         return 10;
-        //     } else if (height < 47000) {
-        //         return 9;
-        //     } else if (height < 100000) {
-        //         return 8;
-        //     } else if (height < 160000) {
-        //         return 7;
-        //     } else return 6;
-        // }
-
-        // else if (angle > 5) {
-        //     if (height < 50) {
-        //         return 19;
-        //     } else if (height < 180) {
-        //         return 18;
-        //     }
-        //     else if (height < 400) {
-        //         return 17;
-        //     } else if (height < 600) {
-        //         return 16;
-        //     } else if (height < 800) {
-        //         return 15;
-        //     } else if (height < 1200) {
-        //         return 14;
-        //     } else if (height < 2000) {
-        //         return 13;
-        //     } else if (height < 5000) {
-        //         return 12;
-        //     } else if (height < 13000) {
-        //         return 11;
-        //     } else if (height < 20000) {
-        //         return 10;
-        //     } else if (height < 40000) {
-        //         return 9;
-        //     } else if (height < 80000) {
-        //         return 8;
-        //     } else if (height < 120000) {
-        //         return 7;
-        //     } else return 6;
-        // }
-        else {
-            if (height < 100) {
-                return 19;
-            } else if (height < 200) {
-                return 18;
-            }
-            else if (height < 400) {
-                return 17;
-            } else if (height < 600) {
-                return 16;
-            } else if (height < 800) {
-                return 15;
-            } else if (height < 1000) {
-                return 14;
-            } else if (height < 2000) {
-                return 13;
-            } else if (height < 4000) {
-                return 12;
-            } else if (height < 8000) {
-                return 11;
-            } else if (height < 12000) {
-                return 10;
-            } else if (height < 24000) {
-                return 9;
-            } else if (height < 50000) {
-                return 8;
-            } else if (height < 120000) {
-                return 7;
-            } else return 6;
+        if (height < 300) {
+            return 19;
+        } else if (height < 500) {
+            return 18;
         }
-        return -1;
-        // if (height < 140) {
-        //     return 19;
-        // }
-        // else if (height < 250 && angle > 20) {
-        //     return 19;
-        // }
-        // else if (height < 400 && angle > 19) {
-        //     return 18;
-        // }
-        // else if (height < 750 && angle > 17) {
-        //     return 17;
-        // } else if (height < 750) {
-        //     return 16;
-        // }
-        // else if (height < 1000 && angle > 10) {
-        //     return 16;
-        // } else if (height < 1000) {
-        //     return 15;
-        // } else if (height < 1500 && angle > 5) {
-        //     return 15;
-        // } else if (height < 1500) {
-        //     return 14;
-        // } else if (height < 2500 && angle > 4) {
-        //     return 14;
-        // } else if (height < 3000 && angle > 2) {
-        //     return 13;
-        // } else if (height < 4000) {
-        //     return 12;
-        // } else if (height < 6000) {
-        //     return 11;
-        // } else if (height < 8000) {
-        //     return 10;
-        // } else if (height < 20000) {
-        //     return 9;
-        // } else if (height < 40000) {
-        //     return 8;
-        // } else if (height < 80000) {
-        //     return 7;
-        // } else if (height < 100000) {
-        //     return 6;
-        // }
-        // else return -1;
+        else if (height < 800) {
+            return 17;
+        } else if (height < 1600) {
+            return 16;
+        } else if (height < 3000) {
+            return 15;
+        } else if (height < 5000) {
+            return 14;
+        } else if (height < 9000) {
+            return 13;
+        } else if (height < 16000) {
+            return 12;
+        } else if (height < 30000) {
+            return 11;
+        } else if (height < 55000) {
+            return 10;
+        } else if (height < 80000) {
+            return 9;
+        } else if (height < 150000) {
+            return 8;
+        } else if (height < 220000) {
+            return 7;
+        } else if (height < 400000) {
+            return 6;
+        } else if (height < 1000000) {
+            return 5;
+        } else return 4;
     }
 
-    getTileHeightForZoomLevel(zoomLevel: number) {
+    private getTileHeightForZoomLevel(zoomLevel: number) {
         let defaultHeight = 30;
-        const drop = 0;
+        // in development, the idea was to place low level tiles below
+        // higher level tiles. But that does not seem to be useful.
+        const dropInHeight = 0;
         if (zoomLevel == 19) {
             return defaultHeight;
         }
         else if (zoomLevel == 18) {
-            return defaultHeight - drop;
+            return defaultHeight - dropInHeight;
         } else if (zoomLevel == 17) {
-            return defaultHeight - 2 * drop;
+            return defaultHeight - 2 * dropInHeight;
         } else if (zoomLevel == 16) {
-            return defaultHeight - 3 * drop;
+            return defaultHeight - 3 * dropInHeight;
         } else if (zoomLevel == 15) {
-            return defaultHeight - 4 * drop;
+            return defaultHeight - 4 * dropInHeight;
         } else if (zoomLevel == 14) {
-            return defaultHeight - 5 * drop;
+            return defaultHeight - 5 * dropInHeight;
         } else if (zoomLevel == 13) {
-            return defaultHeight - 6 * drop;
+            return defaultHeight - 6 * dropInHeight;
         } else if (zoomLevel == 12) {
-            return defaultHeight - 7 * drop;
+            return defaultHeight - 7 * dropInHeight;
         } else if (zoomLevel == 11) {
-            return defaultHeight - 8 * drop;
+            return defaultHeight - 8 * dropInHeight;
         } else if (zoomLevel == 10) {
-            return defaultHeight - 9 * drop;
+            return defaultHeight - 9 * dropInHeight;
         } else if (zoomLevel == 9) {
-            return defaultHeight - 10 * drop;
+            return defaultHeight - 10 * dropInHeight;
         } else if (zoomLevel == 8) {
-            return defaultHeight - 11 * drop;
+            return defaultHeight - 11 * dropInHeight;
         } else if (zoomLevel == 7) {
-            return defaultHeight - 12 * drop;
+            return defaultHeight - 12 * dropInHeight;
         } else if (zoomLevel == 6) {
-            return defaultHeight - 13 * drop;
+            return defaultHeight - 13 * dropInHeight;
         } else if (zoomLevel == 5) {
-            return defaultHeight - 14 * drop;
+            return defaultHeight - 14 * dropInHeight;
         } else if (zoomLevel == 4) {
-            return defaultHeight - 15 * drop;
+            return defaultHeight - 15 * dropInHeight;
         }
         return 0;
     }
 
-    getForwardDistanceForZoomLevel(zoomLevel: number) {
+    private getForwardDistanceForZoomLevel(zoomLevel: number) {
         if (zoomLevel == 19) {
             return 1500;
         }
@@ -529,7 +321,7 @@ export class App {
         return 0;
     }
 
-    getLateralDistanceForZoomLevel(zoomLevel: number) {
+    private getLateralDistanceForZoomLevel(zoomLevel: number) {
         if (zoomLevel == 19) {
             return 300;
         }
@@ -794,7 +586,7 @@ export class App {
                 __this.tileCache.showAndHide(__this.currentZoomLevel, 0.9);
             }
             if (time > 1000) {
-                __this.checkPosition();
+                __this.updateOffsetsandZoomLevel();
                 __this.loadTiles();
                 time = 0;
             }

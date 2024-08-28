@@ -1406,6 +1406,90 @@
       "address": "〒107-0061 Tokyo, Minato City, Kita-Aoyama, 2 Chome−11−3 A-Place 青山",
       "segments": ["games & entertainment", "internet services"],
       "homepage": "https://www.mynet.co.jp/"
+    },
+    {
+      "name": "AnyMind Group",
+      "location": [35.6606963489513, 139.72985903384276],
+      "address": "〒106-0032 Tokyo, Minato City, Roppongi, 6 Chome−10−1, Roppongi Hills Mori Tower, 31F",
+      "segments": ["consulting"],
+      "homepage": "https://anymindgroup.com/ja/"
+    },
+    {
+      "name": "SBI Securities Solutions",
+      "location": [35.66497816573246, 139.7392203522138],
+      "address": "Izumi Garden Tower, 1 Chome-6-1 Roppongi, Minato City, Tokyo 106-0032",
+      "segments": ["finance & insurance", "fintech"],
+      "homepage": "https://www.sbigroup.co.jp/"
+    },
+    {
+      "name": "ANDPAD",
+      "location": [35.70014970284561, 139.77469551233955],
+      "address": "〒101-0022 Tokyo, Chiyoda City, Kanda Neribeicho, 300 住友不動産秋葉原駅前ビル 8F",
+      "segments": ["business software"],
+      "homepage": "https://andpad.co.jp/"
+    },
+    {
+      "name": "UPWARD",
+      "location": [35.6845129616947, 139.76502673932947],
+      "address": "〒100-0005 Tokyo, Chiyoda City, Marunouchi, 1 Chome−4−1, Marunouchi Eiraku Building, 26階",
+      "segments": ["marketing"],
+      "homepage": "http://www.upward.jp/"
+    },
+    {
+      "name": "Allm, Inc",
+      "location": [35.6585126845781, 139.69856833125345],
+      "address": "〒150-0043 Tokyo, Shibuya City, Dogenzaka, 1 Chome−12−1 渋谷マークシティ ウエスト 16F",
+      "segments": ["medical"],
+      "homepage": "https://www.allm.net/"
+    },
+    {
+      "name": "LPIXEL",
+      "location": [35.68650445886329, 139.76474346901574],
+      "address": "Otemachi Bldg., 1 Chome-6-1 Ōtemachi, Chiyoda City, Tokyo 100-0004",
+      "segments": ["medical", "artificial intelligence"],
+      "homepage": "https://lpixel.net/en/company/"
+    },
+    {
+      "name": "Kioxia",
+      "location": [35.64504778561546, 139.7494912840235],
+      "address": "3 Chome-1-21 Shibaura, Minato City, Tokyo 108-0023",
+      "segments": ["semiconductors"],
+      "homepage": "https://www.kioxia.com/"
+    },
+    {
+      "name": "Cocoa Motors",
+      "location": [35.66389478924912, 139.69867292770738],
+      "address": "2-1 Udagawacho, Shibuya City, Tokyo 150-0042",
+      "segments": ["automotive & mobility"],
+      "homepage": "http://www.cocoamotors.com/top-jp"
+    },
+    {
+      "name": "Spacelink",
+      "location": [35.69201009875562, 139.6872566104948],
+      "address": "〒160-0023 Tokyo, Shinjuku City, Nishishinjuku, 6 Chome−16−12 第一丸善ビル",
+      "segments": ["space", "geospatial"],
+      "homepage": "http://spacelink.co.jp/"
+    },
+    {
+      "name": "Timee",
+      "location": [35.67392528305646, 139.76143297272162],
+      "address": "〒105-7135 Tokyo, Minato City, Higashishinbashi, 1 Chome−5−2 汐留シティセンタ 35階",
+      "segments": ["business software", "internet services"],
+      "homepage": "https://timee.co.jp/"
+    },
+    {
+      "name": "Turing",
+      "location": [35.62233948618278, 139.73098431346168],
+      "address": "〒141-0032 Tokyo, Shinagawa City, Osaki, 1 Chome−11−2 ゲートシティ大崎 イーストタワ 4階",
+      "segments": ["automotive & mobility", "robotics"],
+      "homepage": "http://turing-motors.com/"
+    },
+    {
+      "name": "BizReach",
+      "location": [35.66195147713602, 139.70458511439807],
+      "address": "〒150-0002 Tokyo, Shibuya City, Shibuya, 2 Chome−15−1, Shibuya Cross Tower, 12F",
+      "segments": ["business software", "internet services"],
+      "homepage": "https://www.bizreach.co.jp/"
     }
   ]
 }
