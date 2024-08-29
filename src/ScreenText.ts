@@ -13,6 +13,8 @@ export class ScreenText {
         image.height = 1;
         advancedTexture.addControl(image);
 
+
+
         let textBlock = new TextBlock("connector", " ");
 
         textBlock.height = 1.0;
