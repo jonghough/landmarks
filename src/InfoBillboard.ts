@@ -67,7 +67,6 @@ export class InfoBillboard {
         if (this.tileInfoPlane)
             this.tileInfoPlane.isVisible = false;
 
-
     }
     show(segment: string) {
         this.billboardTextColor = '#FFFFFF';

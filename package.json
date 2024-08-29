@@ -7,14 +7,21 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --max-warnings=10",
+    "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --quiet --fix",
+    "prepare": "husky "
   },
   "devDependencies": {
     "@babylonjs/core": "^6.30.0",
     "@babylonjs/inspector": "^6.30.0",
     "@nuxt/devtools": "latest",
     "@types/node": "^20.9.2",
+    "eslint": "^9.9.1",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.9",
     "nuxt": "^3.8.1",
+    "prettier": "^3.3.3",
     "ts-loader": "^9.5.1",
     "vue": "^3.3.8",
     "vue-router": "^4.2.5"
@@ -28,5 +35,11 @@
     "geojson": "^0.5.0",
     "sass": "^1.69.5",
     "vuetify": "^3.4.4"
+  },
+  "lint-staged": {
+    "*.{js,ts}": [
+      "npm run lint",
+      "prettier --write"
+    ]
   }
 }
