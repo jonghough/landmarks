@@ -10,7 +10,7 @@
     "postinstall": "nuxt prepare",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --max-warnings=10",
     "lint:fix": "eslint \"{src,apps,libs,test}/**/*.ts\" --quiet --fix",
-    "prepare": "husky "
+    "prepare": "husky  && husky install"
   },
   "devDependencies": {
     "@babylonjs/core": "^6.30.0",
@@ -18,7 +18,7 @@
     "@nuxt/devtools": "latest",
     "@types/node": "^20.9.2",
     "eslint": "^9.9.1",
-    "husky": "^9.1.5",
+    "husky": "^8.0.0",
     "lint-staged": "^15.2.9",
     "nuxt": "^3.8.1",
     "prettier": "^3.3.3",
