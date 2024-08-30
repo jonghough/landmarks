@@ -1,8 +1,6 @@
 <template>
   <div>
-    <v-btn id="menu-activator" class="control-button" color="primary">
-      Companies
-    </v-btn>
+    <v-btn id="menu-activator" class="control-button" color="primary"> Capital Cities </v-btn>
     <v-menu activator="#menu-activator">
       <v-list>
         <v-list-item
@@ -15,9 +13,7 @@
         </v-list-item>
       </v-list>
     </v-menu>
-    <v-btn id="menu-activator2" class="control-button" color="primary">
-      Select XYZ Tiles
-    </v-btn>
+    <v-btn id="menu-activator2" class="control-button" color="primary"> Select XYZ Tiles </v-btn>
     <v-menu activator="#menu-activator2">
       <v-list>
         <v-list-item
@@ -31,18 +27,11 @@
       </v-list>
     </v-menu>
 
-    <v-btn
-      id="menu-activator3"
-      class="control-button"
-      color="primary"
-      @click="centerCamera"
-    >
+    <v-btn id="menu-activator3" class="control-button" color="primary" @click="centerCamera">
       Center Camera
     </v-btn>
 
-    <v-btn id="menu-activator4" class="control-button" color="primary">
-      Operations
-    </v-btn>
+    <v-btn id="menu-activator4" class="control-button" color="primary"> Operations </v-btn>
 
     <!-- Dialog Component -->
     <v-dialog v-model="dialog" persistent max-width="600px">
@@ -51,11 +40,10 @@
         <v-card-text>
           <div class="instructions">
             Use the
-            <span class="key">W</span>, <span class="key">A</span>,
-            <span class="key">S</span>, <span class="key">D</span> keys, or the
-            <span class="key">↑</span>, <span class="key">←</span>,
-            <span class="key">↓</span>, <span class="key">→</span> keys, to move
-            around the map.
+            <span class="key">W</span>, <span class="key">A</span>, <span class="key">S</span>,
+            <span class="key">D</span> keys, or the <span class="key">↑</span>,
+            <span class="key">←</span>, <span class="key">↓</span>, <span class="key">→</span> keys,
+            to move around the map.
           </div>
           <div class="instructions">
             Use the
@@ -75,9 +63,7 @@
         <v-card-title class="headline">{{ infoTitle }}</v-card-title>
         <v-card-text>{{ infoText }}</v-card-text>
         <v-card-actions>
-          <v-btn color="primary" @click="openUrl(infoHomePage)"
-            >Go to home page</v-btn
-          >
+          <v-btn color="primary" @click="openUrl(infoHomePage)">Go to home page</v-btn>
           <v-spacer></v-spacer>
           <v-btn color="primary" @click="infoDialog = false">Close</v-btn>
         </v-card-actions>
@@ -87,15 +73,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive } from "vue";
-import { App } from "@/src/app";
+import {ref, onMounted, reactive} from "vue";
+import {App} from "@/src/app";
 
 let items1 = ref<string[]>(["Business Segments"]);
-let xyzTileItems = ref<string[]>([
-  "Google Satellite",
-  "Google Roadmap",
-  "Google Hybrid",
-]);
+let xyzTileItems = ref<string[]>(["Google Satellite", "Google Roadmap", "Google Hybrid"]);
 let dialog = ref<boolean>(true);
 let infoDialog = ref<boolean>(false);
 let infoTitle = ref<string>("");
