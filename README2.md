@@ -78,3 +78,9 @@ https://data.humdata.org/dataset/cod-ab-jpn?
 https://www.gsi.go.jp/kankyochiri/gm_japan_e.html
 https://gist.github.com/ofou/df09a6834a8421b4f376c875194915c9
 https://geojson-maps.kyd.au/
+
+See for moon
+
+https://chatgpt.com/c/636b038a-19f1-47ae-b7fc-341e8f0bff5e
+GLGM3 ellipsoid.
+https://www.openplanetary.org/opm-basemaps/opm-moon-basemap-v0-1

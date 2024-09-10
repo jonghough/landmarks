@@ -137,12 +137,6 @@ export class App {
   }
 
   selectCapital(segment: string) {
-    // TODO
-    // 1. get the lat lon
-    // 2. convert to  meters
-    // 3. set offset equal to meters.
-    // 4. update all capital cities
-    // 5. move camera
     if (this.capitalCityNames.has(segment)) {
       let pos = this.capitalCityNames.get(segment);
       if (pos) {
@@ -154,6 +148,8 @@ export class App {
         this.capitals.forEach((c) => c.updatePosition());
         this.camera.position.x = 0;
         this.camera.position.z = 0;
+        this.camera.position.y = 100; //default
+        this.tileCache.clear();
       }
     }
   }
@@ -339,14 +335,11 @@ export class App {
     let t = new Tiler();
     let minT = t.metersToTile(minLat, minLon, zoomLevel);
     let maxT = t.metersToTile(maxLat, maxLon, zoomLevel);
-    // console.log("min and max  " + minT + ", " + maxT);
-    // console.log("number " + ((maxT[0] - minT[0]) * (maxT[1] - minT[1])));
     if ((maxT[0] - minT[0]) * (maxT[1] - minT[1]) > 300) {
       return;
     }
     for (var i = minT[0]; i < maxT[0] + 1; i++) {
       for (var j = minT[1]; j < maxT[1] + 1; j++) {
-        // if the tile exists, continue as it is already displayed
         if (this.tileCache.get(zoomLevel, i, j) != undefined) {
           continue;
         }
@@ -382,8 +375,6 @@ export class App {
       angleDegrees *= -1;
     }
     let zoomLevel = this.getZoomLevelForHeight(pos.y, angleDegrees);
-    // console.log("height " + pos.y + ", angle " + angleDegrees);
-    // console.log("zoom " + zoomLevel);
     let px = this.globalConfig.offsetX - pos.x;
     if (zoomLevel > -1) {
       let lateralDist = this.getLateralDistanceForZoomLevel(zoomLevel);
@@ -431,6 +422,7 @@ export class App {
         fxm = Tiler.wrapCoordinates(fx, fy)[0];
         fx = Tiler.MIN_X + 0.1;
       }
+      console.log("AFFAA");
       [fx, fy] = Tiler.wrapCoordinates(fx, fy);
       let bx = this.globalConfig.offsetX - b.x;
       let by = this.globalConfig.offsetY - b.z;
@@ -441,6 +433,7 @@ export class App {
         bxm = Tiler.wrapCoordinates(fx, fy)[0];
         bx = Tiler.MIN_X + 0.1;
       }
+      console.log("DAAA");
       [bx, by] = Tiler.wrapCoordinates(bx, by);
       let minLat = Infinity;
       let maxLat = -Infinity;
@@ -451,6 +444,7 @@ export class App {
         if (l > maxLat) maxLat = l;
       });
 
+      console.log("ACAA");
       [ly, ry, fy, by].forEach((l) => {
         if (l < minLon) minLon = l;
         if (l > maxLon) maxLon = l;
@@ -460,9 +454,11 @@ export class App {
       this.currentZoomLevel = zoomLevel;
       this.fetchTiles(minLat, minLon, maxLat, maxLon, zoomLevel);
       if (m > Tiler.MIN_X) {
+        console.log("AAA");
         this.fetchTiles(Tiler.MIN_X + 0.1, minLon, m, maxLon, zoomLevel);
       }
       if (mm < Tiler.MAX_X) {
+        console.log("AAAB");
         this.fetchTiles(mm, minLon, Tiler.MAX_X, maxLon, zoomLevel);
       }
     }
@@ -471,13 +467,19 @@ export class App {
   refreshTiles(tileSet: string) {
     switch (tileSet) {
       case "Google Satellite":
-        this.globalConfig.xyzTileSet = "s";
+        this.globalConfig.xyzTileSet = "google-statellite";
         break;
       case "Google Roadmap":
-        this.globalConfig.xyzTileSet = "m";
+        this.globalConfig.xyzTileSet = "googel-roadmap";
         break;
       case "Google Hybrid":
-        this.globalConfig.xyzTileSet = "y";
+        this.globalConfig.xyzTileSet = "google-hybrid";
+        break;
+      case "Open Streetmap":
+        this.globalConfig.xyzTileSet = "osm";
+        break;
+      case "Moon":
+        this.globalConfig.xyzTileSet = "moon";
         break;
       default:
         break;

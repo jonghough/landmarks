@@ -7,7 +7,7 @@
           v-for="(item, index) in items1"
           :key="index"
           :value="index"
-          @click="clickSegment(item)"
+          @click="clickCapitalCity(item)"
         >
           <v-list-item-title>{{ item }}</v-list-item-title>
         </v-list-item>
@@ -76,8 +76,14 @@
 import {ref, onMounted, reactive} from "vue";
 import {App} from "@/src/app";
 
-let items1 = ref<string[]>(["Business Segments"]);
-let xyzTileItems = ref<string[]>(["Google Satellite", "Google Roadmap", "Google Hybrid"]);
+let items1 = ref<string[]>([]);
+let xyzTileItems = ref<string[]>([
+  "Google Satellite",
+  "Google Roadmap",
+  "Google Hybrid",
+  "Open Streetmap",
+  "Moon",
+]);
 let dialog = ref<boolean>(true);
 let infoDialog = ref<boolean>(false);
 let infoTitle = ref<string>("");
@@ -92,7 +98,7 @@ onMounted(() => {
 function openUrl(url: string) {
   window.open(url, "__blank");
 }
-function clickSegment(item: string) {
+function clickCapitalCity(item: string) {
   app?.selectCapital(item);
 }
 
