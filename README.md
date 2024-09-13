@@ -39,6 +39,6 @@ yarn run dev
 
 ### Screenshots
 
-![Screenshot 2](/img/landmark1.png)
-![Screenshot 3](/img/landmark1.png)
-![Screenshot 4](/img/landmark1.png)
+![Screenshot 2](/img/landmark2.png)
+![Screenshot 3](/img/landmark3.png)
+![Screenshot 4](/img/landmark4.png)
