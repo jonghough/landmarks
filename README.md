@@ -1,7 +1,7 @@
 # Landmarks - 3D traversible world
 
 Traverse images of the Earth from various tile servers (Google, OSM) and move around in 3D space.
-[Screenshot 1](/img/landmark1.png)
+![Screenshot 1](/img/landmark1.png)
 
 ## Technology used to create the app
 
@@ -39,6 +39,6 @@ yarn run dev
 
 ### Screenshots
 
-[Screenshot 2](/img/landmark1.png)
-[Screenshot 3](/img/landmark1.png)
-[Screenshot 4](/img/landmark1.png)
+![Screenshot 2](/img/landmark1.png)
+![Screenshot 3](/img/landmark1.png)
+![Screenshot 4](/img/landmark1.png)
