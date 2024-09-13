@@ -1,14 +1,7 @@
-# Landmarks - Tokyo Tech Companies
+# Landmarks - 3D traversible world
 
-Visualization of Tokyo tech company locations segmented by market. This application gives a 3D map visualization of the offices of hundreds of Tokyo based tech companies.
-
-## Purpose
-
-Mainly this is a demonstration of rendering 3D scenes using xyz tiles, and other data, using BabylonJS. Tokyo was chosen as a city somewhat arbitrarily, and companies and market segments as a domain also arbitrarily. Could have used historic sites, tourist locations etc etc.
-
-## Definition of a tech company
-
-Here, the definition is broad and vague. Basically whatever seems is doing something interesting, innovative, or impressive with computer technology, or is known to have large IT or tech departments. The list is not exhaustive, and there are likely to be many glaring omissions. The list is heavy on the side of start ups and some lesser known tech companies.
+Traverse images of the Earth from various tile servers (Google, OSM) and move around in 3D space.
+[Screenshot 1](/img/landmark1.png)
 
 ## Technology used to create the app
 
@@ -23,8 +16,29 @@ Various xyz tiles are able to be used as a background tiling scheme. By default 
 
 ## Locations
 
-The locations of the companies are their Tokyo HQ offices. These addresses and latitude, longitude coordinates are best effort. There is a chance some are incorrect. Best efforts have been made to use correct locations.
+Country, and territory capital cities are marked on the map and can be teleported to. The cities and locaitons are taken from
 
-## Market segments
+[Lat/Lon sources](https://gist.github.com/ofou/df09a6834a8421b4f376c875194915c9)
 
-Companies are given market segments in which their main businesses operate. This is also best effort, as segmenting companies by markets is often not easy.
+## Details
+
+Given the users location (latitude, longitude), the app will load and cache xyz tile images for the surrounding area. As the user moves around the world, new tiles are downloaded, and older tiles may be evicted from the cache (LRU cache).
+The tile level is decided by the elevation of the user. Higher elevation will cause the app to download lower zoom level images (i.e. low resolution)
+
+### Running
+
+Example using yarn.
+
+```
+yarn install
+```
+
+```
+yarn run dev
+```
+
+### Screenshots
+
+[Screenshot 2](/img/landmark1.png)
+[Screenshot 3](/img/landmark1.png)
+[Screenshot 4](/img/landmark1.png)

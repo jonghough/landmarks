@@ -71,17 +71,9 @@ export class TileData {
 
     for (var i = 0; i < subSquareTileXYsr.length; i++) {
       const sxy = this.tiler.toSlippy(subSquareTileXYsr[i][0], subSquareTileXYsr[i][1], tileZoom);
-
-      //const tileURL = `https://mt0.google.com/vt/lyrs=${this.tileSet}&hl=en&x=${sxy[0]}&y=${sxy[1]}&z=${tileZoom}`;
-      // const tileURL = `https://cartocdn-gusc.global.ssl.fastly.net/opmbuilder/api/v1/map/named/opm-moon-basemap-v0-1/all/${tileZoom}/${sxy[0]}/${sxy[1]}.png`;
       const tileURL = this.getTileUrl(sxy[0], sxy[1], tileZoom);
       console.log(tileURL);
       this.loadXYZMesh(scene, tileURL, subSquaresVecr[i], this.tileMeshes[i]);
-      /**
-       * Ref:
-       *      const tileURL = `https://mt0.google.com/vt/lyrs=s&hl=en&x=${slippyXY[0]}&y=${slippyXY[1]}&z=15`;
-       *      const osmTileURL = "https://tile.openstreetmap.org/15/28869/12973.png";
-       */
     }
   }
 

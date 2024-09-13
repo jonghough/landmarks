@@ -29,7 +29,7 @@ export class App {
   capitals: InfoBillboard[] = [];
   constructor(infoDialogOpenCallback: (title: string, text: string, homePage: string) => void) {
     this.globalConfig = new GlobalConfig(
-      "s",
+      "google-satellite",
       12,
       1e7,
       true,
@@ -121,7 +121,7 @@ export class App {
         location.country,
         "",
       );
-      tinfo.show("");
+      tinfo.show();
       this.capitals.push(tinfo);
       this.capitalCityNames.set(location.capital, [location.latitude, location.longitude]); //(location.capital + " (" + location.country + ")");
     });
@@ -136,9 +136,9 @@ export class App {
     this.companyObjects = new Array<InfoBillboard>();
   }
 
-  selectCapital(segment: string) {
-    if (this.capitalCityNames.has(segment)) {
-      let pos = this.capitalCityNames.get(segment);
+  selectCapital(name: string) {
+    if (this.capitalCityNames.has(name)) {
+      let pos = this.capitalCityNames.get(name);
       if (pos) {
         let t = new Tiler();
         let meters = t.laloToMeters(pos[0], pos[1]);
@@ -422,7 +422,6 @@ export class App {
         fxm = Tiler.wrapCoordinates(fx, fy)[0];
         fx = Tiler.MIN_X + 0.1;
       }
-      console.log("AFFAA");
       [fx, fy] = Tiler.wrapCoordinates(fx, fy);
       let bx = this.globalConfig.offsetX - b.x;
       let by = this.globalConfig.offsetY - b.z;
@@ -433,7 +432,6 @@ export class App {
         bxm = Tiler.wrapCoordinates(fx, fy)[0];
         bx = Tiler.MIN_X + 0.1;
       }
-      console.log("DAAA");
       [bx, by] = Tiler.wrapCoordinates(bx, by);
       let minLat = Infinity;
       let maxLat = -Infinity;
@@ -444,7 +442,6 @@ export class App {
         if (l > maxLat) maxLat = l;
       });
 
-      console.log("ACAA");
       [ly, ry, fy, by].forEach((l) => {
         if (l < minLon) minLon = l;
         if (l > maxLon) maxLon = l;
@@ -454,11 +451,9 @@ export class App {
       this.currentZoomLevel = zoomLevel;
       this.fetchTiles(minLat, minLon, maxLat, maxLon, zoomLevel);
       if (m > Tiler.MIN_X) {
-        console.log("AAA");
         this.fetchTiles(Tiler.MIN_X + 0.1, minLon, m, maxLon, zoomLevel);
       }
       if (mm < Tiler.MAX_X) {
-        console.log("AAAB");
         this.fetchTiles(mm, minLon, Tiler.MAX_X, maxLon, zoomLevel);
       }
     }
@@ -467,10 +462,10 @@ export class App {
   refreshTiles(tileSet: string) {
     switch (tileSet) {
       case "Google Satellite":
-        this.globalConfig.xyzTileSet = "google-statellite";
+        this.globalConfig.xyzTileSet = "google-satellite";
         break;
       case "Google Roadmap":
-        this.globalConfig.xyzTileSet = "googel-roadmap";
+        this.globalConfig.xyzTileSet = "google-roadmap";
         break;
       case "Google Hybrid":
         this.globalConfig.xyzTileSet = "google-hybrid";
