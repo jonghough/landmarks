@@ -2,7 +2,7 @@
 export default defineNuxtConfig({
   ssr: false,
   app: {
-    baseURL: process.env.NODE_ENV === "production" ? "/landmarks/" : "/",
+    baseURL: process.env.NODE_ENV === "production" ? "/" : "/",
   },
   devtools: { enabled: true },
   css: ["vuetify/lib/styles/main.sass"],
