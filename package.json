@@ -6,7 +6,7 @@
     "build": "nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
-    "deploy": "yarn generate && gh-pages -d dist",
+    "deploy": "NODE_ENV=production yarn generate && gh-pages -d dist",
     "preview": "nuxt preview",
     "postinstall": "nuxt prepare",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --max-warnings=10",
