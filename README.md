@@ -1,5 +1,9 @@
 # Landmarks - 3D traversible world
 
+[Badge License]: https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge
+
+[Go to the app](https://jonghough.github.io/landmarks/)
+
 Traverse images of the Earth from various tile servers (Google, OSM) and move around in 3D space.
 ![Screenshot 1](/img/landmark1.png)
 
